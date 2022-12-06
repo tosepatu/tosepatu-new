@@ -1,0 +1,174 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+    width: 100%;
+    background: #F7F8FC;
+    position: relative;
+    display: flex;
+    overflow-x: hidden;
+}
+
+* {
+    font-family: 'Mulish', sans-serif;
+    box-sizing: border-box;
+    transition: all 0.5s;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --hover: #5FD3D0;
+}
+
+#menu {
+    background: #fff;
+    width: 255px;
+    min-height: 100vh;
+}
+
+#menu .logo {
+    display: flex;
+    align-items: center;
+    color: var(--hover);
+    padding: 5px 0 0 5px;
+}
+
+#menu .logo img {
+    width: 66px;
+}
+
+#menu .logo h2 {
+    font-size: 19px;
+    font-weight: 800;
+}
+
+#menu .item {
+    margin-top: 40px;
+}
+
+#menu .item li {
+    list-style: none;
+    padding: 15px;
+}
+
+#menu .item li:hover {
+    color: var(--hover);
+    background: rgba(159, 162, 180, 8%);
+    cursor: pointer;
+    border-left: 4px solid var(--hover);
+}
+
+.nav-active {
+    color: var(--hover);
+    background: rgba(159, 162, 180, 8%);
+    cursor: pointer;
+    border-left: 4px solid var(--hover);
+}
+
+#menu .item li i {
+    color: #A4A6B3;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    font-size: 16px;
+    margin: 0 20px 0 5px;
+}
+
+#menu .item li:hover i,
+#menu .item li:hover a {
+    color: var(--hover);
+}
+
+#menu .item li a {
+    color: #A4A6B3;
+    text-decoration: none;
+    font-weight: 300;
+}
+
+#menu .item li,
+.nav-active {
+    color: var(--hover);
+}
+
+#interface {
+    width: calc(100% - 255px);
+}
+
+#interface .navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #F7F8FC;
+    padding: 15px 30px;
+    flex-wrap: wrap;
+}
+
+#interface .navigation .profile {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#interface .navigation .profile i {
+    margin-right: 25px;
+    font-size: 19px;
+    color: #C5C7CD;
+    cursor: pointer;
+}
+
+#interface .navigation .profile h4 {
+    margin-right: 25px;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+#interface .navigation .profile .photo {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    /* margin: 10px; */
+}
+
+#interface .navigation .profile .photo:hover {
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+#interface .navigation .profile .dropbtn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+#interface .navigation .profile .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+#interface .navigation .profile .dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: #f9f9f9;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+#interface .navigation .profile .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+#interface .navigation .profile .dropdown-content a:hover {
+    background: rgba(159, 162, 180, 8%);
+    cursor: pointer;
+}
+
+#interface .navigation .profile .dropdown:hover .dropdown-content {
+    display: block;
+}

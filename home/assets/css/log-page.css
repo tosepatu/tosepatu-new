@@ -1,0 +1,704 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap');
+
+body {
+    background: #F7F8FC;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+* {
+    font-family: 'Mulish', sans-serif;
+    box-sizing: border-box;
+    transition: all 0.5s;
+}
+
+:root {
+    --hover: #5FD3D0;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* layout start form */
+.register {
+    width: 380px;
+    /* max-height: 680px; */
+    max-height: 750px;
+    padding: 1.2rem;
+    background: #fff;
+    border: 1px solid #DFE0EB;
+    border-radius: 8px;
+}
+
+.login {
+    width: 380px;
+    max-height: 600px;
+    padding: 1.2rem;
+    background: #fff;
+    border: 1px solid #DFE0EB;
+    border-radius: 8px;
+}
+
+.forgot {
+    width: 380px;
+    max-height: 530px;
+    padding: 1.2rem;
+    background: #fff;
+    border: 1px solid #DFE0EB;
+    border-radius: 8px;
+}
+
+.reset {
+    width: 380px;
+    max-height: 600px;
+    padding: 1.2rem;
+    background: #fff;
+    border: 1px solid #DFE0EB;
+    border-radius: 8px;
+    transition: none;
+}
+
+/* layout end form */
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #9FA2B4;
+    font-size: 14px;
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #9FA2B4;
+    font-size: 14px;
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #9FA2B4;
+    font-size: 14px;
+}
+
+/* start input type text */
+.register input[type=text]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.login input[type=text]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.forgot input[type=text]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.reset input[type=text]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+/* end input type text */
+
+/* start input type password */
+.register input[type=password]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.login input[type=password]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.forgot input[type=password]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.reset input[type=password]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+/* end input type password */
+
+/* Start button */
+.register button[type=submit]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.login button[type=submit]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.forgot button[type=submit]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+.reset button[type=submit]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+/* End button */
+
+/* start img */
+.register img {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -0.5rem;
+    margin-bottom: -2rem;
+}
+
+.login img {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: -0.5rem;
+    margin-bottom: -2rem;
+}
+
+.forgot img {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: -2rem;
+}
+
+.reset img {
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: -2rem;
+}
+
+/* end img */
+
+/* start h2 */
+.register h2 {
+    text-align: center;
+    margin-bottom: -0.5rem;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.login h2 {
+    text-align: center;
+    margin-bottom: -0.5rem;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.forgot h2 {
+    text-align: center;
+    margin-bottom: -0.5rem;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.reset h2 {
+    text-align: center;
+    margin-bottom: -0.5rem;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* end h2 */
+
+/* start p */
+.register p {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 280px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #9FA2B4;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.login p {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 280px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #9FA2B4;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.forgot p {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 280px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #9FA2B4;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.reset p {
+    text-align: center;
+    margin-bottom: 2rem;
+    width: 280px;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    color: #9FA2B4;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+/* end p */
+
+/* start input */
+.register input {
+    display: block;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+.login input {
+    display: block;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+.forgot input {
+    display: block;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+.reset input {
+    display: block;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 95%;
+    padding: 10px;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+
+/* end input */
+
+/* start label */
+.register label {
+    color: #9FA2B4;
+    font-size: 12px;
+    padding: 10px;
+    margin-right: 150px;
+    margin-bottom: 5rem;
+}
+
+.login label {
+    color: #9FA2B4;
+    font-size: 12px;
+    padding: 10px;
+    margin-right: 150px;
+    margin-bottom: 5rem;
+}
+
+.forgot label {
+    color: #9FA2B4;
+    font-size: 12px;
+    padding: 10px;
+    margin-right: 150px;
+}
+
+.reset label {
+    color: #9FA2B4;
+    font-size: 12px;
+    padding: 10px;
+    margin-right: 150px;
+}
+
+/* end label */
+
+/* start a href */
+.login a {
+    display: inline-block;
+    color: #9FA2B4;
+    font-size: 10px;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+.login .btn-cancel {
+    display: inline-block;
+    color: #9FA2B4;
+    font-size: 10px;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+.forgot .btn-cancel {
+    display: inline-block;
+    color: #9FA2B4;
+    font-size: 10px;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+.reset .btn-cancel {
+    display: inline-block;
+    color: #9FA2B4;
+    font-size: 10px;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+/* end a href */
+
+/* start btn cancel */
+.register .btn-cancel a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #9FA2B4;
+}
+
+.login .btn-cancel a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #9FA2B4;
+}
+
+.forgot .btn-cancel a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #9FA2B4;
+}
+
+.reset .btn-cancel a {
+    text-decoration: none;
+    font-size: 12px;
+    color: #9FA2B4;
+}
+
+/* end btn cancel */
+
+/* start btn a */
+.reset .btn-login-reset a {
+    text-decoration: none;
+    font-size: 14px;
+    color: #fff;
+}
+
+/* end btn a */
+
+/* start hover href */
+.login a:hover {
+    color: var(--hover);
+}
+
+.register .btn-cancel a:hover {
+    color: var(--hover);
+}
+
+.forgot .btn-cancel a:hover {
+    color: var(--hover);
+}
+
+/* end hover href */
+
+/* start button */
+.register button {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.login button {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.forgot button {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.reset button {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.reset .btn-login-reset {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.register .btn-cancel {
+    background: transparent;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.login .btn-cancel {
+    background: transparent;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.forgot .btn-cancel {
+    background: transparent;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.reset .btn-cancel {
+    background: transparent;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 95%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* end button */
+
+/* start hover button */
+.register button:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+.login button:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+.forgot button:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+.reset button:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+.reset .btn-login-reset:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+/* start alert */
+.alert.danger {
+    background: #F2DEDE;
+    color: #A94442;
+    padding: 10px;
+    width: 95%;
+    border-radius: 8px;
+    margin: -10px auto;
+    max-height: 100px;
+    margin-bottom: 15px;
+    transition: all 5.0s;
+}
+
+.alert.success {
+    background-color: #D4EDDA;
+    color: #40754C;
+    padding: 10px;
+    width: 95%;
+    border-radius: 8px;
+    margin: -10px auto;
+    max-height: 100px;
+    margin-bottom: 15px;
+    transition: all 5.0s;
+}
+
+.alert.danger .danger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #A94442;
+    margin-top: auto;
+    margin-bottom: auto;
+    transition: all 5.0s;
+}
+
+.alert.success .success {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #40754C;
+    margin-top: auto;
+    margin-bottom: auto;
+    transition: all 5.0s;
+}
+
+.success {
+    background: #D4EDDA;
+    color: #40754C;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: -10px auto;
+}
+
+.error {
+    background: #F2DEDE;
+    color: #A94442;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: -10px auto;
+}
+
+.errorlinkvalid {
+    background: #F2DEDE;
+    color: #A94442;
+    padding: 10px;
+    width: 95%;
+    border-radius: 5px;
+    margin: -10px auto;
+}
+/* end alert */

@@ -1,0 +1,1633 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --hover: #5FD3D0;
+}
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .5s linear;
+}
+
+*::selection {
+    background: var(--hover);
+    color: #fff;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+}
+
+body {
+    background: #fff;
+}
+
+/* Awal Header Navbar*/
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    height: 90px;
+    padding: 2rem 3%;
+    box-shadow: 0 .2rem 0.1rem rgba(0, 0, 0, .1);
+    margin-top: -1rem;  
+}
+
+header .logo {
+    margin-top: 1rem;
+}
+
+header .navbar a {
+    font-size: 1.7rem;
+    margin-left: 2rem;
+    color: #666;
+    margin-right: 2rem;
+}
+
+header .navbar a:hover {
+    color: var(--hover);
+}
+
+header .navbar .nav-link {
+    color: var(--hover);
+}
+
+/* Awal Button */
+header .navbar .btn {
+    display: inline-flex;
+    padding: .8rem 4rem;
+    border: .2rem solid var(--hover);
+    color: #5FD3D0;
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-radius: 0.8rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 0;
+    margin-top: 1rem;
+}
+
+header .navbar .btn:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+/* Akhir Button */
+
+/* Hamburger */
+header #menu-bar {
+    font-size: 3rem;
+    cursor: pointer;
+    color: #666;
+    border: .1rem solid #666;
+    border-radius: .3rem;
+    padding: .5rem 1.5rem;
+    display: none;
+}
+
+/* Akhir Hamburger */
+
+#scroll-top {
+    position: fixed;
+    top: -120%;
+    right: 2rem;
+    padding: .5rem 1.5rem;
+    font-size: 4rem;
+    background: var(--red);
+    color: #fff;
+    border-radius: .5rem;
+    transition: 1s linear;
+    z-index: 1000;
+}
+
+#scroll-top.active {
+    top: calc(100% - 12rem);
+}
+
+/* Akhir Header Navbar */
+
+/* Awal Home */
+.home {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    min-height: 100vh;
+    align-items: center;
+    background: url(../img/Rectangle\ 5.png) no-repeat;
+    background-size: 1400px;
+    background-position: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6rem;
+    max-width: 100%;
+}
+
+.home .content {
+    flex: 1 1 40rem;
+    /* padding-top: 6.5rem; */
+}
+
+.home .content h3 {
+    font-weight: 700;
+    font-size: 6rem;
+    color: #fff;
+    margin-left: 13rem;
+    margin-top: -5rem;
+}
+
+.home .content p {
+    font-size: 1.7rem;
+    color: #fff;
+    padding: 1rem 0;
+    margin-left: 13rem;
+    margin-top: 2.5rem;
+}
+
+.home .content .btn {
+    display: inline-flex;
+    padding: .8rem 4rem;
+    border: .2rem solid #fff;
+    background-color: #fff;
+    color: #666;
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-radius: 0.8rem;
+    margin-top: 3rem;
+    margin-left: 13rem;
+}
+
+.home .content .btn:hover {
+    background-color: transparent;
+    color: #fff;
+    box-shadow: 0 0 20px #fff;
+}
+
+.home .image {
+    flex: 1 1 40rem;
+}
+
+.home .image img {
+    width: 100%;
+    padding: 1rem;
+    animation: float 3s linear infinite;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0rem);
+    }
+
+    50% {
+        transform: translateY(2.3rem);
+    }
+}
+
+/* Akhir Home */
+
+
+/* Awal tentang */
+.tentang {
+    min-height: 100vh;
+    padding-top: 0.5rem;
+}
+
+.tentang .box-container {
+    display: flex;
+    margin: 10rem;
+    align-items: center;
+}
+
+.tentang .box-container .box-pertama {
+    width: 50rem;
+    margin-right: 5.5rem;
+    margin-top: -12rem;
+}
+
+.tentang .box-container .box-pertama h3 {
+    font-weight: 700;
+    font-size: 4.5rem;
+}
+
+.tentang .box-container .box-pertama p {
+    margin-top: 1.8rem;
+    font-size: 1.6rem;
+}
+
+.tentang .box-container .box {
+    justify-content: space-between; 
+    margin-right: 3.9rem; 
+    margin-top: -3rem;
+    width: 210px;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 50px rgba(95, 211, 208, 0.15);
+    border-radius: 48px;
+}
+
+.tentang .box-container .box-center {
+    border-radius: 48px;
+    box-shadow: 0px 10px 50px rgba(95, 211, 208, 0.15);
+    justify-content: space-between; 
+    margin-right: 3.9rem; 
+    margin-top: 9rem;
+    width: 210px;   
+}
+
+.tentang .box-container .box .box-content {
+    height: 300px;
+    padding: 2rem;
+    /* width: 250px; */
+}
+
+.tentang .box-container .box-center .box-content {
+    height: 300px;
+    padding: 2rem;
+    /* width: 250px; */
+}
+
+.tentang .box-container .box .box-content img {
+    margin-top: -2.2rem;
+}
+
+.tentang .box-container .box-center .box-content img {
+    margin-top: -2.2rem;
+}
+
+.tentang .box-container .box .box-content h5 {
+    font-size: medium;
+    text-align: center;
+}
+
+.tentang .box-container .box-center .box-content h5 {
+    font-size: medium;
+    text-align: center;
+}
+/* Akhir tentang */
+
+/* Awal layanan */
+.layanan {
+    background: rgba(95, 211, 208, 0.15);
+}
+
+.layanan .deepclean1 {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 10rem;   
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 650px;
+}
+
+.layanan .deepclean1 .pic-component {
+    margin-bottom: -20px;
+    margin-top: -10rem;
+    margin-right: -5rem;
+    margin-left: -5rem;
+}
+
+.layanan .deepclean1 .pic-component img {
+    width: 700px;
+    height: 620px;
+}
+
+.layanan .deepclean1 .component {
+    margin: 10rem 3rem;
+    width: 450px;
+    text-align: left;
+    /* margin-top: 10rem; */
+}
+
+.layanan .deepclean1 .component h5 {
+    font-size: xx-large;
+    color: var(--hover);
+}
+
+.layanan .deepclean1 .component h3 {
+    font-size: 6rem;
+}
+
+.layanan .deepclean1 .component p {
+    font-size: medium;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.layanan .deepclean1 .component .btn {
+    display: inline-flex;
+    padding: .8rem 4rem;
+    background-color: var(--hover);
+    border: .2rem solid var(--hover);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-radius: 0.8rem;
+    margin-top: 3rem;
+}
+
+.layanan .deepclean1 .component .btn:hover {
+    background-color: transparent;
+    color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+.layanan .deepclean2 {
+    display: flex;
+    margin: 0 auto;
+    padding: 0 10rem;   
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    height: 650px;
+}
+
+.layanan .deepclean2 .pic-component {
+    /* margin-bottom: -20px; */
+    margin-top: -10rem;
+    margin-right: -5rem;
+    margin-left: -5rem;
+}
+
+.layanan .deepclean2 .pic-component img {
+    width: 700px;
+    height: 620px;
+}
+
+.layanan .deepclean2 .component {
+    margin: 0 3rem;
+    width: 450px;
+    text-align: left;
+    /* margin-top: 10rem; */
+}
+
+.layanan .deepclean2 .component h5 {
+    font-size: xx-large;
+    color: var(--hover);
+}
+
+.layanan .deepclean2 .component h3 {
+    font-size: 6rem;
+}
+
+.layanan .deepclean2 .component p {
+    font-size: medium;
+    margin-top: 2rem;
+}
+
+.layanan .deepclean2 .component .btn {
+    display: inline-flex;
+    padding: .8rem 4rem;
+    background-color: var(--hover);
+    border: .2rem solid var(--hover);
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.7rem;
+    border-radius: 0.8rem;
+    margin-top: 3rem;
+}
+
+.layanan .deepclean2 .component .btn:hover {
+    background-color: transparent;
+    color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+/* Akhir layanan */
+
+/* Awal Cara kerja */
+.carakerja {
+    width: 80%;
+    align-items: center;
+    margin: 15rem auto;
+    padding: 5rem 2rem;
+    display: flex;
+    border-radius: 2.5rem;
+    background: #FFFFFF;
+    box-shadow: 0px 10px 50px rgba(95, 211, 208, 0.15);
+}
+
+.carakerja .step-container {
+    width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 13.5rem;
+}
+
+.carakerja .step-container h3 {
+    font-size: 6rem;
+    margin-top: -15rem;
+    padding-left: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.carakerja .step-container .step {
+    width: 700px;
+    padding: 2.5rem auto;
+    margin: 2.8rem auto;
+    display: inline-flex;
+}
+
+.carakerja .step-container .step p {
+    font-size: medium;
+}
+
+.carakerja .step-container .step .step-box {
+    box-sizing: border-box;
+    position: absolute;
+    background: #fff;
+    border: 3px solid #5FD3D0;
+    box-shadow: 0 px 4px 4px rgba(0, 0, 0, 0.25);
+    width: 4.5rem;
+    height: 4.5rem;
+    margin-left: 44rem;
+    margin-right: auto;
+    margin-top: -1rem;
+    cursor: pointer;
+}
+
+.carakerja .step-container .step .step-box p {
+    width: 3.3rem;
+    height: 3.3rem;
+    text-align: center;
+    margin: auto auto;
+    font-size: x-large;
+    font-weight: bolder;
+    color: var(--hover);
+}
+
+.carakerja .image-step img{ 
+    width: 550px;
+    height: 550px;
+    margin-left: -30rem;
+}
+
+/* Akhir Cara Kerja */
+
+/* Awal mobile app */
+.mobileapp {
+    background-color: #F6F6F6;
+    margin: 5rem auto;
+    display: inline-flex;
+    width: 100%;
+}
+
+.mobileapp img {
+    width: 500px;
+    height: 500px;
+    margin: 10rem;
+}
+
+.mobileapp .content {
+    margin: 15rem auto;
+    /* width: 500px; */
+    margin-left: -0.1rem;
+}
+
+.mobileapp .content h3 {
+    font-size: 6rem;
+    /* margin-left: -10rem; */
+}
+
+.mobileapp .content p {
+    font-size: medium;
+    width: 700px;
+    margin: 3rem 0;
+    /* margin-left: -10rem; */
+}
+
+.mobileapp .content img{
+    width: 343px;
+    height: 250px;  
+    margin-top: -5rem;
+    margin-left: -3.5rem;
+    margin-right: -0.2rem;
+    /* margin-left: -10rem; */
+}
+
+/* Akhir mobile app */
+
+/* Awal Footer */
+.footer {
+    height: 350px;
+}
+
+.footer .terakhir {
+    display: inline-flex;
+}
+
+.footer .terakhir img {
+    width: 300px;
+    margin-left: 5rem;
+}
+
+.footer .terakhir .social-media {
+    margin-top: 10rem;
+    margin-left: 15rem;
+}
+
+.footer .terakhir .social-media h5 {
+    font-size: medium;
+}
+
+.footer .terakhir .social-media a {
+    display: block;
+    margin-top: 2.5rem;
+    color: black;
+    transition: all 0.2s;
+}
+
+.footer .terakhir .social-media a:hover {
+    color: var(--hover);
+}
+
+.footer .terakhir .location {
+    margin-top: 10rem;
+    margin-left: 20rem;
+}
+
+.footer .terakhir .location h5 {
+    font-size: medium;
+}
+
+.footer .terakhir .location a {
+    display: block;
+    margin-top: 2.5rem;
+    color: black;
+    width: 20rem;
+    transition: all 0.2s;
+}
+
+.footer .terakhir .location a:hover {
+    color: var(--hover);
+}
+
+.footer .terakhir .new {
+    margin-top: 10rem;
+    margin-left: 20rem;
+}
+
+.footer .terakhir .new h5 {
+    font-size: medium;
+}
+
+.footer .terakhir .new p {
+    display: block;
+    margin-top: 2.5rem;
+    margin-bottom: 3rem;
+    width: 20rem;
+}
+
+.footer .terakhir .new .btn {
+    background: #5FD3D0;
+    box-shadow: 0px 4px 4px rgba(95, 211, 208, 0.25);
+    border-radius: 10px;
+    font-size: 1.7rem;
+    color: #fff;
+    padding: .4rem 2rem;
+    border: .2rem solid var(--hover);
+    cursor: pointer;
+    border-radius: 0.8rem;
+}
+
+.footer .terakhir .new .btn:hover {
+    background-color: #fff;
+    color: var(--hover);
+    box-shadow: 0 0 10px var(--hover);
+}
+
+.footer .copyright {
+    background-color: var(--hover);
+    margin: 0;
+    padding: 1.5rem;
+    height: 50px;
+    text-align: center;
+    font-size: medium;
+    color: #fff;
+}
+
+.footer .copyright p {
+    text-transform: lowercase;
+}
+/* Akhir Footer */
+
+/* Media Queries */
+/* @media(max-width: 991px) {
+    html {
+        font-size: 55%;
+    }
+
+    header {
+        padding: 2rem;
+    }
+
+    section {
+        padding: 2rem;
+    }
+} */
+
+/* Ukuran Mobile Potrait*/
+@media (min-width: 0px) and (max-width:576px) {
+    html {
+        font-size: 45%;
+    }
+
+    header {
+        padding: 2rem;
+    }
+
+    section {
+        padding: 2rem;
+    }
+
+    header #menu-bar {
+        display: initial;
+    }
+
+    header .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #f7f7f7;
+        border-top: .1rem solid rgba(0, 0, 0, .1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .navbar a {
+        margin: 1.5rem;
+        padding: 1.5rem;
+        display: block;
+        border: .2rem solid rgba(0, 0, 0, .1);
+        border-left: .5rem solid var(--hover);
+        background: #fff;
+    }
+
+    .home {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+    }
+    
+    .home .content {
+        margin-left: -9.3rem;
+    }
+    
+    .home .content h3 {
+        margin-top: 12rem;
+    }
+
+    .home .image img {
+        display: block;
+        width: 75%;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-top: 7.5rem; */
+        padding-top: 10rem;
+    }
+
+    .tentang .box-container {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        width: 75%;
+    }
+
+    .tentang .box-container .box-pertama {
+        margin-bottom: 13rem;
+        align-items: center;
+        text-align: center;
+    }
+
+    .tentang .box-container .box {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang .box-container .box-center {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 13rem;
+    }
+
+    .layanan {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100vh;
+    }
+
+    .layanan .deepclean1 {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: start;
+        margin-top: -10rem;
+    }
+
+    .layanan .deepclean1 .pic-component {
+        margin-left: -14.5rem;
+        margin-right: -5rem;
+    }
+    
+    .layanan .deepclean1 .pic-component img {
+        width: 250px;
+        height: 350px;
+        margin-top: 7.5rem;
+    }
+
+    .layanan .deepclean1 .component {
+        width: 85%;
+    }
+
+    .layanan .deepclean1 .component h5 {
+        font-size: 28px;
+    }
+
+    .layanan .deepclean1 .component h3 {
+        font-size: 35px;
+    }
+
+    .layanan .deepclean1 .component p {
+        font-size: 9px;
+        width: 65%;
+    }
+
+    .layanan .deepclean2 {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -30rem;
+    }
+    
+    .layanan .deepclean2 .component {
+        margin-left: -15rem;
+        text-align: end;
+    }
+    
+    .layanan .deepclean2 .component h5 {
+        font-size: 28px;
+    }
+
+    .layanan .deepclean2 .component h3 {
+        font-size: 35px;
+        /* width: 100%; */
+    }
+
+    .layanan .deepclean2 .component p {
+        font-size: 9px;
+        /* width: 85%; */
+        margin-left: 8rem;
+    }
+
+    .layanan .deepclean2 .pic-component {
+        margin-right: 16.8rem;
+    }
+
+    .layanan .deepclean2 .pic-component img {
+        width: 250px;
+        height: 350px;
+        /* margin-top: -8rem; */
+    }
+
+    .carakerja {
+        padding-top: 10rem;
+        display: block;
+        /* margin-left: auto; */
+        /* margin-bottom: -5rem; */
+    }
+
+    .carakerja .step-container h3 {
+        font-size: 35px;
+        margin-bottom: 2.5rem;
+    }
+
+    .carakerja .step-container .step p {
+        font-size: 12px;
+    }
+
+    .carakerja .step-container .step .step-box p {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: large;
+    }
+
+    .carakerja .image-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carakerja .image-step img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+        height: 95%;
+    }
+
+    .mobileapp {
+        flex-direction: column;
+    }
+
+    .mobileapp img {
+        width: 90%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: -1.3rem;
+    }
+
+    .mobileapp .content {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -3rem;
+    }
+
+    .mobileapp .content h3 {
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .mobileapp .content p {
+        font-size: 12px;
+        text-align: center;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .mobileapp .content a {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mobileapp .content .android {
+        width: 50%;
+        height: 50%;
+        margin-left: 2rem;
+    }
+
+    .mobileapp .content .iphone {
+        width: 50%;
+        height: 50%;
+    }
+
+    .footer {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .footer .terakhir {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer .terakhir img {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -10rem;
+    }
+
+    .footer .terakhir .social-media {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .location {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .new {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+}
+
+/* Ukuran Mobile Landscape */
+@media (min-width: 576px) and (max-width: 768px) {
+    html {
+        font-size: 45%;
+    }
+
+    header {
+        padding: 2rem;
+    }
+
+    section {
+        padding: 2rem;
+    }
+
+    header #menu-bar {
+        display: initial;
+    }
+
+    header .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #f7f7f7;
+        border-top: .1rem solid rgba(0, 0, 0, .1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .navbar a {
+        margin: 1.5rem;
+        padding: 1.5rem;
+        display: block;
+        border: .2rem solid rgba(0, 0, 0, .1);
+        border-left: .5rem solid var(--hover);
+        background: #fff;
+    }
+
+    .home {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+    }
+    
+    .home .content {
+        margin-left: -9.3rem;
+    }
+    
+    .home .content h3 {
+        margin-top: 12rem;
+    }
+
+    .home .image img {
+        display: block;
+        width: 75%;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-top: 7.5rem; */
+        padding-top: 10rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tentang .box-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        justify-content: center;
+        width: 75%;
+    }
+
+    .tentang .box-container .box-pertama {
+        margin-bottom: 13rem;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .tentang .box-container .box {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang .box-container .box-center {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 13rem;
+    }
+
+    .layanan {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .layanan .deepclean1 {
+        margin-left: auto;
+        margin-right: auto;
+        /* text-align: start; */
+        margin-top: -10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .layanan .deepclean1 .pic-component {
+        /* margin-left: -14.5rem; */
+        /* margin-right: -5rem; */
+    }
+    
+    .layanan .deepclean1 .pic-component img {
+        width: 350px;
+        height: 450px;
+        margin-top: 7.5rem;
+    }
+
+    .layanan .deepclean1 .component {
+        width: 85%;
+        margin-left: 2px;
+    }
+    
+    .layanan .deepclean1 .component h5 {
+        font-size: 28px;
+    }
+    
+    .layanan .deepclean1 .component h3 {
+        font-size: 35px;
+    }
+    
+    .layanan .deepclean1 .component p {
+        font-size: 9px;
+        width: 65%;
+    }
+    
+    .layanan .deepclean2 {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -30rem;
+    }
+    
+    .layanan .deepclean2 .component {
+        width: 85%;
+        /* margin-left: -15rem; */
+        text-align: end;
+    }
+    
+    .layanan .deepclean2 .component h5 {
+        font-size: 28px;
+    }
+
+    .layanan .deepclean2 .component h3 {
+        font-size: 35px;
+        /* width: 100%; */
+    }
+
+    .layanan .deepclean2 .component p {
+        font-size: 9px;
+        /* width: 85%; */
+        margin-left: 8rem;
+    }
+
+    .layanan .deepclean2 .pic-component {
+        /* margin-right: 16.8rem; */
+    }
+
+    .layanan .deepclean2 .pic-component img {
+        width: 350px;
+        height: 450px;
+        /* margin-top: -8rem; */
+    }
+
+    .carakerja {
+        padding-top: 10rem;
+        display: block;
+        /* margin-left: auto; */
+        /* margin-bottom: -5rem; */
+    }
+
+    .carakerja .step-container h3 {
+        font-size: 35px;
+        margin-bottom: 2.5rem;
+    }
+
+    .carakerja .step-container .step p {
+        font-size: 12px;
+    }
+
+    .carakerja .step-container .step .step-box p {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: large;
+    }
+
+    .carakerja .image-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carakerja .image-step img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+        height: 95%;
+    }
+
+    .mobileapp {
+        flex-direction: column;
+    }
+
+    .mobileapp img {
+        width: 90%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: -1.3rem;
+    }
+
+    .mobileapp .content {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -3rem;
+    }
+
+    .mobileapp .content h3 {
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .mobileapp .content p {
+        font-size: 12px;
+        text-align: center;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .mobileapp .content a {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mobileapp .content .android {
+        width: 50%;
+        height: 50%;
+        margin-left: 2rem;
+    }
+
+    .mobileapp .content .iphone {
+        width: 50%;
+        height: 50%;
+    }
+
+    .footer {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .footer .terakhir {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer .terakhir img {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -10rem;
+    }
+
+    .footer .terakhir .social-media {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .location {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .new {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+}
+
+/* Ukuran tablet */
+@media (min-width: 768px) and (max-width: 992px) {
+
+    html {
+        font-size: 55%;
+    }
+
+    .order .row form .inputBox input {
+        width: 100%;
+    }
+
+    header {
+        padding: 2rem;
+    }
+
+    section {
+        padding: 2rem;
+    }
+
+    header #menu-bar {
+        display: initial;
+    }
+
+    header .navbar {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #f7f7f7;
+        border-top: .1rem solid rgba(0, 0, 0, .1);
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    header .navbar a {
+        margin: 1.5rem;
+        padding: 1.5rem;
+        display: block;
+        border: .2rem solid rgba(0, 0, 0, .1);
+        border-left: .5rem solid var(--hover);
+        background: #fff;
+    }
+
+    .home {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 5rem;
+    }
+    
+    .home .content {
+        margin-left: -9.3rem;
+    }
+    
+    .home .content h3 {
+        margin-top: 12rem;
+    }
+
+    .home .image img {
+        display: block;
+        width: 75%;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-top: 7.5rem; */
+        padding-top: 10rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .tentang .box-container {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+        justify-content: center;
+        width: 75%;
+    }
+
+    .tentang .box-container .box-pertama {
+        margin-bottom: 13rem;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .tentang .box-container .box {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .tentang .box-container .box-center {
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 13rem;
+    }
+
+    .layanan {
+        display: flex;
+        flex-direction: column;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .layanan .deepclean1 {
+        margin-left: auto;
+        margin-right: auto;
+        /* text-align: start; */
+        margin-top: -10rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .layanan .deepclean1 .pic-component {
+        /* margin-left: -14.5rem; */
+        /* margin-right: -5rem; */
+    }
+    
+    .layanan .deepclean1 .pic-component img {
+        width: 350px;
+        height: 450px;
+        margin-top: 7.5rem;
+    }
+
+    .layanan .deepclean1 .component {
+        width: 85%;
+        margin-left: 2px;
+    }
+    
+    .layanan .deepclean1 .component h5 {
+        font-size: 28px;
+    }
+    
+    .layanan .deepclean1 .component h3 {
+        font-size: 35px;
+    }
+    
+    .layanan .deepclean1 .component p {
+        font-size: 9px;
+        width: 65%;
+    }
+    
+    .layanan .deepclean2 {
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -30rem;
+    }
+    
+    .layanan .deepclean2 .component {
+        width: 85%;
+        /* margin-left: -15rem; */
+        text-align: end;
+    }
+    
+    .layanan .deepclean2 .component h5 {
+        font-size: 28px;
+    }
+
+    .layanan .deepclean2 .component h3 {
+        font-size: 35px;
+        /* width: 100%; */
+    }
+
+    .layanan .deepclean2 .component p {
+        font-size: 9px;
+        /* width: 85%; */
+        margin-left: 8rem;
+    }
+
+    .layanan .deepclean2 .pic-component {
+        /* margin-right: 16.8rem; */
+    }
+
+    .layanan .deepclean2 .pic-component img {
+        width: 350px;
+        height: 450px;
+        /* margin-top: -8rem; */
+    }
+
+    .carakerja {
+        padding-top: 10rem;
+        display: block;
+        /* margin-left: auto; */
+        /* margin-bottom: -5rem; */
+    }
+
+    .carakerja .step-container h3 {
+        font-size: 35px;
+        margin-bottom: 2.5rem;
+    }
+
+    .carakerja .step-container .step p {
+        font-size: 12px;
+    }
+
+    .carakerja .step-container .step .step-box p {
+        margin-left: auto;
+        margin-right: auto;
+        font-size: large;
+    }
+
+    .carakerja .image-step {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .carakerja .image-step img {
+        margin-left: auto;
+        margin-right: auto;
+        width: 95%;
+        height: 95%;
+    }
+
+    .mobileapp {
+        flex-direction: column;
+    }
+
+    .mobileapp img {
+        width: 90%;
+        height: 90%;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: -1.3rem;
+    }
+
+    .mobileapp .content {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: -3rem;
+    }
+
+    .mobileapp .content h3 {
+        text-align: center;
+        font-size: 35px;
+    }
+
+    .mobileapp .content p {
+        font-size: 12px;
+        text-align: center;
+        width: 95%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .mobileapp .content a {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .mobileapp .content .android {
+        width: 50%;
+        height: 50%;
+        margin-left: 2rem;
+    }
+
+    .mobileapp .content .iphone {
+        width: 50%;
+        height: 50%;
+    }
+
+    .footer {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .footer .terakhir {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .footer .terakhir img {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: -10rem;
+    }
+
+    .footer .terakhir .social-media {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .location {
+        /* margin: 0; */
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        /* margin-left: 2rem; */
+        text-align: center;
+    }
+
+    .footer .terakhir .new {
+        justify-content: center;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+}
+
+/* Ukuran laptop */
+@media (min-width: 992px) and (max-width: 1200px) {
+    
+}
+
+/* ukuran large desktop */
+@media (min-width: 1200px) and (max-width:1400px) {
+
+}
+
+/* ukuran large device */
+@media (min-width: 1400px) {
+
+}
