@@ -4,7 +4,7 @@ require_once 'auth-karyawan.php';
 $cuser = new AuthKaryawan();
 
 if (!isset($_SESSION['userKaryawan'])) {
-    header('location: ../../../home/page/index.php');
+    header('location: ../../../index.php');
     die;
 } 
 $cemail = $_SESSION['userKaryawan'];

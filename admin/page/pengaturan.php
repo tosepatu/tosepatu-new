@@ -8,6 +8,7 @@ require_once '../asset/php/sidebar.php';
             <button class="tablink w3-red" onclick="openCity(event,'Profil')">Profil Akun</button>
             <button class="tablink" onclick="openCity(event,'EProfil')">Edit Profil</button>
             <button class="tablink" onclick="openCity(event,'UKataSandi')">Ubah Kata Sandi</button>
+            <!-- <button class="tablink" onclick="openCity(event,'Produk')">Produk Layanan</button> -->
         </div>
 
         <div id="Profil" class="city">
@@ -78,11 +79,11 @@ require_once '../asset/php/sidebar.php';
                         <form action="" method="POST" id="change-password-form">
                             <div id="change-password-alert"></div>
                             <label>Kata Sandi Saat Ini</label>
-                            <input type="password" name="cupass" id="cupas" placeholder="Masukkan Kata Sandi Saat Ini">
+                            <input type="password" name="cupass" id="cupas" required placeholder="Masukkan Kata Sandi Saat Ini">
                             <label>Kata Sandi Baru</label>
-                            <input type="password" name="npass" id="npass" placeholder="Masukkan Kata Sandi Baru">
+                            <input type="password" name="npass" id="npass" required placeholder="Masukkan Kata Sandi Baru">
                             <label>Konfirmasi Kata Sandi</label>
-                            <input type="password" name="cpass" id="cpass" placeholder="Masukkan Konfirmasi Kata Sandi">
+                            <input type="password" name="cpass" id="cpass" required placeholder="Masukkan Konfirmasi Kata Sandi">
 
                             <button type="submit" id="change-password-btn" name="change-password-btn-n">Ubah Kata Sandi</button>
                         </form>
@@ -93,6 +94,20 @@ require_once '../asset/php/sidebar.php';
                 <img src="../asset/img/change-pass.png">
             </div>
         </div>
+
+        <!-- <div id="Produk" class="city" style="display:none"> -->
+        <div class="tbl-container" id="Produk" style="display: none;">
+            <div class="tbl-content">
+                <div class="tbl-header">
+                    <h3>Data Produk</h3>
+                    <div class="tbl-header-right">
+                    </div>
+                </div>
+                <div class="tbl-table" id="showAllProdukk">
+                </div>
+            </div>
+        </div>
+        <!-- </div> -->
     </div>
 </div>
 </div>
@@ -150,9 +165,6 @@ require_once '../asset/php/sidebar.php';
     $("#change-password-btn").click(function(e) {
         if ($("#change-password-form")[0].checkValidity()) {
             e.preventDefault();
-            // if ($("#npass").val() != $("#cpass").val()) {
-            //     $("#change-password-error").text('* Kata Sandi tidak cocok!');
-            // } else {
             $.ajax({
                 url: '../asset/php/prosess.php',
                 method: 'post',
@@ -162,7 +174,6 @@ require_once '../asset/php/sidebar.php';
                     $("#change-password-form")[0].reset();
                 }
             });
-            // }
         }
     });
 
@@ -195,6 +206,24 @@ require_once '../asset/php/sidebar.php';
                 $("#verify-email").text('Verifikasi sekarang');
             }
         });
+    });
+
+    $(document).ready(function() {
+        fetchAllProdukk();
+
+        function fetchAllProdukk() {
+            $.ajax({
+                url: '../asset/php/action.php',
+                method: 'post',
+                data: {
+                    action: 'fetchAllProdukk'
+                },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showAllProdukk").html(response);
+                }
+            });
+        }
     });
 
     var selector = 'li';

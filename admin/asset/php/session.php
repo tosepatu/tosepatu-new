@@ -4,7 +4,7 @@ require_once 'auth.php';
 $cuser = new Auth();
 
 if (!isset($_SESSION['userAdmin'])) {
-    header('location: ../../../home/page/index.php');
+    header('location: ../../../index.php');
     die;
 } 
 $cemail = $_SESSION['userAdmin'];

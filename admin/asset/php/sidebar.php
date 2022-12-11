@@ -25,6 +25,8 @@ require_once '../asset/php/session.php';
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="/DataTables/datatables.css"> -->
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"> -->
     <!-- Link auth line chart -->
     <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
@@ -37,24 +39,15 @@ require_once '../asset/php/session.php';
             <h2>TOSEPATU.KC</h2>
         </div>
         <div class="item">
-            <li><i class="fa-solid fa-chart-pie"></i>
-                <a href="beranda.php" <?= (basename($_SERVER['PHP_SELF']) == "beranda.php") ? "nav-active" : ""; ?>>Beranda</a>
-            </li>
-            <li><i class="fa-solid fa-ticket"></i>
-                <a href="pesanan.php" <?= (basename($_SERVER['PHP_SELF']) == "pesanan.php") ? "nav-active" : ""; ?>>Pesanan</a>
-            </li>
-            <li><i class="fa-solid fa-lightbulb"></i>
-                <a href="pelanggan.php" <?= (basename($_SERVER['PHP_SELF']) == "pelanggan.php") ? "nav-active" : ""; ?>>Pelanggan</a>
-            </li>
-            <li><i class="fa-solid fa-users"></i>
-                <a href="kelola tim.php" <?= (basename($_SERVER['PHP_SELF']) == "kelola tim.php") ? "nav-active" : ""; ?>>Kelola Tim</a>
-            </li>
-            <li><i class="fa-solid fa-book"></i>
-                <a href="laporan.php" <?= (basename($_SERVER['PHP_SELF']) == "laporan.php") ? "nav-active" : ""; ?>>Laporan</a>
-            </li>
-            <li><i class="fa-solid fa-gear"></i>
-                <a href="pengaturan.php" <?= (basename($_SERVER['PHP_SELF']) == "pengaturan.php") ? "active" : ""; ?>>Pengaturan</a>
-            </li>
+            <a href="beranda.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'beranda.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-chart-pie"></i>Beranda</a>
+            <a href="pesanan.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pesanan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-ticket"></i>Pesanan</a>
+            <a href="pelanggan.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pelanggan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-lightbulb"></i>Pelanggan</a>
+            <a href="produk.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'produk.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-box-open"></i>Produk</a>
+            <a href="kelola tim.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'kelola tim.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-users"></i>Kelola Tim</a>
+            <a href="laporan.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'laporan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-book"></i>Laporan</a>
+            <a href="pengaturan.php" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pengaturan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-gear"></i>Pengaturan</a>
+            <!-- <li><i class="fa-solid fa-gear"></i>
+            </li> -->
         </div>
     </section>
     <section id="interface">

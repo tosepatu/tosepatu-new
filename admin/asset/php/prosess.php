@@ -59,6 +59,39 @@ if (isset($_FILES['foto-profile'])) {
     }
 }
 
+if (isset($_POST['action']) && $_POST['action'] == 'addPengambilan') {
+    $idPengambilan = $user->validate($_POST['id-pengambilan']);
+    $namaPengambilan = $user->validate($_POST['nama-pengambilan']);
+
+    $cek = $user->addPengambilan($idPengambilan, $namaPengambilan, $cid);
+    if ($cek == true) {
+        echo 'berhasil';
+        // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
+    } else {
+        // $_SESSION["gagal"] = 'Tejadi Kesalahan!';
+        echo 'gagal';
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'addKaryawan') {
+    // print_r($_POST);
+    $idKaryawan = $user->validate($_POST['id-karyawan']);
+    $namaKaryawan = $user->validate($_POST['nama-karyawan']);
+    $emailKaryawan = $user->validate($_POST['email-karyawan']);
+    $passwordKaryawan = $user->validate($_POST['kata-sandi-karyawan']);
+    $roleKaryawan = 2;
+
+    $passwordKaryawanH = password_hash($passwordKaryawan, PASSWORD_DEFAULT);
+    
+    echo 'berhasil';
+    // $cek = $user->registerKaryawan($idKaryawan, $namaKaryawan, $emailKaryawan, $passwordKaryawanH, $roleKaryawan);
+
+    // if ($cek == true) {
+    // } else {
+    //     echo 'gagal';
+    // }
+}
+
 if (isset($_POST['action']) && $_POST['action'] == 'change_pass') {
     $cupass = $user->validate($_POST['cupass']);
     $npass = $user->validate($_POST['npass']);
@@ -124,4 +157,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'verify-email') {
         // $_SESSION['gagal'] = 'Terjadi Kesalahan, Gagal mengirim ke alamat email';
         // echo $user->showMessage('danger', 'Gagal mengirim ke alamat email');
     }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'addPesanan') {
+    // $idPesanan = $user->validate($_POST['id-pesanan']);
+    // $qty = $user->validate($_POST['quantity']);
+    // $hargaProduk = $user->validate($_POST['harga_layanan']);
+
+    // $subTotal = $qty * $hargaProduk;
+
+    // $addP = $user->addPesanan($idPesanan, $cid);
+    // $addD = $user->addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subTotal);
 }

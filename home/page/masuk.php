@@ -43,7 +43,7 @@ if (isset($_SESSION['userKaryawan'])) {
 
             <button type="submit" id="login-btn">Masuk</button>
             <div class="btn-cancel">
-                <a href="index.php">Kembali</a>
+                <a href="../../index.php">Kembali</a>
             </div>
         </form>
     </div>

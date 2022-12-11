@@ -30,7 +30,7 @@ class Auth extends Database
         $character = 'KT220921';
         $idKaryawan = $character . sprintf("%03s", $noUrut);
 
-        return $idKaryawan;
+        echo $idKaryawan;
     }
 
     // register request
@@ -56,6 +56,16 @@ class Auth extends Database
     public function loginK($email)
     {
         $sql = "SELECT email, password FROM akun WHERE email = :email AND deleted != 0 AND id_role = 2";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute(['email' => $email]);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
+    
+    // Login karyawan request
+    public function loginP($email)
+    {
+        $sql = "SELECT email, password FROM akun WHERE email = :email AND deleted != 0 AND id_role = 3";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute(['email' => $email]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -197,13 +207,33 @@ class Auth extends Database
 
         $idPesanan = $inc['maxKode'];
 
-        $noUrut = (int) substr($idPesanan, 8, 3);
+        $noUrut = (int) substr($idPesanan, 10, 4);
         $noUrut++;
-
-        $character = 'TP220921';
-        $idPesanan = $character . sprintf("%03s", $noUrut);
+           
+        $now = date('dmy');
+        $character = 'TP220921'.$now;
+        $idPesanan = $character . sprintf("%04s", $noUrut);
 
         echo $idPesanan;
+    }
+
+    public function idPengirimanIncrement()
+    {
+        $sql = "SELECT max(id_pengiriman) as maxKode FROM metode_pengiriman";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $inc = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $idPengiriman = $inc['maxKode'];
+
+        $noUrut = (int) substr($idPengiriman, 8, 3);
+        $noUrut++;
+           
+        // $now = date('dmy');
+        $character = 'MT220921';
+        $idPengiriman = $character . sprintf("%03s", $noUrut);
+
+        echo $idPengiriman;
     }
 
     public function bulan($bulan)
@@ -249,9 +279,18 @@ class Auth extends Database
         return $bulan;
     }
 
-    public function fetchAllUser($val)
+    public function fetchAllPelanggan($val)
     {
-        $sql = "SELECT id_akun, username, email, alamat, no_telp FROM akun WHERE id_role = $val";
+        $sql = "SELECT * FROM akun WHERE id_role = $val";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    public function fetchAllTim()
+    {
+        $sql = "SELECT * FROM akun WHERE id_role <= 2";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -305,5 +344,43 @@ class Auth extends Database
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$email]);
         return true;
+    }
+
+    public function addPesanan($idPesanan, $cid) {
+        $sql = "INSERT INTO pesanan (id_pesanan, uid_akun, tanggal_selesai) VALUES (?, ?, tanggal_selesai = DATE_ADD(NOW(), 
+        INTERVAL 5 DAY))";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan, $cid]);
+        return true;
+    }
+
+    public function addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subtotal) {
+        $sql = "INSERT INTO detail_pesanan (uid_pesanan, uid_layanan, qty, harga_layanan, sub_total) VALUES (?, ?, ? ,?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan, $idProduk, $qty, $hargaProduk, $subtotal]);
+        return true;
+    }
+
+    public function fetchAllUserByID($id) {
+        $sql = "SELECT * FROM akun WHERE id_akun = ? AND deleted != 0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+    
+    public function addPengambilan($idPengambilan, $namaPengambilan, $cid) {
+        $sql = "INSERT INTO metode_pengiriman (id_pengiriman, nama_pengiriman, uid_akun) VALUES (?, ?, ?)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPengambilan, $namaPengambilan, $cid]);
+        return true;
+    }
+    
+    public function fetchAllRole() {
+        $sql = "SELECT * FROM role WHERE id_role <= 2";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
     }
 }

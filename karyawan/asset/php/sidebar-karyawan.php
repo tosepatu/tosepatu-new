@@ -69,7 +69,7 @@ require_once 'session-karyawan.php';
                         <?php if (!$cphoto) : ?>
                             <img class="photo" src="../../../admin/asset/img/avatarr.png">
                         <?php else : ?>
-                            <img src="<?= '../asset/php/' . $cphoto; ?>">
+                            <img src="<?= '../../../admin/asset/php/' . $cphoto; ?>">
                         <?php endif; ?>
                         <!-- <img class="photo" src="" alt="Foto Profile"> -->
                     </button>

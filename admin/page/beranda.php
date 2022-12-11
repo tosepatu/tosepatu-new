@@ -60,13 +60,12 @@ $count = new Auth();
                 <h4>Quick Access</h4>
             </div>
             <div class="item-quick">
-                <li><i class="fa-solid fa-square-plus"></i>
-                    <a href="#popup1">Tambah Produk</a>
-                </li>
+                <a href="#popup1" class="link-add-produk"><i class="fa-solid fa-square-plus"></i>Tambah Produk</a>
+
                 <div id="popup1" class="overlay">
                     <div class="popup">
                         <h2>Tambah Produk</h2>
-                        <a class="close" href="#">&times;</a>
+                        <a class="close" href="beranda.php">&times;</a>
                         <div class="content">
                             Silahkan masukkan data produk
                         </div>
@@ -84,44 +83,30 @@ $count = new Auth();
                         </div>
                     </div>
                 </div>
-                <li><i class="fa-sharp fa-solid fa-cart-plus"></i>
-                    <a href="#popup2">Buat Pesanan</a>
-                </li>
+
+                <a href="#popup2" class="link-add-produk"><i class="fa-solid fa-truck-fast"></i>Tambah Metode Pengambilan</a>
+
                 <div id="popup2" class="overlay">
                     <div class="popup">
-                        <h2>Buat Pesanan</h2>
+                        <h2>Tambah Metode Pengambilan</h2>
                         <a class="close" href="#">&times;</a>
                         <div class="content">
-                            Silahkan masukkan data pesanan
+                            Silahkan masukkan data metode pengambilan
                         </div>
                         <div id="alert"></div>
                         <div class="form-pesanan">
-                            <form action="#" method="post" id="add-pesanan-form">
-                                <input type="text" name="id-pesanan" readonly value="<?= $count->idPesananIncrement(); ?>">
-                                <input type="text" name="nama-pelanggan" placeholder="Masukkan Nama Pelanggan">
-                                <div class="pilih-produk" id="pilih-produk">
-                                    <select name="select">
-                                        <?php
-                                        $data = $count->fetchAllProduk();
-                                        ?>
-                                        <option>--- Pilih Produk ---</option>
-                                        <?php foreach ($data as $row) { ?>
-                                            <option><?php echo $row['nama_layanan'] ?></option>
-                                            <?php }; ?>1
-                                    </select>
-                                </div>
-                                <?php if (isset($_POST['select'])) {
-                                    $data1 = $count->selectProduk($_POST['select']); ?>
-                                    <input type="text" name="subharga-pesanan" readonly placeholder="Subharga" value="<?php echo $data1['harga_layanan']; ?>">
-                                <?php } ?>
+                            <form action="#" method="post" id="add-pengambilan-form">
+                                <input type="text" name="id-pengambilan" readonly value="<?= $count->idPengirimanIncrement(); ?>">
+                                <input type="text" name="nama-pengambilan" placeholder="Masukkan Nama pengambilan">
                                 <br>
                                 <br>
 
-                                <button type="submit" id="add-pesanan-btn">Kirim</button>
+                                <button type="submit" id="add-pengambilan-btn">Tambah</button>
                             </form>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -250,7 +235,8 @@ $count = new Auth();
             success: function(response) {
                 // console.log(response);
                 if (response === 'berhasil') {
-                    Swal.fire({
+                    // window.location = 'beranda.php';
+                    Swal.fire({ 
                         position: 'center',
                         icon: 'success',
                         title: 'Produk berhasil ditambahkan'
@@ -265,6 +251,38 @@ $count = new Auth();
                 }
             }
         });
+    });
+
+    $("#add-pengambilan-btn").click(function(e) {
+        if ($("#add-pengambilan-form")[0].checkValidity()) {
+            e.preventDefault();
+            $.ajax({
+                url: '../asset/php/prosess.php',
+                method: 'post',
+                data: $("#add-pengambilan-form").serialize() + '&action=addPengambilan',
+                success: function(response) {
+                    $("#add-pengambilan-form")[0].reset();
+                    // console.log(response);
+                    if (response === 'berhasil') {
+                        // window.location = 'beranda.php';
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data berhasil ditambahkan',
+                            showConfirmButton: false,
+                            timer: 5000
+                        })
+                        // location.reload();
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Terjadi kesalahan!'
+                        })
+                    }
+                }
+            });
+        }
     });
 
     var x, i, j, l, ll, selElmnt, a, b, c;
@@ -347,6 +365,7 @@ $count = new Auth();
     tutup semua kotak pilihan:*/
     document.addEventListener("click", closeAllSelect);
 </script>
+
 </body>
 
 </html>
