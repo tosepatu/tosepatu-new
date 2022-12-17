@@ -34,7 +34,7 @@ require_once '../asset/php/sidebar.php';
                 <?php if (!$cphoto) : ?>
                     <img src="../asset/img/avatarr.png">
                 <?php else : ?>
-                    <img src="<?= '../asset/php/' . $cphoto; ?>">
+                    <img src="<?= '../asset/php/uploads/' . $cphoto; ?>">
                 <?php endif; ?>
             </div>
         </div>
@@ -44,13 +44,14 @@ require_once '../asset/php/sidebar.php';
                 <?php if (!$cphoto) : ?>
                     <img src="../asset/img/avatarr.png">
                 <?php else : ?>
-                    <img src="<?= '../asset/php/' . $cphoto; ?>">
+                    <img src="<?= '../asset/php/uploads/' . $cphoto; ?>">
                 <?php endif; ?>
             </div>
             <div class="rec-data-E">
                 <div class="rec-data-body-E">
                     <div class="form-edit-profile">
                         <form action="" method="POST" enctype="multipart/form-data" id="edit-profile-form">
+                            <input type="hidden" name="id-profile" value="<?= $cid; ?>">
                             <input type="hidden" name="old-foto-profile" value="<?= $cphoto; ?>">
                             <label>Unggah Foto Profil</label>
                             <input type="file" name="foto-profile">
@@ -129,7 +130,7 @@ require_once '../asset/php/sidebar.php';
         document.getElementById(cityName).style.display = "flex";
         evt.currentTarget.className += " w3-red";
     }
-
+    
     // proces edit
     $("#edit-profile-form").submit(function(e) {
         e.preventDefault();
@@ -145,17 +146,29 @@ require_once '../asset/php/sidebar.php';
                     Swal.fire({
                         position: 'center',
                         icon: 'success',
-                        title: 'Profil akun berhasil diubah',
-                        showConfirmButton: false,
-                        timer: 5000
-                    })
+                        title: 'Profile berhasil diubah'
+                    });
                     location.reload();
+                } else if (response === 'gambar-tidak-valid') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: '#5FD3D0',
+                        text: 'Gambar harus JPG, JPEG dan PNG!'
+                    });
+                } else if (response === 'terlalu-besar') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: '#5FD3D0',
+                        text: 'Ukuran gambar harus kurang dari 10mb'
+                    });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Terjadi kesalahan!'
-                    })
+                    });
                 }
             }
         });

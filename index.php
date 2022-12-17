@@ -17,6 +17,7 @@ if (isset($_SESSION['userAdmin'])) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tosepatu - Anda Untung Kami Berkah</title>
+  
 
   <!-- Font cdn link js -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
@@ -232,7 +233,7 @@ if (isset($_SESSION['userAdmin'])) {
   <!-- Akhir footer -->
 
   <!-- Link eksternal file JS -->
-  <script src="homes/assets/js/script.js"></script>
+  <script src="home/assets/js/script.js"></script>
 </body>
 
 </html>
