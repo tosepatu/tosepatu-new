@@ -123,6 +123,16 @@ body {
     flex-wrap: wrap;
 }
 
+#interface .navigation .n1 .nav-judul {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
+
+#interface .navigation .n1 .nav-judul h4 {
+    color: #9FA2B4;
+}
+
 #interface .navigation .profile {
     display: flex;
     justify-content: flex-start;
@@ -633,7 +643,7 @@ body {
     display: flex;
     background: #fff;
     width: 100%;
-    max-height: 800px;
+    max-height: 5000px;
     padding: 30px 30px;
     margin-top: 30px;
     margin-bottom: 15px;
@@ -664,18 +674,19 @@ body {
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .add-id-pesanan {
     display: flex;
-    flex-direction: row;
-    margin-bottom: 1.3rem;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .add-id-pesanan label {
     width: 10%;
     display: flex;
     align-items: center;
+    margin-bottom: 0.5rem;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .add-id-pesanan input[type="text"] {
-    width: 90%;
+    /* width: 90%; */
     padding: 10px;
     border-radius: 8px;
     background-color: #FCFDFE;
@@ -693,15 +704,382 @@ body {
     flex-direction: column;
 }
 
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan {
+    display: flex;
+    flex-direction: column;
+}
+
+
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan label {
     margin-bottom: 0.5rem;
 }
 
-#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan button {
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan label {
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border: 2px solid #F0F1F7;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+    width: 100%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .foto-produk-pilihan {
+    padding: 0.5rem;
+    width: 8%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .foto-produk-pilihan img {
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid #F2DEDE;
+    width: 50px;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin-left: 0.5rem;
+    width: 35%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan p {
+    font-size: small;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: flex-end;
+    margin-left: 11rem;
+    margin-right: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="number"] {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 15%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="text"] {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    text-align: right;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="submit"] {
+    background: #FED049;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px;
+    /* width: 100%; */
+    /* height: 30px; */
+    padding: 5px;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="submit"]:hover {
+    color: #fff;
+    background-color: #FED049;
+    box-shadow: 0 0 20px #FED049;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="number"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="text"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan a {
+    font-size: medium;
     height: 3.5rem;
     display: flex;
     justify-content: flex-start;
+    flex-direction: row;
     align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    overflow-y: scroll;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup {
+    margin: 70px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+    transition: all 5s ease-in-out;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup h2 {
+    margin: 7px auto;
+    color: #333;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup .close:hover {
+    color: var(--hover);
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup .content {
+    max-height: 35%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup .form-produk {
+    margin-top: 10px;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay .popup .form-produk input {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan select {
+    /* width: 90%; */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan select:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+    cursor: pointer;
+}
+    
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan a {
+    font-size: medium;
+    height: 3.5rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan a:hover {
+    box-shadow: 0 0 20px #ddd;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan a:hover {
+    box-shadow: 0 0 20px #ddd;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan a label {
+    margin-left: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan a label {
+    margin-left: 1rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan a i {
+    font-size: 30px;
+    margin-left: 1.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan a i {
+    font-size: 30px;
+    margin-left: 1.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .catatan-produk-pesanan {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .catatan-produk-pesanan textarea:focus {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+    padding: 10px;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .catatan-produk-pesanan label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .alamat-produk-pesanan {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .alamat-produk-pesanan label {
+    /* width: 10%; */
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .alamat-produk-pesanan input[type="text"] {
+    /* width: 90%; */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .alamat-produk-pesanan input[type="text"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pilih-karyawan-pesanan {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pilih-karyawan-pesanan label {
+    /* width: 10%; */
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pilih-karyawan-pesanan select {
+    /* width: 90%; */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .pilih-karyawan-pesanan select:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .metode-pengambilan-pesanan {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .metode-pengambilan-pesanan label {
+    /* width: 10%; */
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .metode-pengambilan-pesanan select {
+    /* width: 90%; */
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .metode-pengambilan-pesanan select:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .btn-buat-pesanan {
+    background: var(--hover);
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 2px;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .btn-buat-pesanan:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
 }
 
 #interface .tbl-container .tbl-content .overlay {
@@ -736,6 +1114,10 @@ body {
     margin-top: 30px;
 }
 
+#interface .tbl-container .tbl-content .overlay .popup .form-produk {
+    margin-top: 30px;
+}
+
 #interface .tbl-container .tbl-content .overlay .popup .form-add-karyawan form input {
     margin-top: 5px;
     margin-bottom: 10px;
@@ -746,7 +1128,23 @@ body {
     border: 2px solid #F0F1F7;
 }
 
+#interface .tbl-container .tbl-content .overlay .popup .form-produk form input {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+}
+
 #interface .tbl-container .tbl-content .overlay .popup .form-add-karyawan form input[type="text"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+#interface .tbl-container .tbl-content .overlay .popup .form-produk form input[type="text"]:focus {
     border: 2px solid var(--hover);
     box-shadow: 0 0 2px var(--hover);
     outline: none;
@@ -775,7 +1173,30 @@ body {
     cursor: pointer;
 }
 
+#interface .tbl-container .tbl-content .overlay .popup .form-produk form button {
+    background: var(--hover);
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    /* margin-top: 20px; */
+    margin-bottom: 20px;
+    border: 2px;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
 #interface .tbl-container .tbl-content .overlay .popup .form-add-karyawan form button:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
+#interface .tbl-container .tbl-content .overlay .popup .form-produk form button:hover {
     color: #fff;
     background-color: var(--hover);
     box-shadow: 0 0 20px var(--hover);
@@ -866,6 +1287,28 @@ body {
     align-items: center;
 }
 
+#interface .tbl-container .tbl-content .tbl-header form a {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px;
+    width: 200px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: small;
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .tbl-header form a:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
 #interface .tbl-container .tbl-content .tbl-header button:hover {
     color: #fff;
     background-color: var(--hover);
@@ -935,13 +1378,99 @@ body {
     overflow-x: auto;
 }
 
+#interface .tbl-container .tbl-content .tbl-table-search {
+    margin-top: 30px;
+    /* margin-left: -30px;
+    margin-right: -30px; */
+    overflow-x: auto;
+}
+
 #interface .tbl-container .tbl-content .tbl-table table {
     border-collapse: collapse;
     width: 100%;
     /* margin-right: -30px; */
 }
 
+#interface .tbl-container .tbl-content .tbl-table-card {
+    /* justify-content: space-between; */
+    display: flex;
+    align-items: center;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    /* padding: 0; */
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk {
+    display: grid;
+    grid-template-columns: repeat(4, 15rem);
+    gap: 1.5rem;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    /* margin: 0 auto; */
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box {
+    text-align: center;
+    padding: 2rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    height: 330px;
+    /* margin: 0 auto; */
+    box-shadow: 0 0 10px #ddd;
+    /* min-height: 30px; */
+    /* background-color: #252733; */
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box img {
+    height: 8.5rem; 
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box h3 {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: black;
+    height: 2.5rem;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box .price {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: black;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box input[type="submit"] {
+    background: #5FD3D0;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px;
+    width: 100%;
+    height: 30px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box input[type="submit"]:hover {
+    color: #fff;
+    background-color: #5FD3D0;
+    box-shadow: 0 0 10px #5FD3D0;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search table {
+    border-collapse: collapse;
+    width: 100%;
+    /* margin-right: -30px; */
+}
+
 #interface .tbl-container .tbl-content .tbl-table th,
+td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: small;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search th,
 td {
     text-align: center;
     border-bottom: 1px solid #ddd;
@@ -961,17 +1490,41 @@ td {
     padding: 20px 0px;
 }
 
+#interface .tbl-container .tbl-content .tbl-table-search td {
+    padding: 10px 0px;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search .tage {
+    padding: 10px 20px;
+    text-align: left;
+}
+
 #interface .tbl-container .tbl-content .tbl-table td .view {
     color: #2BB6F1;
-    /* width: 30px; */
-    /* height: 30px; */
 }
 
 #interface .tbl-container .tbl-content .tbl-table td .delete {
     color: red;
 }
 
+#interface .tbl-container .tbl-content .tbl-table td .edit {
+    color: #FED049;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search td .cek {
+    color: #FED049;
+    font-size: x-large;
+}
+
 #interface .tbl-container .tbl-content .tbl-table td img {
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid #F2DEDE;
+    width: 50px;
+    height: 50px;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search td img {
     padding: 2px;
     border-radius: 50%;
     border: 1px solid #F2DEDE;
@@ -1008,13 +1561,63 @@ td {
 #interface .tbl-container .tbl-content .tbl-table td input[type='submit']:hover {
     color: #fff;
     background-color: #FED049;
-    box-shadow: 0 0 10px #FED049
+    box-shadow: 0 0 10px #FED049;
 }
 
 #interface .tbl-container .tbl-content .tbl-table tbody:hover {
     background-color: rgba(95, 211, 208, 10%);
 }
 
+#interface .tbl-container .tbl-content .tbl-table-search tbody:hover {
+    background-color: rgba(95, 211, 208, 10%);
+}
+
+#interface .tbl-container .tbl-content .checkout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#interface .tbl-container .tbl-content .checkout a {
+    background: #68f25b;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    /* margin-bottom: 20px; */
+    border: 2px;
+    width: 25%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;    
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .checkout a span {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5rem;
+    width: 1.5rem;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#interface .tbl-container .tbl-content .checkout a span p {
+    color: #53f345;
+}
+
+#interface .tbl-container .tbl-content .checkout a:hover {
+    color: #fff;
+    background-color: #53f345;
+    box-shadow: 0 0 20px #53f345;
+}
+    
 #interface .tbl-container-pengaturan {
     display: flex;
     background: #fff;
@@ -1207,7 +1810,7 @@ td {
 #interface .tbl-container-pengaturan .tbl-profile .city .rec-data-E .rec-data-body-E .form-edit-profile button:hover {
     color: #fff;
     background-color: #FED049;
-    box-shadow: 0 0 20px #FED049
+    box-shadow: 0 0 20px #FED049;
 }
 
 #interface .tbl-container-pengaturan .tbl-profile .city .rec-photos-U {
@@ -1299,6 +1902,140 @@ td {
     color: #fff;
     background-color: #68f25b;
     box-shadow: 0 0 20px #68f25b
+}
+
+#interface .tbl-container .tbl-content .tbl-header h3 a {
+    text-decoration: none;
+    color: #252733;
+}
+
+#interface .tbl-container .tbl-content .tbl-header h3 a:hover {
+    color: var(--hover);
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-photos {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    /* margin-top: 2rem; */
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-photos-layanan {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    border: 1px solid #FED049;
+    width: 48%;
+    height: 100%;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-photos-layanan .foto-layanan {
+    border-radius: 0%;
+    width: 100%;
+    height: 100%;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-photos img {
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E {
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    justify-content: space-between;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data {
+    margin-left: 5rem;
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+    /* border: 1px solid #ddd; */
+    /* border-radius: 8px; */
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan {
+    /* margin-left: 5rem; */
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    flex-direction: column;
+    width: 48%;
+    border: 1px solid #FED049;
+    /* border-radius: 8px; */
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data .rec-data-body {
+    margin-top: 30px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body {
+    margin-top: 30px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data .rec-data-body p {
+    padding-bottom: 20px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 10px;
+    /* align-items: center; */
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body form input {
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    width: 100%;
+    padding: 10px;
+    margin: 5px auto;
+    border-radius: 8px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body form input:focus {
+    border: 2px solid #FED049;
+    box-shadow: 0 0 2px #FED049;
+    outline: none;
+}
+
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body form button {
+    background: #FED049;
+    color: #fff;
+    border-radius: 5px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 2px;
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-layanan .rec-data-body form button:hover {
+    color: #fff;
+    background-color: #FED049;
+    box-shadow: 0 0 20px #FED049;
 }
 
 /* start alert */

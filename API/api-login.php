@@ -1,6 +1,7 @@
 <?php 
 session_start();
 require_once '../admin/asset/php/config/config.php';
+require_once '../admin/asset/php/auth.php';
 // require_once '../admin/asset/php/session.php';
 $obj = new Auth();
 

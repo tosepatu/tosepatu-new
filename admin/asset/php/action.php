@@ -44,11 +44,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'login') {
     }
 }
 
-// all tim 
+// all pelanggan 
 if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
     $output = '';
     $data = $user->fetchAllPelanggan(3);
-    $path = '../asset/php/';
+    $path = '../asset/php/uploads/';
 
     if ($data) {
         $output .= '<table>
@@ -86,27 +86,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
                                 <td>' . $row['alamat'] . '</td>
                                 <td>' . $row['no_telp'] . '</td>
                                 <td>
-                                    <a href="#popupDetail" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
+                                    <a href="view-pelanggan.php?id_akun=' . $row['id_akun'] . '" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
                                     
-                                    <div id="popupDetail" class="overlay">
-                                        <div class="popup">
-                                            <h2 id="getName">' . $row['username'] . '</h2>
-                                            <h2 id="getId">' . $row['id_akun'] . '</h2>
-                                            <a class="close" href="pelanggan.php">&times;</a>
-                                            <div class="rec-data">
-                                                <div class="rec-data-body">
-                                                    <p id="getEmail">E-mail : ' . $row['email'] . '</p>
-                                                    <p id="getPhone">No. Telepon : ' . $row['no_telp'] . '</p>
-                                                    <p id="getAlamat">Alamat : ' . $row['alamat'] . '</p>
-                                                    <p id="getCreated">Terdaftar Pada Tanggal : ' . $reg_on . '</p>
-                                                    <p id="getVerified">Verifikasi Akun : ' . $row['verified'] . '</p>
-                                                </div>
-                                                <div class="rec-data-photos">
-                                                    <img src="' . $ufoto . ' " class="imageDetail"">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                 
                                     <a href="#" id="' . $row['id_akun'] . '" title="Hapus Pengguna" class="hapusUserIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
                                 </td>
@@ -124,7 +105,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
 if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukk') {
     $output = '';
     $data = $user->fetchAllProduk();
-    $path = '../asset/php/';
+    $path = '../asset/php/uploads/';
 
     if ($data) {
         $output .= '<table>
@@ -149,7 +130,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukk') {
                                 <td>' . $row['id_layanan'] . '</td>
                                 <td>' . $row['nama_layanan'] . '</td>
                                 <td>' . $row['harga_layanan'] . '</td>
-                                <td><i class="fa-solid fa-pen-to-square"></i><i class="fa-solid fa-trash delete"></i></td>
+                                <td>
+                                <a href="edit-produk.php?id_layanan=' . $row['id_layanan'] . '" id="' . $row['id_layanan'] . '" title="Edit Produk" class="editProdukIcon"><i class="fa-solid fa-pen-to-square edit"></i></a>&nbsp;&nbsp;
+                                
+                                <a href="#" id="' . $row['id_layanan'] . '" title="Hapus Produk" class="deleteProdukIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
+                                
+                                </td>
                             </tr>
                         </tbody>';
         }
@@ -160,59 +146,101 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukk') {
     }
 }
 
-// if (isset($_POST['action']) && $_POST['action'] == 'showOption') {
-//     $adm = $user->fetchAllRole();
-//     $output = '';
+// show semua pesanan
+if (isset($_POST['action']) && $_POST['action'] == 'showAllPesanan') {
+    $output = '';
+    $data = $user->fetchAllPesanan();
+    
+    
+    $path = '../asset/php/uploads/';
 
-//     if ($adm) {
-//         $output .= '<select> 
-//                         <option>--- Pilih Role ---</option>';
-//         // foreach ($adm as $row) {
-//             // while ($row <= $adm) {
-                
-//             //     $output .= '<option value="' . $row['nama_role'] . '">Admin</option>';
-//             // }
-//             // $output .= '<option id="' . $row['nama_role'] . '">Karyawan</option>';
-//         // }
-//         $output .= '</select>';
-//         echo $output;
-//     } else {
-//         echo 'wrong';
-//     }
-// }
-// coba
-// if (isset($_POST['action']) && $_POST['action'] == 'pilihProduk') {
-//     $output = '';
-//     $data = $user->fetchAllProduk();
-//     $path = '../asset/php/';
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th >ID Pesanan</th>
+                                <th >Metode Pengiriman</th>
+                                <th >Nama Pelanggan</th>
+                                <th >Catatan</th>
+                                <th >Total Keseluruhan</th>
+                                <th >Tanggal Pesanan</th>
+                                <th >Estimasi Pengiriman</th>
+                                <th >Status Pesanan</th>
+                                <th >Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $row['uid_akun'] . '</td>
+                                <td>' . $row['catatan'] . '</td>
+                                <td>' . $row['grand_total'] . '</td>
+                                <td>' . $row['tanggal_masuk'] . '</td>
+                                <td>' . $row['tanggal_selesai'] . '</td>
+                                <td>' . $row['status_pesanan'] . '</td>
+                                <td>
+                                    <form action="" method="post" id="form-pilih-produk">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        echo 'WRong';
+    }
+}
 
-//     if ($data) {
-//         $output .= '<form action="" method="POST">';
-//         foreach ($data as $row) {
-//             if ($row['foto_layanan'] != '') {
-//                 $ufoto = $path . $row['foto_layanan'];
-//             } else {
-//                 $ufoto = '../asset/img/avatarr.png';
-//             }
-//             $output .= '<div class="box">
-//                                     <img src="' . $ufoto . '">
-//                                     <h3>' . $row['nama_layanan'] . '</h3>
-//                                     <div class="price">' . $row['harga_layanan'] . '</div>
-//                                     <input type="submit" name="pilihan-produk" id="pilihan-produk" value="Pilih">
-//                                 </div>';
-//         }
-//         $output .= '</form>';
-//         echo $output;
-//     } else {
-//         echo 'Wrong';
-//     }
-// }
+// pilih produk2
+if (isset($_POST['action']) && $_POST['action'] == 'pilihProduk') {
+    $output = '';
+    $data = $user->fetchAllProduk();
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output = '<div class="box-produk">';
+        foreach ($data as $row) {
+            if ($row['foto_layanan'] != '') {
+                $ufoto = $path . $row['foto_layanan'];
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<form action="" method="post" id="form-pilih-produk">
+                                <div class="box">            
+                                    <img src="' . $ufoto . '" height="250px">
+                                    <h3>' . $row['nama_layanan'] . '</h3>
+                                    <div class="price">' . $row['harga_layanan'] . '</div>
+                                    <input type="hidden" name="id-produk" value="' . $row['id_layanan'] . '">
+                                    <input type="hidden" name="nama-produk" value="' . $row['nama_layanan'] . '">
+                                    <input type="hidden" name="harga-produk" value="' . $row['harga_layanan'] . '">
+                                    <input type="submit" name="update_qty_btn" value="Pilih Produk" id="' . $row['id_layanan'] . '" class="addPesanan">
+                                </div>
+                            </form>';
+        }
+        $output .= '</div>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Produk tidak ditemukan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
 
 // all tim 
 if (isset($_POST['action']) && $_POST['action'] == 'fetchAllUser') {
     $output = '';
-    $data = $user->fetchAllTim();
-    $path = '../asset/php/';
+    $data = $user->fetchAllTim(2);
+    $path = '../asset/php/uploads/';
 
     if ($data) {
         $output .= '<table id="table_id">
@@ -250,27 +278,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllUser') {
                                 <td>' . $row['alamat'] . '</td>
                                 <td>' . $row['no_telp'] . '</td>
                                 <td>
-                                    <a href="#popupDetail" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
-                                    
-                                    <div id="popupDetail" class="overlay">
-                                        <div class="popup">
-                                            <h2 id="getName">' . $row['username'] . '</h2>
-                                            <h2 id="getId">' . $row['id_akun'] . '</h2>
-                                            <a class="close" href="kelola tim.php">&times;</a>
-                                            <div class="rec-data">
-                                                <div class="rec-data-body">
-                                                    <p id="getEmail">E-mail : ' . $row['email'] . '</p>
-                                                    <p id="getPhone">No. Telepon : ' . $row['no_telp'] . '</p>
-                                                    <p id="getAlamat">Alamat : ' . $row['alamat'] . '</p>
-                                                    <p id="getCreated">Terdaftar Pada Tanggal : ' . $reg_on . '</p>
-                                                    <p id="getVerified">Verifikasi Akun : ' . $row['verified'] . '</p>
-                                                </div>
-                                                <div class="rec-data-photos">
-                                                    <img src="' . $ufoto . ' " class="imageDetail"">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <a href="view.php?id_akun=' . $row['id_akun'] . '" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
 
                                     <a href="#" id="' . $row['id_akun'] . '" title="Hapus Pengguna" class="hapusUserIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
                                 </td>
@@ -284,11 +292,165 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllUser') {
     }
 }
 
+// delet user
+if (isset($_POST['del_id'])) {
+    $id = $_POST['del_id'];
+    // echo $id;
+    $data = $user->delUser($id, 0);
+
+    // echo json_encode($data);
+}
+
+// delet produk
+if (isset($_POST['delP_id'])) {
+    $id = $_POST['delP_id'];
+    $data = $user->fetchAllProduk();
+    foreach ($data as $row) {
+        $oldImage = $row['foto_layanan'];
+    }
+    $folder = 'uploads/';
+    unlink($folder . $oldImage);
+    $data = $user->delproduk($id);
+
+    // echo json_encode($data);
+}
+
+// batal buat pesanan
+if (isset($_POST['delBP_id'])) {
+    $id = $_POST['delBP_id'];
+
+    // echo $id;
+    $dataa = $user->batalPesanan($id);
+
+    // echo json_encode($data);
+}
+
+// cek kondisi
+if (isset($_POST['add_pilih_produk'])) {
+    $id = $_POST['add_pilih_produk'];
+
+    // echo $id;
+    $dataa = $user->batalPesanan($id);
+
+    // echo json_encode($data);
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelangganPesanan') {
+    $output = '';
+    $data = $user->fetchAllPelanggan(3);
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table class="cari-pelanggan">';
+        foreach ($data as $row) {
+            if ($row['foto'] != '') {
+                $ufoto = $path . $row['foto'];
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<tbody style="border-top: 1px solid #ddd;">
+                            <tr>
+                                <td width="10%"><img src="' . $ufoto . '"></td>
+                                <td width="80%" class="tage">' . $row['username'] . '<br>' . $row['no_telp'] . '</td>
+                                <td width="10%">
+                                    <a href="" id="' . $row['id_akun'] . '" title="Pilih Pelanggan" class="PelaangganConfirmIcon"><i class="fa-regular fa-square-check cek"></i></a>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        echo 'Tidak Ditemukan';
+    }
+}
+
+// pilih pelanggan
+if (isset($_POST['search'])) {
+    $keyword = $_POST['search'];
+    $data = $user->search($keyword);
+    $output = '';
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table class="cari-pelanggan">';
+        foreach ($data as $row) {
+            if ($row['foto'] != '') {
+                $ufoto = $path . $row['foto'];
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<tbody style="border-top: 1px solid #ddd;">
+                                <tr>
+                                    <td width="10%"><img src="' . $ufoto . '"></td>
+                                    <td width="80%" class="tage">' . $row['username'] . '<br>' . $row['no_telp'] . '</td>
+                                    <td width="10%">
+                                        <a href="" id="' . $row['id_akun'] . '" onclick="post_value(' . $row['username'] . ')" title="Pilih Pelanggan" class="PelangganConfirmIcon"><i class="fa-regular fa-square-check cek"></i></a>&nbsp;&nbsp;
+                                    </td>
+                                </tr>
+                            </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table class="cari-pelanggan">';
+        $output .= '<tbody style="border-top: 1px solid #ddd;">
+                            <tr>
+                                <td><a href="">Tambah Pelanggan</a></td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// pilih produk
+if (isset($_POST['searchProduk'])) {
+    $keyword = $_POST['searchProduk'];
+    $data = $user->searchProduk($keyword);
+    $output = '';
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output = '<div class="box-produk">';
+        foreach ($data as $row) {
+            if ($row['foto_layanan'] != '') {
+                $ufoto = $path . $row['foto_layanan'];
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<form action="" method="post" id="form-pilih-produk">
+                                <div class="box">            
+                                    <img src="' . $ufoto . '" height="250px">
+                                    <h3>' . $row['nama_layanan'] . '</h3>
+                                    <div class="price">' . $row['harga_layanan'] . '</div>
+                                    <input type="hidden" name="nama-produk" value="' . $row['nama_layanan'] . '">
+                                    <input type="hidden" name="harga-produk" value="' . $row['harga_layanan'] . '">
+                                    <input type="submit" name="update_qty_btn" value="Pilih Produk" id="addPesananProduk" class="addPesanan">
+                                </div>
+                            </form>';
+        }
+        $output .= '</div>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Produk tidak ditemukan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
 // handle display user detail 
 // if (isset($_POST['details_id'])) {
 //     $id = $_POST['details_id'];
+//     // $idPesanan = $user->validate($_POST['id_pesanan']);
 
-//     $data = $user->fetchAllUserByID($id);
+//     // $data = $user->upPesananNamaPelanggan($id, $idPesanan);
 
-//     echo json_encode($data);
+//     echo $id;
+//     // echo json_encode($data);
 // }

@@ -89,7 +89,7 @@ $count = new Auth();
                 <div id="popup2" class="overlay">
                     <div class="popup">
                         <h2>Tambah Metode Pengambilan</h2>
-                        <a class="close" href="#">&times;</a>
+                        <a class="close" href="beranda.php">&times;</a>
                         <div class="content">
                             Silahkan masukkan data metode pengambilan
                         </div>
@@ -233,13 +233,28 @@ $count = new Auth();
             cache: false,
             data: new FormData(this),
             success: function(response) {
-                // console.log(response);
                 if (response === 'berhasil') {
                     // window.location = 'beranda.php';
                     Swal.fire({ 
                         position: 'center',
                         icon: 'success',
                         title: 'Produk berhasil ditambahkan'
+                    })
+                    $("#add-produk-form")[0].reset();
+                } else if (response === 'gambar-tidak-valid') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: '#5FD3D0',
+                        text: 'Gambar harus JPG, JPEG dan PNG!'
+                    })
+                    $("#add-produk-form")[0].reset();
+                } else if (response === 'terlalu-besar') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: '#5FD3D0',
+                        text: 'Ukuran gambar harus kurang dari 10mb'
                     })
                     $("#add-produk-form")[0].reset();
                 } else {

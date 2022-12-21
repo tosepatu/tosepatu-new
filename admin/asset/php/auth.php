@@ -4,6 +4,23 @@ require_once 'config/config.php';
 
 class Auth extends Database
 {
+    // property
+    public $data;
+
+    // method set
+    public function setData($hallo)
+    {
+
+        $this->data = $hallo;
+    }
+
+    // method get
+    public function getData()
+    {
+
+        return $this->data;
+    }
+
     // User sudah ada
     public function user_exist($email)
     {
@@ -17,7 +34,7 @@ class Auth extends Database
     // increment id karyawan
     public function idKaryawan()
     {
-        $sql = "SELECT max(id_akun) as maxKode FROM akun";
+        $sql = "SELECT max(id_akun) as maxKode FROM akun WHERE id_role = 2";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $inc = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +78,7 @@ class Auth extends Database
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row;
     }
-    
+
     // Login karyawan request
     public function loginP($email)
     {
@@ -198,6 +215,7 @@ class Auth extends Database
         echo $idProduk;
     }
 
+    // id pesanan custom
     public function idPesananIncrement()
     {
         $sql = "SELECT max(id_pesanan) as maxKode FROM pesanan";
@@ -209,14 +227,17 @@ class Auth extends Database
 
         $noUrut = (int) substr($idPesanan, 10, 4);
         $noUrut++;
-           
+
+        date_default_timezone_set("Asia/Jakarta");
         $now = date('dmy');
-        $character = 'TP220921'.$now;
+        $character = 'TP' . $now;
         $idPesanan = $character . sprintf("%04s", $noUrut);
 
         echo $idPesanan;
+        // return $idPesanan;
     }
 
+    // id pengiriman custom
     public function idPengirimanIncrement()
     {
         $sql = "SELECT max(id_pengiriman) as maxKode FROM metode_pengiriman";
@@ -228,7 +249,7 @@ class Auth extends Database
 
         $noUrut = (int) substr($idPengiriman, 8, 3);
         $noUrut++;
-           
+
         // $now = date('dmy');
         $character = 'MT220921';
         $idPengiriman = $character . sprintf("%03s", $noUrut);
@@ -236,6 +257,7 @@ class Auth extends Database
         echo $idPengiriman;
     }
 
+    // perulangan bulan
     public function bulan($bulan)
     {
         switch ($bulan) {
@@ -279,24 +301,55 @@ class Auth extends Database
         return $bulan;
     }
 
+    // tampil data pelanggan
     public function fetchAllPelanggan($val)
     {
-        $sql = "SELECT * FROM akun WHERE id_role = $val";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
-    }
-    
-    public function fetchAllTim()
-    {
-        $sql = "SELECT * FROM akun WHERE id_role <= 2";
+        $sql = "SELECT * FROM akun WHERE id_role = $val AND deleted != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
+    // tampil data pelanggan
+    public function fetchAllPelangganByID($id)
+    {
+        $sql = "SELECT * FROM akun WHERE id_akun = ? AND deleted != 0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // tampil data tim
+    public function fetchAllTim($val)
+    {
+        $sql = "SELECT * FROM akun WHERE id_role = $val AND deleted != 0";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function fetchAllMetodePengambilan()
+    {
+        $sql = "SELECT * FROM metode_pengiriman";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function fetchAllMetodePengambilanByID($idPengiriman)
+    {
+        $sql = "SELECT * FROM metode_pengiriman WHERE id_pengiriman = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPengiriman]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // tampil data produk berdasarkan nama layanan
     public function selectProduk($val)
     {
         $sql = "SELECT * FROM layanan WHERE nama_layanan = $val";
@@ -306,6 +359,7 @@ class Auth extends Database
         return $result;
     }
 
+    // tampil semua data produk 
     public function fetchAllProduk()
     {
         $sql = "SELECT * FROM layanan ";
@@ -315,15 +369,27 @@ class Auth extends Database
         return $result;
     }
 
-    public function fetchFotoProduk()
+    // tampil data produk berdasarkan id layanan
+    public function fetchAllProdukByID($namaProduk)
     {
-        $sql = "SELECT foto_layanan FROM layanan";
+        $sql = "SELECT * FROM layanan WHERE id_layanan = ?";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->execute([$namaProduk]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
+    // tampil data produk berdasarkan nama layanan
+    public function fetchAllProdukByName($id)
+    {
+        $sql = "SELECT * FROM layanan WHERE nama_layanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // edit profile akun
     public function updateProfile($name, $email, $photo, $alamat, $no_telp, $id)
     {
         $sql = "UPDATE akun SET username = ?, email = ?, foto = ?, alamat = ?, no_telp = ? WHERE id_akun = ? AND deleted != 0";
@@ -332,55 +398,216 @@ class Auth extends Database
         return true;
     }
 
-    public function changePass($pass, $id) {
+    // edit data produk
+    public function updateProduk($namaProduk, $hargaProduk, $fotoProduk, $cid, $idProduk)
+    {
+        $sql = "UPDATE layanan SET nama_layanan = ?, harga_layanan = ?, foto_layanan = ?, uid_akun = ? WHERE id_layanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$namaProduk, $hargaProduk, $fotoProduk, $cid, $idProduk]);
+        return true;
+    }
+
+    // reset password pada halaman pengaturan
+    public function changePass($pass, $id)
+    {
         $sql = "UPDATE akun SET password = ? WHERE id_akun = ? AND deleted != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$pass, $id]);
         return true;
     }
 
-    public function verifyEmail($email) {
+    // verifikasi email
+    public function verifyEmail($email)
+    {
         $sql = "UPDATE akun SET verified = 1 WHERE email = ? AND deleted != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$email]);
         return true;
     }
 
-    public function addPesanan($idPesanan, $cid) {
-        $sql = "INSERT INTO pesanan (id_pesanan, uid_akun, tanggal_selesai) VALUES (?, ?, tanggal_selesai = DATE_ADD(NOW(), 
+    // tambah pesanan 
+    public function addPesanan($idPesanan, $metodePengambilan, $cid)
+    {
+        $sql = "INSERT INTO pesanan (id_pesanan, uid_pengiriman, uid_akun, tanggal_selesai) VALUES (?, ?, ?, DATE_ADD(NOW(), 
         INTERVAL 5 DAY))";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$idPesanan, $cid]);
+        $stmt->execute([$idPesanan, $metodePengambilan, $cid]);
         return true;
     }
 
-    public function addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subtotal) {
+    // batal pesanan 
+    public function batalPesanan($idPesanan)
+    {
+        $sql = "DELETE FROM pesanan WHERE id_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan]);
+        return true;
+    }
+
+    // tambah nama pelanggan buat pesanan 
+    public function upPesananNamaPelanggan($namaPelanggan, $idPesanan)
+    {
+        $sql = "UPDATE pesanan SET uid_akun = ? WHERE id_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$namaPelanggan, $idPesanan]);
+        return true;
+    }
+    
+    public function upQtyPilihanProduk($qty, $idPesanan , $idProduk)
+    {
+        $sql = "UPDATE detail_pesanan SET qty = ? WHERE uid_pesanan = ? AND uid_layanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$qty, $idPesanan, $idProduk]);
+        return true;
+    }
+
+    // tambah detail pesanan atau keranjang
+    public function addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subTotal)
+    {
         $sql = "INSERT INTO detail_pesanan (uid_pesanan, uid_layanan, qty, harga_layanan, sub_total) VALUES (?, ?, ? ,?, ?)";
         $stmt = $this->conn->prepare($sql);
-        $stmt->execute([$idPesanan, $idProduk, $qty, $hargaProduk, $subtotal]);
+        $stmt->execute([$idPesanan, $idProduk, $qty, $hargaProduk, $subTotal]);
         return true;
     }
 
-    public function fetchAllUserByID($id) {
+    // tampil data pesanan berdasarkan id
+    public function fetchAllPesanan()
+    {
+        $sql = "SELECT * FROM pesanan";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function fetchAllPesananByID($id)
+    {
+        $sql = "SELECT * FROM pesanan WHERE id_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // tampil data pesanan berdasarkan uid
+    public function fetchPesananByUID($id)
+    {
+        $sql = "SELECT * FROM pesanan WHERE uid_akun = ? AND status_pesanan = 'Menunggu Konfirmasi'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // tampil data pesanan berdasarkan id
+    public function fetchAllDetailPesananByID($id)
+    {
+        $sql = "SELECT * FROM detail_pesanan WHERE uid_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // tampil data user berdasarkan id
+    public function fetchAllUserByID($id)
+    {
         $sql = "SELECT * FROM akun WHERE id_akun = ? AND deleted != 0";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$id]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
-    
-    public function addPengambilan($idPengambilan, $namaPengambilan, $cid) {
+
+    // tambah data pengambilan
+    public function addPengambilan($idPengambilan, $namaPengambilan, $cid)
+    {
         $sql = "INSERT INTO metode_pengiriman (id_pengiriman, nama_pengiriman, uid_akun) VALUES (?, ?, ?)";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute([$idPengambilan, $namaPengambilan, $cid]);
         return true;
     }
-    
-    public function fetchAllRole() {
+
+    // tampil data role
+    public function fetchAllRole()
+    {
         $sql = "SELECT * FROM role WHERE id_role <= 2";
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
+    }
+
+    // hapus user
+    public function delUser($id, $val)
+    {
+        $sql = "UPDATE akun SET deleted = $val WHERE id_akun = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$id]);
+        return true;
+    }
+
+    // hapus produk
+    public function delproduk($idProduk)
+    {
+        $sql = "DELETE FROM layanan WHERE id_layanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idProduk]);
+        return true;
+    }
+
+    // keyword
+    public function search($keyword)
+    {
+        $sql = "SELECT * FROM akun WHERE id_role = 3 AND
+                username LIKE '%$keyword%' OR
+                no_telp LIKE '%$keyword%'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    // keyword produk
+    public function searchProduk($keyword)
+    {
+        $sql = "SELECT * FROM layanan WHERE
+                nama_layanan LIKE '%$keyword%' OR
+                id_layanan LIKE '%$keyword%' OR
+                harga_layanan LIKE '%$keyword%'";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+    public function fetchDetailPesanan($idPesanan, $idProduk)
+    {
+        $sql = "SELECT COUNT(uid_layanan) AS pilihan_produk FROM detail_pesanan WHERE uid_pesanan = ? AND uid_layanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan, $idProduk]);
+        $number_of_rows = $stmt->fetchColumn();
+        // $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $number_of_rows;
+    }
+    
+    public function fetchDetailPesananProduk($idPesanan)
+    {
+        $sql = "SELECT SUM(qty) AS TotalProduk FROM detail_pesanan WHERE uid_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan]);
+        $number_of_rows = $stmt->fetchColumn();
+        // $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $number_of_rows;
+    }
+
+    public function grand_total_pesanan($idPesanan)
+    {
+        $sql = "SELECT SUM(sub_total) AS grandTotal FROM detail_pesanan WHERE uid_pesanan = ?";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute([$idPesanan]);
+        $number_of_rows = $stmt->fetchColumn();
+        // $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $number_of_rows;
     }
 }
