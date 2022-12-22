@@ -74,7 +74,7 @@ if ($code['verified'] == 0) {
                 </h4>
                 <div class="dropdown" style="float:right">
                     <button class="dropbtn">
-                        <img class="photo" src="<?= '../asset/php/' . $cphoto; ?>" alt="Foto Profile">
+                        <img class="photo" src="<?= '../asset/php/uploads/' . $cphoto; ?>" alt="Foto Profile">
                     </button>
                     <div class="dropdown-content">
                         <a href="pengaturan.php"><i class="fa-solid fa-gear"></i>&nbsp;Pengaturan</a>
@@ -93,7 +93,7 @@ if ($code['verified'] == 0) {
                             <?php if (!$code['foto']) : ?>
                                 <img src="../asset/img/avatarr.png">
                             <?php else : ?>
-                                <img src="<?= '../asset/php/' . $code['foto']; ?>">
+                                <img src="<?= '../asset/php/uploads/' . $code['foto']; ?>">
                             <?php endif; ?>
                         </div>
                         <div class="rec-data">
