@@ -3,7 +3,7 @@ require_once '../asset/php/session.php';
 
 $user = new Auth();
 $kurir = $user->fetchAllTim(2);
-$pelanggan = $user->fetchAllTim(3);
+// $pelanggan = $user->fetchAllTim(3);
 $mtd = $user->fetchAllMetodePengambilan();
 
 if (isset($_GET['id_pesanan'])) {
@@ -14,20 +14,15 @@ if (isset($_GET['id_pesanan'])) {
         header('location: pesanan.php');
         die;
     }
+    $catatan = $cek['catatan'];
+    $idPengiriman = $cek['uid_pengiriman'];
+    $idKaryawan = $cek['uid_akun'];
+    $cekPengambilan = $user->fetchAllMetodePengambilanByID($idPengiriman);
+    $namaPengambilan = $cekPengambilan['nama_pengiriman'];
+    $alamat = $cek['alamat'];
+    $namaKaryawan = $kurir[0]['username'];
 }
 
-// if (isset($_POST['qty_update_btn'])) {
-//     $update_value = $user->validate($_POST['qty_update']);
-//     $update_id = $user->validate($_POST['qty_update_id']);
-
-//     $setQuery = $user->upQtyPilihanProduk($update_value, $idPesanan, $update_id);
-//     if ($setQuery == true) {
-//         header('location: buat-pesanan.php?id_pesanan=' . $idPesanan . '');
-//         echo 'berhasil';
-//     } else {
-//         echo 'wrong';
-//     }
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +31,7 @@ if (isset($_GET['id_pesanan'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buat Pesanan | TOSEPATU - Anda Untung Kami Berkah</title>
+    <title>Konfirmasi Pesanan | TOSEPATU - Anda Untung Kami Berkah</title>
     <!-- Icon -->
     <link rel='shortcut icon' href='../../../home/assets/img/icon-tab.jpg'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -60,7 +55,7 @@ if (isset($_GET['id_pesanan'])) {
         </div>
         <div class="item">
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'beranda.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-chart-pie"></i>Beranda</a>
-            <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'buat-pesanan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-ticket"></i>Pesanan</a>
+            <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'edit-status-pesanan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-ticket"></i>Pesanan</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pelanggan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-lightbulb"></i>Pelanggan</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'produk.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-box-open"></i>Produk</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'kelola tim.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-users"></i>Kelola Tim</a>
@@ -75,7 +70,7 @@ if (isset($_GET['id_pesanan'])) {
             <div class="n1">
                 <div class="nav-judul">
                     <h2>Pesanan /&nbsp;&nbsp;<h2>
-                            <h4>Buat Pesanan</h4>
+                            <h4>Konfirmasi Pesanan</h4>
                 </div>
             </div>
             <div class="profile">
@@ -126,40 +121,32 @@ if (isset($_GET['id_pesanan'])) {
                                     // $pelangganPilihan = $user->fetchAllDetailPesananByID($idPesanan);
                                     // $search = $user->fetchPesananByUID_USER($cid);
                                     $cekPelanggan = $pelangganPilihan['uid_user'];
-                                    if ($cekPelanggan != null) {
+                                    // if ($cekPelanggan != null) {
 
-                                        $idPelanggan = $pelangganPilihan['uid_user'];
+                                    $idPelanggan = $pelangganPilihan['uid_user'];
 
-                                        $pelangganPilihanNama =  $user->fetchAllPelangganByID($idPelanggan);
-                                        // $fotopelanggan = $pelangganPilihanNama[0]['foto'];
-                                        $namapelanggan = $pelangganPilihanNama[0]['username_user'];
-                                        $nopelanggan = $pelangganPilihanNama[0]['no_telp_user'];
-                                        // $alamatpelanggan = $pelangganPilihanNama[0]['alamat'];
+                                    $pelangganPilihanNama =  $user->fetchAllPelangganByID($idPelanggan);
+                                    // $fotopelanggan = $pelangganPilihanNama[0]['foto'];
+                                    $namapelanggan = $pelangganPilihanNama[0]['username_user'];
+                                    $nopelanggan = $pelangganPilihanNama[0]['no_telp_user'];
+                                    // $alamatpelanggan = $pelangganPilihanNama[0]['alamat'];
 
-                                        $ufoto = '../asset/img/avatarr.png';
+                                    $ufoto = '../asset/img/avatarr.png';
                                     ?>
 
 
-                                        <a href="pilih-pelanggan.php?id_pesanan=<?php echo $idPesanan; ?>" class="after-pilih-pelanggan">
-                                            <div class="box-card-pelanggan">
-                                                <div class="foto-pelanggan-pilihan">
-                                                    <img src="<?php echo $ufoto; ?>">
-                                                </div>
-                                                <div class="data-pelanggan-pilihan">
-                                                    <p><?php echo $namapelanggan; ?></p>
-                                                    <p><?php echo $nopelanggan; ?></p>
-                                                </div>
+                                    <a href="" class="after-pilih-pelanggan">
+                                        <div class="box-card-pelanggan">
+                                            <div class="foto-pelanggan-pilihan">
+                                                <img src="<?php echo $ufoto; ?>">
                                             </div>
-                                        </a>
-                                    <?php
-                                    } else { ?>
-                                        <a href="pilih-pelanggan.php?id_pesanan=<?php echo $idPesanan; ?>">
-                                            <i class="fa-solid fa-id-card"></i>
-                                            <label>Masukkan Pelanggan</label>
-                                        </a>
-                                    <?php
-                                    }
-                                    ?>
+                                            <div class="data-pelanggan-pilihan">
+                                                <p><?php echo $namapelanggan; ?></p>
+                                                <p><?php echo $nopelanggan; ?></p>
+                                            </div>
+                                        </div>
+                                    </a>
+
                                 </div>
                             </div>
                             <div class="pop"></div>
@@ -174,73 +161,68 @@ if (isset($_GET['id_pesanan'])) {
                                     //     echo $i['uid_layanan'];
                                     // }
                                     $path = '../asset/php/uploads/';
-                                    if ($pilihan != null) { ?>
-                                        <?php foreach ($pilihan as $row) {
-                                            // insiasi
-                                            $hargaProduk = $row['harga_layanan'];
-                                            $subTotal = $row['qty'] * $hargaProduk;
+                                    // if ($pilihan != null) { 
+                                    ?>
+                                    <?php foreach ($pilihan as $row) {
+                                        // insiasi
+                                        $hargaProduk = $row['harga_layanan'];
+                                        $subTotal = $row['qty'] * $hargaProduk;
 
-                                            // panggil fungsi tampil data produk layanan
-                                            $fotoProduk = $user->fetchAllProdukByID($row['uid_layanan']);
-                                            $namaProduk = $fotoProduk['nama_layanan'];
-                                            $foto = $fotoProduk['foto_layanan'];
-                                            if ($foto != '') {
-                                                $ufoto = $path . $foto;
-                                            } else {
-                                                $ufoto = '../asset/img/avatarr.png';
-                                            }
-                                        ?>
-                                            <div class="box-pilihan-produk">
-                                                <div class="foto-produk-pilihan">
-                                                    <img src="<?php echo $ufoto; ?>">
-                                                </div>
-                                                <div class="data-produk-pilihan">
-                                                    <p><?php echo $namaProduk; ?></p>
-                                                    <input type="hidden" name="nama-produk-pilihan" value="<?= $namaProduk ?>">
-                                                    <p>Rp. <?php echo number_format($hargaProduk); ?></p>
-                                                    <input type="hidden" name="harga-produk-pilihan" value="<?= $hargaProduk ?>">
-                                                </div>
-                                                <div class="data-produk-pilihan-aksi">
-                                                    <input type="hidden" name="qty_update_id" class="idp" value="<?php echo $row['uid_pesanan']; ?>">
-                                                    <input type="hidden" name="qty_update_id_layanan" class="pid" value="<?php echo $row['uid_layanan']; ?>">
-                                                    <input type="hidden" name="qty_update_price_layanan" class="pprice" value="<?php echo $hargaProduk; ?>">
-                                                    <input type="number" name="qty_update_new" class="itemQty" min="1" value="<?php echo $row['qty']; ?>">
-                                                    <input type="text" name="subtotal-produk-pilihan" readonly value="Rp. <?php echo number_format($subTotal); ?>">
-                                                    <a href="" id="<?php echo $row['uid_layanan'] ?>" title="Hapus produk" class="hapusProdukBtn">Hapus</a>
-                                                </div>
+                                        // panggil fungsi tampil data produk layanan
+                                        $fotoProduk = $user->fetchAllProdukByID($row['uid_layanan']);
+                                        $namaProduk = $fotoProduk['nama_layanan'];
+                                        $foto = $fotoProduk['foto_layanan'];
+                                        if ($foto != '') {
+                                            $ufoto = $path . $foto;
+                                        } else {
+                                            $ufoto = '../asset/img/avatarr.png';
+                                        }
+                                    ?>
+                                        <div class="box-pilihan-produk">
+                                            <div class="foto-produk-pilihan">
+                                                <img src="<?php echo $ufoto; ?>">
                                             </div>
-                                        <?php
-                                        } ?>
+                                            <div class="data-produk-pilihan">
+                                                <p><?php echo $namaProduk; ?></p>
+                                                <input type="hidden" name="nama-produk-pilihan" value="<?= $namaProduk ?>">
+                                                <p>Rp. <?php echo number_format($hargaProduk); ?></p>
+                                                <input type="hidden" name="harga-produk-pilihan" value="<?= $hargaProduk ?>">
+                                            </div>
+                                            <div class="data-produk-pilihan-aksi">
+                                                <input type="hidden" name="qty_update_id" class="idp" value="<?php echo $row['uid_pesanan']; ?>">
+                                                <input type="hidden" name="qty_update_id_layanan" class="pid" value="<?php echo $row['uid_layanan']; ?>">
+                                                <input type="hidden" name="qty_update_price_layanan" class="pprice" value="<?php echo $hargaProduk; ?>">
+                                                <input type="number" name="qty_update_new" class="itemQty" min="1" value="<?php echo $row['qty']; ?>">
+                                                <input type="text" name="subtotal-produk-pilihan" readonly value="Rp. <?php echo number_format($subTotal); ?>">
+                                                <a href="" id="<?php echo $row['uid_layanan'] ?>" title="Hapus produk" class="hapusProdukBtn">Hapus</a>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    } ?>
 
                                 </div>
                                 <!-- <div class="tbl-table-search" id="showAllPelanggan"> -->
-                                <a href="keranjang.php?id_pesanan=<?php echo $idPesanan; ?>" class="after-pilih-produk">
+                                <a href="tambah-produk-pesanan.php?id_pesanan=<?php echo $idPesanan; ?>" class="after-pilih-produk">
                                     <div class="grand-total-box">
                                         <?php
                                         $grandTotal = $user->grand_total_pesanan($idPesanan);
+                                        $setGrand = $user->upGrandTotal($grandTotal, $idPesanan);
                                         ?>
-                                        <p style="text-align: start;"><strong><i class="fa-solid fa-box-open" style="font-size: larger;"></i> &nbsp;&nbsp;Lanjutkan Pesanan </strong></p>
+                                        <p style="text-align: start;"><strong><i class="fa-solid fa-box-open" style="font-size: larger;"></i> &nbsp;&nbsp;Tambah Produk Pesanan </strong></p>
                                         <p style="display: flex; justify-content: end; align-items: flex-end;"><strong>Total Keseluruhan : &nbsp;&nbsp;&nbsp; Rp. <?php echo number_format($grandTotal); ?></strong>&nbsp;&nbsp;&nbsp;</p>
                                         <input type="hidden" name="grandtotal" value="<?= $grandTotal; ?>">
                                     </div>
                                 </a>
-                            <?php } else { ?>
-                                <a href="keranjang.php?id_pesanan=<?php echo $idPesanan; ?>">
-                                    <i class="fa-solid fa-box-open"></i>
-                                    <label>Tambah Produk</label>
-                                </a>
-                            <?php
-                                    }
-                            ?>
                             </div>
                             <div class="catatan-produk-pesanan">
                                 <label><b>Catatan Pesanan</b>&nbsp;&nbsp; <p style="font-style: italic;">(Opsional)</p></label>
-                                <textarea name="catatan-pesanan" rows="5" style="resize: none; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                                <textarea name="catatan-pesanan" rows="5" style="resize: none; border: 1px solid #ddd; border-radius: 8px;" readonly><?= $catatan; ?></textarea>
                             </div>
                             <div class="metode-pengambilan-pesanan">
                                 <label><b>Metode Pengambilan</b></label>
-                                <select name="Metode-select">
-                                    <option value="" selected disabled>--- Pilih Metode ---</option>
+                                <input type="hidden" name="qty_update_id" class="idp" value="<?php echo $row['uid_pesanan']; ?>">
+                                <select name="Metode-select" class="metode-select">
+                                    <option value="<?= $idPengiriman; ?>" selected disabled><?= $namaPengambilan; ?></option>
                                     <?php
                                     $output = '';
                                     foreach ($mtd as $row) {
@@ -253,27 +235,42 @@ if (isset($_GET['id_pesanan'])) {
                                 </select>
                             </div>
                             <div class="alamat-produk-pesanan">
+                                <input type="hidden" name="qty_update_id" class="idp" value="<?php echo $idPesanan; ?>">
                                 <label><b>Alamat</b></label>
-                                <input id="cek" type="text" name="alamat-pelanggan" placeholder="Masukkan Alamat Pelanggan">
+                                <input id="cek" type="text" name="alamat-pelanggan" placeholder="Masukkan Alamat Pelanggan" value="<?= $alamat; ?>">
                             </div>
                             <div class="pilih-karyawan-pesanan">
                                 <label><b>Pilih Karyawan</b></label>
-                                <select name="karyawan-select">
-                                    <option value="" selected disabled>--- Pilih Karyawan ---</option>
+                                <input type="hidden" name="qty_update_id" class="idp" value="<?php echo $idPesanan; ?>">
+                                <select name="karyawan-select" class="karyawan-select">
+                                    <?php if ($idKaryawan == null) { ?>
+                                        <option value="" selected disabled>--- Pilih Karyawan ---</option>
+                                        <?php
+                                        $output = '';
+                                        foreach ($kurir as $row) {
+                                            $output .= '<option value="' . $row['id_akun'] .
+                                                '">' . $row['username'] .
+                                                '</option>';
+                                        }
+                                        echo $output;
+                                        ?>
+                                    <?php } else { ?>
+                                        <option value="<?= $idKaryawan; ?>" selected disabled><?= $namaKaryawan; ?></option>
                                     <?php
-                                    $output = '';
-                                    foreach ($kurir as $row) {
-                                        $output .= '<option value="' . $row['id_akun'] .
-                                            '">' . $row['username'] .
-                                            '</option>';
+                                        $output = '';
+                                        foreach ($kurir as $row) {
+                                            $output .= '<option value="' . $row['id_akun'] .
+                                                '">' . $row['username'] .
+                                                '</option>';
+                                        }
+                                        echo $output;
                                     }
-                                    echo $output;
                                     ?>
                                 </select>
                                 <!-- <input type="text" name="nama-pelanggan" placeholder="Masukkan Nama Keryawan"> -->
                             </div>
                             <br>
-                            <input class="btn-buat-pesanan" type="submit" id="add_data" value="Buat Pesanan">
+                            <input class="btn-buat-pesanan" type="submit" id="<?= $idPesanan; ?>" value="Konfirmasi Pesanan">
                             <!-- <button class="btn-buat-pesanan" type="submit" id="add-pesanan-btn" disabled>Tambah</button> -->
                         </form>
                     </div>
@@ -325,6 +322,67 @@ if (isset($_GET['id_pesanan'])) {
                         });
                     });
 
+                    $(".metode-select").on('change', function() {
+                        var $mtp = $(this).closest('.metode-pengambilan-pesanan');
+
+                        var idp = $mtp.find(".idp").val();
+                        var mtd = $mtp.find(".metode-select").val();
+                        location.reload(true);
+                        $.ajax({
+                            url: '../asset/php/action.php',
+                            method: 'post',
+                            cache: false,
+                            data: {
+                                mtd: mtd,
+                                idp: idp,
+                            },
+                            success: function(response) {
+                                // console.log(response);
+                            }
+                        });
+                    });
+
+                    $('#cek').keyup(function() {
+                        var $amt = $(this).closest('.alamat-produk-pesanan');
+                        var idp = $amt.find(".idp").val();
+                        var changeAlamat = $("#cek").val();
+                        if (changeAlamat === '') {
+                            $("#cek").val(changeAlamat);
+                        } else {
+                            $.ajax({
+                                url: '../asset/php/action.php',
+                                method: 'post',
+                                data: {
+                                    changeAlamat: changeAlamat,
+                                    idp: idp,
+                                },
+                                success: function(response) {
+                                    console.log(response);
+                                }
+                            });
+                        }
+                    });
+
+                    $(".karyawan-select").on('change', function() {
+                        var $kur = $(this).closest('.pilih-karyawan-pesanan');
+
+                        var idp = $kur.find(".idp").val();
+                        var kar = $kur.find(".karyawan-select").val();
+                        location.reload(true);
+                        $.ajax({
+                            url: '../asset/php/action.php',
+                            method: 'post',
+                            cache: false,
+                            data: {
+                                kar: kar,
+                                idp: idp,
+                            },
+                            success: function(response) {
+                                console.log(response);
+                            }
+                        });
+                    });
+
                     $(document).on("click", ".hapusProdukBtn", function(e) {
                         if ($("#add-pesanan-form")[0].checkValidity()) {
                             e.preventDefault();
@@ -365,83 +423,65 @@ if (isset($_GET['id_pesanan'])) {
                         }
                     });
 
-                    // proses checkout
-                    $("#add-pesanan-form").submit(function(e) {
+                    // proses konfirmasi
+                    $(document).on("click", ".btn-buat-pesanan", function(e) {
                         e.preventDefault();
+                        konfirmasi_pesanan = $(this).attr('id');
                         Swal.fire({
-                            title: 'Pesanan akan diproses!',
-                            text: 'Lanjutkan Proses Pemesanan?',
+                            title: 'Status pesanan akan diproses!',
+                            text: 'Lanjutkan Konfirmasi Pesanan?',
                             type: 'warning',
                             position: 'center',
-                            icon: 'warning',
+                            icon: 'info',
                             showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
+                            confirmButtonColor: '#5FD3D0',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Lanjutkan!'
+                            confirmButtonText: 'Konfirmasi'
                         }).then((result) => {
-                            if (result.value) {
+                            if (result.isConfirmed) {
                                 $.ajax({
                                     url: '../asset/php/prosess.php',
                                     method: 'post',
-                                    data: $('form').serialize() + "&action=checkout",
+                                    data: {
+                                        konfirmasi_pesanan: konfirmasi_pesanan
+                                    },
                                     success: function(response) {
-                                        if (response === 'berhasil') {
-                                            window.location = 'pesanan.php';
-                                        } else if (response == 'metode dan kurir belum diisi') {
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                text: 'Metode Pengambilan dan Kurir belum diisi',
-                                                title: 'Pesanan Gagal'
-                                            });
-                                        } else if (response === 'metode belum diisi') {
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                text: 'Metode Pengambilan belum diisi',
-                                                title: 'Pesanan Gagal'
-                                            });
-                                        } else if (response === 'karyawan belum diisi') {
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                text: 'Kurir belum diisi',
-                                                title: 'Pesanan Gagal'
-                                            });
-                                        } else if (response === 'alamat belum diisi') {
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                text: 'Alamat belum diisi',
-                                                title: 'Pesanan Gagal'
-                                            });
-                                        } else {
-                                            Swal.fire({
-                                                position: 'center',
-                                                icon: 'error',
-                                                title: 'Terjadi kesalahan! Silahkan refresh halaman dan coba lagi.'
-                                            });
-                                        }
-                                        // location.reload();
-                                        // } else if (response === 'gambar-tidak-valid') {
+                                        // console.log(response);
+                                        // if (response === 'berhasil') {
+                                        window.location = 'pesanan.php';
+                                        // } else if (response == 'metode dan kurir belum diisi') {
                                         //     Swal.fire({
+                                        //         position: 'center',
                                         //         icon: 'error',
-                                        //         title: 'Oops...',
-                                        //         confirmButtonColor: '#5FD3D0',
-                                        //         text: 'Gambar harus JPG, JPEG dan PNG!'
+                                        //         text: 'Metode Pengambilan dan Kurir belum diisi',
+                                        //         title: 'Pesanan Gagal'
                                         //     });
-                                        // } else if (response === 'terlalu-besar') {
+                                        // } else if (response === 'metode belum diisi') {
                                         //     Swal.fire({
+                                        //         position: 'center',
                                         //         icon: 'error',
-                                        //         title: 'Oops...',
-                                        //         confirmButtonColor: '#5FD3D0',
-                                        //         text: 'Ukuran gambar harus kurang dari 10mb'
+                                        //         text: 'Metode Pengambilan belum diisi',
+                                        //         title: 'Pesanan Gagal'
+                                        //     });
+                                        // } else if (response === 'karyawan belum diisi') {
+                                        //     Swal.fire({
+                                        //         position: 'center',
+                                        //         icon: 'error',
+                                        //         text: 'Kurir belum diisi',
+                                        //         title: 'Pesanan Gagal'
+                                        //     });
+                                        // } else if (response === 'alamat belum diisi') {
+                                        //     Swal.fire({
+                                        //         position: 'center',
+                                        //         icon: 'error',
+                                        //         text: 'Alamat belum diisi',
+                                        //         title: 'Pesanan Gagal'
                                         //     });
                                         // } else {
                                         //     Swal.fire({
+                                        //         position: 'center',
                                         //         icon: 'error',
-                                        //         title: 'Oops...',
-                                        //         text: 'Terjadi kesalahan!'
+                                        //         title: 'Terjadi kesalahan! Silahkan refresh halaman dan coba lagi.'
                                         //     });
                                         // }
                                     }
@@ -524,69 +564,29 @@ if (isset($_GET['id_pesanan'])) {
                     //     });
                     // });
 
-                    $('#search').keyup(function() {
-                        var search = $("#search").val();
-                        if (search === '') {
-                            fetchAllPelanggan();
-                        } else {
-                            load_data(search);
-                        }
-                    });
-
                     $(document).on("click", ".tablink", function(e) {
                         e.preventDefault();
 
-                        delBP_id = $(this).attr('id');
+                        // delBP_id = $(this).attr('id');
 
                         Swal.fire({
                             title: 'Apakah Anda Yakin?',
-                            text: 'Pesanan akan dibatalkan',
+                            text: 'Pesanan sedang menunggu konfirmasi',
                             type: 'warning',
                             position: 'center',
                             icon: 'warning',
                             showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Batalkan pesanan'
+                            cancelButtonColor: '#5FD3D0',
+                            confirmButtonColor: '#d33',
+                            confirmButtonText: 'Kembali',
+                            cancelButtonText: 'Lanjutkan konfirmasi pesanan'
                         }).then((result) => {
                             if (result.value) {
-                                $.ajax({
-                                    url: '../asset/php/action.php',
-                                    method: 'post',
-                                    data: {
-                                        delBP_id: delBP_id
-                                    },
-                                    success: function(response) {
-                                        console.log(response);
-                                        Swal.fire({
-                                            position: 'center',
-                                            icon: 'success',
-                                            title: 'Pesanan berhasil dibatalkan',
-                                            showConfirmButton: false,
-                                            timer: 5000
-                                        })
-                                        window.location = 'pesanan.php';
-                                        // location.reload(200);
-                                    }
-                                })
+                                window.location = 'pesanan.php';
                             }
                         })
                     });
                 });
-                load_data();
-
-                function load_data(search) {
-                    $.ajax({
-                        url: "../asset/php/action.php",
-                        method: "POST",
-                        data: {
-                            search: search
-                        },
-                        success: function(response) {
-                            $('#showAllPelanggan').html(response);
-                        }
-                    });
-                }
 
                 // $(function() {
                 //     $('[popup-open]').on('click', function() {

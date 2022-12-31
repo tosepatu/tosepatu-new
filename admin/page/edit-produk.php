@@ -144,7 +144,7 @@ if (isset($_GET['id_layanan'])) {
                                 title: 'Produk berhasil ditambahkan',
                                 timer: 5000
                             });
-                            location.reload();
+                            // location.reload();
                         } else if (response === 'gambar-tidak-valid') {
                             Swal.fire({
                                 icon: 'error',

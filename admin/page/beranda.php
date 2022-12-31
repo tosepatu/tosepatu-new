@@ -4,6 +4,7 @@ require_once '../asset/php/auth.php';
 
 $count = new Auth();
 // $msg = '';
+
 ?>
 
 <div class="card">
@@ -22,12 +23,14 @@ $count = new Auth();
     </div>
     <div class="card-box" style="border-color: #2BB6F1;">
         <h4 style="color: #2BB6F1;">Dalam Proses</h4>
-        <p style="color: #2BB6F1;">209</p>
+        <p style="color: #2BB6F1;">
+            <?= $count->dalamProses(); ?>
+        </p>
     </div>
     <div class="card-box" style="border-color: #F5B12C;">
         <h4 style="color: #F5B12C;">Total Pesanan</h4>
         <p style="color: #F5B12C;">
-            <?= $count->totalCount('detail_pesanan'); ?>
+            <?= $count->totalCount('pesanan'); ?>
         </p>
     </div>
 </div>
@@ -116,11 +119,13 @@ $count = new Auth();
                 <h4>Status Karyawan</h4>
             </div>
             <div class="item-status">
-                <li><a href="kelola tim.php">Achmad Zakariya</a><i class="fa-solid fa-circle-check"></i></li>
-                <li><a href="kelola tim.php">A. Maulana Subandrio</a><i class="fa-solid fa-circle-check"></i></li>
-                <li><a href="kelola tim.php">Refyan Gigas</a><i class="fa-solid fa-circle-check"></i></li>
-                <li><a href="kelola tim.php">Daffa Fauzi</a><i class="fa-solid fa-circle-check"></i></li>
-                <li><a href="kelola tim.php">Akbar Kusnandi</a><i class="fa-solid fa-circle-check"></i></li>
+                <?php $karyawan = $count->fetchAllTim(2);
+                foreach ($karyawan as $row) {
+                    $namaKaryawan = $row['username']; ?>
+                    <li><a href="kelola tim.php"><?php echo $namaKaryawan; ?></a><i class="fa-solid fa-circle-check"></i></li>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -138,8 +143,8 @@ $count = new Auth();
     var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
 
     gradientStroke1.addColorStop(1, 'rgba(95, 211, 208, 0.2)');
-    gradientStroke1.addColorStop(0.2, 'rgba(95, 211, 208, 0.2)');
-    gradientStroke1.addColorStop(0, 'rgba(95, 211, 208, 0.2)');
+    gradientStroke1.addColorStop(0.2, 'rgba(95, 211, 208, 0.1)');
+    gradientStroke1.addColorStop(0, 'rgba(95, 211, 208, 0.1)');
     new Chart(ctx1, {
         type: "line",
         data: {
@@ -153,7 +158,7 @@ $count = new Auth();
                 backgroundColor: gradientStroke1,
                 borderWidth: 3,
                 fill: true,
-                data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+                data: [11, 40, 300, 220, 500, 250, 400, 230, 500],
                 maxBarThickness: 6
 
             }],
@@ -185,7 +190,7 @@ $count = new Auth();
                         color: '#fbfbfb',
                         font: {
                             size: 11,
-                            family: "Open Sans",
+                            family: "Mullish",
                             style: 'normal',
                             lineHeight: 2
                         },
@@ -205,7 +210,7 @@ $count = new Auth();
                         padding: 20,
                         font: {
                             size: 11,
-                            family: "Open Sans",
+                            family: "Mullish",
                             style: 'normal',
                             lineHeight: 2
                         },
@@ -235,7 +240,7 @@ $count = new Auth();
             success: function(response) {
                 if (response === 'berhasil') {
                     // window.location = 'beranda.php';
-                    Swal.fire({ 
+                    Swal.fire({
                         position: 'center',
                         icon: 'success',
                         title: 'Produk berhasil ditambahkan'

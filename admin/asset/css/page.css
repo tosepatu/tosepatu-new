@@ -251,11 +251,30 @@ body {
     padding: 30px 0 0 0;
 }
 
+#interface .content-data-grafik {
+    display: grid;
+    grid-template-columns: repeat(2, 36.8rem);
+    gap: 1.5rem;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+}
+
 
 #interface .content-data .chart {
     background: #fff;
     width: 895px;
     height: 480px;
+    padding: 30px 30px;
+    /* margin-bottom: 30px; */
+    border: 1px solid #DFE0EB;
+    border-radius: 8px;
+}
+
+#interface .content-data-grafik .chart {
+    background: #fff;
+    width: 100%;
+    min-height: 250px;
     padding: 30px 30px;
     /* margin-bottom: 30px; */
     border: 1px solid #DFE0EB;
@@ -270,7 +289,17 @@ body {
     color: #252733;
 }
 
+#interface .content-data-grafik .chart .card-header h3 {
+    color: #252733;
+}
+
 #interface .content-data .chart .card-header p {
+    margin: 5px 0 0 0;
+    font-size: 14px;
+    color: #9FA2B4;
+}
+
+#interface .content-data-grafik .chart .card-header p {
     margin: 5px 0 0 0;
     font-size: 14px;
     color: #9FA2B4;
@@ -278,6 +307,17 @@ body {
 
 #interface .content-data .chart .cont-chart {
     height: 400px;
+    width: 100%;
+}
+
+#interface .content-data-grafik .chart .cont-chart {
+    /* height: 100%; */
+    width: 100%;
+    margin-top: 2rem;
+}
+
+#interface .content-data-grafik .chart .cont-chart canvas {
+    /* height: 100%; */
     width: 100%;
 }
 
@@ -672,6 +712,36 @@ body {
     padding: 10px;
 }
 
+#interface .tbl-container .tbl-content .form-add-pesanan form input[type="text"] {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form input[type="tel"] {
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #FCFDFE;
+    border: 2px solid #F0F1F7;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form input[type="text"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form input[type="tel"]:focus {
+    border: 2px solid var(--hover);
+    box-shadow: 0 0 2px var(--hover);
+    outline: none;
+}
+
 #interface .tbl-container .tbl-content .form-add-pesanan form .add-id-pesanan {
     display: flex;
     flex-direction: column;
@@ -756,8 +826,9 @@ body {
     display: flex;
     /* flex-direction: column; */
     justify-content: flex-end;
-    margin-left: 11rem;
+    margin-left: 15.5rem;
     margin-right: 0.5rem;
+    align-items: center;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="number"] {
@@ -765,7 +836,9 @@ body {
     border-radius: 8px;
     background-color: #FCFDFE;
     border: 2px solid #F0F1F7;
-    width: 15%;
+    width: 80px;
+    height: 40px;
+    margin: 10px;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="text"] {
@@ -782,11 +855,35 @@ body {
     border-radius: 5px;
     border: 2px;
     /* width: 100%; */
-    /* height: 30px; */
+    /* height: 80%; */
     padding: 5px;
     cursor: pointer;
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
+    /* margin-right: 0.5rem;
+    margin-left: 0.5rem; */
+    margin: 0 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi .hapusProdukBtn {
+    background: red;
+    color: #fff;
+    border-radius: 5px;
+    /* width: 100%; */
+    cursor: pointer;
+    /* margin: ; */
+    height: 40px;
+    /* border: 2px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 0 0.5rem;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi .hapusProdukBtn:hover {
+    color: #fff;
+    background-color: red;
+    box-shadow: 0 0 10px red;
+    border: 1px solid red;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .box-pilihan-produk .data-produk-pilihan-aksi input[type="submit"]:hover {
@@ -807,6 +904,23 @@ body {
     outline: none;
 }
 
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .grand-total-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: 2px solid #F0F1F7; */
+    border-radius: 5px;
+    /* margin-bottom: 0.5rem; */
+    width: 100%;
+    height: 70px;
+    justify-content: space-between;
+    /* padding: 1rem; */
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan .grand-total-box p strong {
+    margin-right: 10px;
+}
+
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan a {
     font-size: medium;
     height: 3.5rem;
@@ -820,6 +934,49 @@ body {
     margin-bottom: 10px;
     text-decoration: none;
     color: black;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan .after-pilih-pelanggan {
+    font-size: medium;
+    height: 3.5rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan .box-card-pelanggan {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    /* border: 2px solid #F0F1F7; */
+    border-radius: 5px;
+    /* margin-bottom: 0.5rem; */
+    width: 100%;
+
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan .box-card-pelanggan .foto-pelanggan-pilihan {
+    padding: 0.5rem;
+    width: 8%;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan .box-card-pelanggan .data-pelanggan-pilihan p {
+    font-size: small;
+}
+
+#interface .tbl-container .tbl-content .form-add-pesanan form .info-pelanggan .box-card-pelanggan .foto-pelanggan-pilihan img {
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid #F2DEDE;
+    width: 50px;
+    height: 50px;
 }
 
 #interface .tbl-container .tbl-content .form-add-pesanan form .pop .overlay {
@@ -906,7 +1063,7 @@ body {
     outline: none;
     cursor: pointer;
 }
-    
+
 #interface .tbl-container .tbl-content .form-add-pesanan form .info-produk-pesanan a {
     font-size: medium;
     height: 3.5rem;
@@ -1287,6 +1444,26 @@ body {
     align-items: center;
 }
 
+#interface .tbl-container .tbl-content .tbl-header .btn-left {
+    background: var(--hover);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px;
+    width: 200px;
+    height: 35px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#interface .tbl-container .tbl-content .tbl-header .btn-left:hover {
+    color: #fff;
+    background-color: var(--hover);
+    box-shadow: 0 0 20px var(--hover);
+}
+
 #interface .tbl-container .tbl-content .tbl-header form a {
     background: var(--hover);
     padding: 15px;
@@ -1346,11 +1523,13 @@ body {
     flex-direction: row;
     justify-content: space-between;
     transition: all 0.3s;
+    align-items: center;
 }
 
 #interface .tbl-container .tbl-content .tbl-header .tbl-header-right a {
     text-decoration: none;
     color: #4B506D;
+    font-size: small;
 }
 
 #interface .tbl-container .tbl-content .tbl-header .tbl-header-right a:hover {
@@ -1379,7 +1558,7 @@ body {
 }
 
 #interface .tbl-container .tbl-content .tbl-table-search {
-    margin-top: 30px;
+    margin-top: 0.5rem;
     /* margin-left: -30px;
     margin-right: -30px; */
     overflow-x: auto;
@@ -1411,7 +1590,7 @@ body {
     /* margin: 0 auto; */
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box {
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box {
     text-align: center;
     padding: 2rem;
     border: 2px solid #ddd;
@@ -1423,24 +1602,24 @@ body {
     /* background-color: #252733; */
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box img {
-    height: 8.5rem; 
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box img {
+    height: 8.5rem;
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box h3 {
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box h3 {
     margin: 1rem 0;
     font-size: 1rem;
     color: black;
     height: 2.5rem;
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box .price {
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box .price {
     margin: 1rem 0;
     font-size: 1rem;
     color: black;
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box input[type="submit"] {
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box input[type="submit"] {
     background: #5FD3D0;
     color: #fff;
     border-radius: 5px;
@@ -1451,7 +1630,7 @@ body {
     cursor: pointer;
 }
 
-#interface .tbl-container .tbl-content .tbl-table-card  .box-produk form .box input[type="submit"]:hover {
+#interface .tbl-container .tbl-content .tbl-table-card .box-produk form .box input[type="submit"]:hover {
     color: #fff;
     background-color: #5FD3D0;
     box-shadow: 0 0 10px #5FD3D0;
@@ -1511,9 +1690,21 @@ td {
     color: #FED049;
 }
 
-#interface .tbl-container .tbl-content .tbl-table-search td .cek {
-    color: #FED049;
-    font-size: x-large;
+#interface .tbl-container .tbl-content .tbl-table-search td input {
+    background-color: #FED049;
+    color: #fff;
+    border-radius: 5px;
+    border: 2px;
+    width: 80%;
+    height: 35px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#interface .tbl-container .tbl-content .tbl-table-search td input:hover {
+    color: #fff;
+    background-color: #FED049;
+    box-shadow: 0 0 10px #FED049;
 }
 
 #interface .tbl-container .tbl-content .tbl-table td img {
@@ -1522,6 +1713,87 @@ td {
     border: 1px solid #F2DEDE;
     width: 50px;
     height: 50px;
+}
+
+#interface .tbl-container .tbl-content .tbl-table td .dot {
+    color: #C5C7CD;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-konfirmasi {
+    background-color: #29CC97;
+    border-radius: 100px;
+    color: white;
+    height: 24px;
+    width: 93px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-proses {
+    background-color: #2BB6F1;
+    border-radius: 100px;
+    color: white;
+    height: 24px;
+    width: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-selesai {
+    background-color: #F5B12C;
+    border-radius: 100px;
+    color: white;
+    height: 24px;
+    width: 76px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-batal {
+    background-color: #e8392f;
+    border-radius: 100px;
+    color: white;
+    height: 24px;
+    width: 98px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-batal:hover {
+    color: #fff;
+    background-color: #e8392f;
+    box-shadow: 0 0 10px #e8392f;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-selesai:hover {
+    color: #fff;
+    background-color: #F5B12C;
+    box-shadow: 0 0 10px #F5B12C;
+}
+
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-proses:hover {
+    color: #fff;
+    background-color: #2BB6F1;
+    box-shadow: 0 0 10px #2BB6F1;
+}
+#interface .tbl-container .tbl-content .tbl-table .status-now .status-pesanan-konfirmasi:hover {
+    color: #fff;
+    background-color: #29CC97;
+    box-shadow: 0 0 10px #29CC97;
 }
 
 #interface .tbl-container .tbl-content .tbl-table-search td img {
@@ -1593,7 +1865,7 @@ td {
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;    
+    cursor: pointer;
     text-decoration: none;
 }
 
@@ -1617,7 +1889,7 @@ td {
     background-color: #53f345;
     box-shadow: 0 0 20px #53f345;
 }
-    
+
 #interface .tbl-container-pengaturan {
     display: flex;
     background: #fff;
@@ -1913,6 +2185,47 @@ td {
     color: var(--hover);
 }
 
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan {
+    display: flex;
+    width: 70%;
+    flex-direction: column;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table {
+    border-collapse: collapse;
+    width: 100%;
+    max-height: 100px;
+    /* margin-top: 2rem; */
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table th,
+td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: small;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table th {
+    color: #9FA2B4;
+    padding: 20px 5px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table td {
+    padding: 20px 5px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table td img {
+    padding: 2px;
+    border-radius: 50%;
+    border: 1px solid #F2DEDE;
+    width: 50px;
+    height: 50px;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-pesanan table tbody:hover {
+    background-color: rgba(95, 211, 208, 10%);
+}
+
 #interface .tbl-container .tbl-content .rec-data-E .rec-data-photos {
     display: flex;
     align-items: flex-start;
@@ -1945,6 +2258,28 @@ td {
     border-radius: 50%;
     width: 100%;
     height: 100%;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-kiri {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* background-color: rebeccapurple; */
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-kiri .data-nama-pelanggan {
+    text-align: center;
+    margin: 1.5rem 0;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-kiri .data-nama-pelanggan h4 {
+    color: #252733;
+}
+
+#interface .tbl-container .tbl-content .rec-data-E .rec-data-kiri .data-nama-pelanggan h4 {
+    color: #9FA2B4;
+    font-weight: 600;
 }
 
 #interface .tbl-container .tbl-content .rec-data-E {
@@ -2036,6 +2371,35 @@ td {
     color: #fff;
     background-color: #FED049;
     box-shadow: 0 0 20px #FED049;
+}
+
+#interface .tbl-container .tbl-content .ringkasan-laporan {
+    display: grid;
+    grid-template-columns: repeat(4, 15rem);
+    gap: 1.5rem;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    /* background-color: #252733; */
+}
+
+#interface .tbl-container .tbl-content .ringkasan-laporan .card-laporan {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 2px 2px 20px #ddd;
+    text-align: left;
+}
+
+#interface .tbl-container .tbl-content .ringkasan-laporan .card-laporan h5 {
+    color: #9FA2B4;
+    font-weight: 800;
+}
+
+#interface .tbl-container .tbl-content .ringkasan-laporan .card-laporan p {
+    color: #9FA2B4;
+    font-size: x-small;
 }
 
 /* start alert */

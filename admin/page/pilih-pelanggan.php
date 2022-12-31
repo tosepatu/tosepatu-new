@@ -15,33 +15,7 @@ if (isset($_GET['id_pesanan'])) {
     $get = $prd->getData();
 }
 $count = $prd->fetchDetailPesananProduk($idPesanan);
-// echo '<pre>';
 
-// if (isset($_POST['update_qty_btn'])) {
-//     // $idPesanan = $prd->idPesananIncrement();
-//     $idProduk = $prd->validate($_POST['id-produk']);
-//     $namaProduk = $prd->validate($_POST['nama-produk']);
-//     $hargaProduk = $prd->validate($_POST['harga-produk']);
-//     $qty = 1;
-//     $subTotal = $hargaProduk * $qty;
-
-//     $message = '';
-
-//     $cekPesanan = $prd->fetchDetailPesanan($idProduk);
-//     if ($cekPesanan == true) {
-//         $message .= '<script>
-//         Swal.fire({
-//             position: "center",
-//             icon: "warning",
-//             title: "Produk sudah ditambahkan"
-//         })';
-//         $message .= '</script>';
-//     } else {
-//         // $p = $prd->addPesanan($idPesanan);
-//         $d = $prd->addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subTotal);
-//         $message = 'produk berhasil ditambahkan';
-//     }
-// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -74,21 +48,23 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
         </div>
         <div class="item">
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'beranda.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-chart-pie"></i>Beranda</a>
-            <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'keranjang.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-ticket"></i>Pesanan</a>
+            <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pilih-pelanggan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-ticket"></i>Pesanan</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pelanggan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-lightbulb"></i>Pelanggan</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'produk.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-box-open"></i>Produk</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'kelola tim.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-users"></i>Kelola Tim</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'laporan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-book"></i>Laporan</a>
             <a href="" class="link-side <?= (basename($_SERVER['PHP_SELF']) == 'pengaturan.php') ? "nav-active" : ""; ?>"><i class="fa-solid fa-gear"></i>Pengaturan</a>
+            <!-- <li><i class="fa-solid fa-gear"></i>
+            </li> -->
         </div>
     </section>
     <section id="interface">
         <div class="navigation">
             <div class="n1">
                 <div class="nav-judul">
-                    <h2>Pesanan /&nbsp;&nbsp;</h2>
+                    <h3>Pesanan /&nbsp;&nbsp;</h3>
                     <h3>Buat Pesanan /&nbsp;&nbsp;</h3>
-                    <h4>Pilih Produk</h4>
+                    <h2>Masukkan Pelanggan</h2>
                 </div>
             </div>
             <div class="profile">
@@ -120,30 +96,29 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
                     <div class="tbl-header">
                         <h3><a href="buat-pesanan.php?id_pesanan=<?php echo $get; ?>" class="tablink" id="<?php echo $get; ?>"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Kembali</a></h3>
                         <div class="tbl-header-right">
-                            <form action="" method="post">
-                                <input type="text" name="searchProduk" placeholder="Cari Produk..." id="searchProduk">
+                            <form action="" method="post" id="add-pelanggan-form-search">
+                                <input type="text" name="searchPelanggan" placeholder="Cari Pelanggan..." id="searchPelanggan">
                             </form>
                         </div>
                     </div>
 
-                    <div class="tbl-table-card" id="showAllUser"></div>
-                    <div class="checkout">
-                        <a href="buat-pesanan.php?id_pesanan=<?php echo $get; ?>" id="nextPesanan">Lanjutkan Pesanan
+                    <div class="form-add-pesanan">
+                        <form action="#" method="post" id="add-pelanggan-form">
+                            <label><b>Nama</b></label>
+                            <input type="text" name="searchPelangganByName" placeholder="Masukkan Nama" id="searchPelangganByName">
+                            <label><b>Nomor Telepon</b></label>
+                            <input type="tel" name="searchPelangganByNoTelp" placeholder="Masukkan Nomor Telepon" id="searchPelangganByNoTelp">
+                            <div class="tbl-table-search" id="showAllPelanggan"></div>
+                        </form>
+                    </div>
+                    <!-- <div class="tbl-table" id="showAllUser"></div> -->
+                    <!-- <div class="tbl-table-card" id="showAllUser"></div> -->
+                    <!-- <div class="checkout">
+                        <a href="buat-pesanan.php?id_pesanan=" id="nextPesanan">Lanjutkan Pesanan
                             <span>
-                                <?php
-                                if ($count == null) {
-                                    $count = 0;
-                                ?>
-                                    <p><?php echo $count; ?></p>
-                                <?php
-                                } else { ?>
-                                    <p><?php echo $count; ?></p>
-                                <?php
-                                }
-                                ?>
                             </span>
                         </a>
-                    </div>
+                    </div> -->
 
                 </div>
             </div>
@@ -159,21 +134,38 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
                             url: '../asset/php/action.php',
                             method: 'post',
                             data: {
-                                action: 'pilihProduk'
+                                action: 'fetchAllPelangganPesanan'
                             },
                             success: function(response) {
-                                $("#showAllUser").html(response);
-                                // location.reload();
+                                $("#showAllPelanggan").html(response);
                             }
                         });
                     }
 
-                    $('#searchProduk').keyup(function() {
-                        var searchProduk = $("#searchProduk").val();
-                        if (searchProduk === '') {
+                    $('#searchPelanggan').keyup(function() {
+                        var search = $("#searchPelanggan").val();
+                        if (search === '') {
                             fetchAllUser();
                         } else {
-                            load_data(searchProduk);
+                            load_data(search);
+                        }
+                    });
+
+                    $('#searchPelangganByName').keyup(function() {
+                        var searchByName = $("#searchPelangganByName").val();
+                        if (searchByName === '') {
+                            fetchAllUser();
+                        } else {
+                            load_dataByName(searchByName);
+                        }
+                    });
+
+                    $('#searchPelangganByNoTelp').keyup(function() {
+                        var searchByNoTelp = $("#searchPelangganByNoTelp").val();
+                        if (searchByNoTelp === '') {
+                            fetchAllUser();
+                        } else {
+                            load_dataByNoTelp(searchByNoTelp);
                         }
                     });
 
@@ -239,88 +231,90 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
                     //     })
                     // });
 
-                    // $("#form-pilih-produk").submit(function(e) {
-                    //     alert('hello');
-                    //     e.preventDefault();
-                    //     $.ajax({
-                    //         url: '../asset/php/prosess.php',
-                    //         method: 'post',
-                    //         data: new FormData(this),
-                    //         success: function(response) {
-                    //             console.log(response);
-                    //             // if (response === 'berhasil') {
-                    //             //     // window.location = 'beranda.php';
-                    //             //     Swal.fire({
-                    //             //         position: 'center',
-                    //             //         icon: 'success',
-                    //             //         title: 'Produk berhasil ditambahkan'
-                    //             //     })
-                    //             //     $("#add-produk-form")[0].reset();
-                    //             // } else if (response === 'gambar-tidak-valid') {
-                    //             //     Swal.fire({
-                    //             //         icon: 'error',
-                    //             //         title: 'Oops...',
-                    //             //         confirmButtonColor: '#5FD3D0',
-                    //             //         text: 'Gambar harus JPG, JPEG dan PNG!'
-                    //             //     })
-                    //             //     $("#add-produk-form")[0].reset();
-                    //             // } else if (response === 'terlalu-besar') {
-                    //             //     Swal.fire({
-                    //             //         icon: 'error',
-                    //             //         title: 'Oops...',
-                    //             //         confirmButtonColor: '#5FD3D0',
-                    //             //         text: 'Ukuran gambar harus kurang dari 10mb'
-                    //             //     })
-                    //             //     $("#add-produk-form")[0].reset();
-                    //             // } else {
-                    //             //     Swal.fire({
-                    //             //         icon: 'error',
-                    //             //         title: 'Oops...',
-                    //             //         text: 'Terjadi kesalahan!'
-                    //             //     })
-                    //             // }
-                    //         }
-                    //     });
+                    $("#form-pilih-produk").submit(function(e) {
+                        alert('hello');
+                        e.preventDefault();
+                        $.ajax({
+                            url: '../asset/php/prosess.php',
+                            method: 'post',
+                            data: new FormData(this),
+                            success: function(response) {
+                                console.log(response);
+                                // if (response === 'berhasil') {
+                                //     // window.location = 'beranda.php';
+                                //     Swal.fire({
+                                //         position: 'center',
+                                //         icon: 'success',
+                                //         title: 'Produk berhasil ditambahkan'
+                                //     })
+                                //     $("#add-produk-form")[0].reset();
+                                // } else if (response === 'gambar-tidak-valid') {
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Oops...',
+                                //         confirmButtonColor: '#5FD3D0',
+                                //         text: 'Gambar harus JPG, JPEG dan PNG!'
+                                //     })
+                                //     $("#add-produk-form")[0].reset();
+                                // } else if (response === 'terlalu-besar') {
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Oops...',
+                                //         confirmButtonColor: '#5FD3D0',
+                                //         text: 'Ukuran gambar harus kurang dari 10mb'
+                                //     })
+                                //     $("#add-produk-form")[0].reset();
+                                // } else {
+                                //     Swal.fire({
+                                //         icon: 'error',
+                                //         title: 'Oops...',
+                                //         text: 'Terjadi kesalahan!'
+                                //     })
+                                // }
+                            }
+                        });
+                    });
 
-                    // });
-
-                    $(document).on("click", ".addPesanan", function(e) {
-                        if ($("#form-pilih-produk")[0].checkValidity()) {
+                    $(document).on("click", ".pilihPelangganPopup", function(e) {
+                        if ($("#add-pelanggan-form")[0].checkValidity()) {
                             e.preventDefault();
-                            add_pilih_produk = $(this).attr('id');
+                            add_pilih_pelanggan = $(this).attr('id');
                             $.ajax({
                                 url: '../asset/php/prosess.php',
                                 method: 'post',
                                 data: {
-                                    add_pilih_produk: add_pilih_produk
+                                    add_pilih_pelanggan: add_pilih_pelanggan
                                 },
                                 success: function(response) {
+                                    console.log(response);
                                     if (response === 'berhasil') {
-                                        window.location = 'buat-pesanan.php?id_pesanan=<?php echo $get; ?>';
-                                        // Swal.fire({
-                                        //     position: 'center',
-                                        //     icon: 'success',
-                                        //     title: 'Produk berhasil ditambahkan!',
-                                        //     confirmButtonColor: '#5FD3D0',
-                                        //     timer: 5000
-                                        // });
-                                        // location.reload();
-                                    } else if (response === 'already') {
+                                        Swal.fire({
+                                            position: 'center',
+                                            icon: 'success',
+                                            title: 'Pelanggan berhasil ditambahkan',
+                                            confirmButtonColor: '#5FD3D0',
+                                            timer: 5000
+                                        });
+                                        $("#add-pelanggan-form")[0].reset();
+                                        $("#add-pelanggan-form-search")[0].reset();
+                                    } else if (response === 'pelanggan diubah') {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            text: 'Pelanggan berhasil diubah.',
+                                            confirmButtonColor: '#5FD3D0',
+                                            timer: 5000
+                                        });
+                                        $("#add-pelanggan-form")[0].reset();
+                                        $("#add-pelanggan-form-search")[0].reset();
+                                    } else if (response === 'pelanggan sudah ditambahkan') {
                                         Swal.fire({
                                             icon: 'warning',
-                                            text: 'Produk sudah ditambahkan. Silahkan pilih produk lainnya.',
+                                            text: 'Pelanggan telah ditambahkan.',
                                             confirmButtonColor: '#FED049',
                                             timer: 5000
                                         });
-                                        fetchAllUser();
-                                    } else if (response === 'masukkan pelanggan') {
-                                        Swal.fire({
-                                            icon: 'warning',
-                                            text: 'Masukkan Pelanggan terlebih dahulu!',
-                                            confirmButtonColor: '#FED049',
-                                            timer: 5000
-                                        });
-                                        fetchAllUser();
+                                        $("#add-pelanggan-form")[0].reset();
+                                        $("#add-pelanggan-form-search")[0].reset();
                                     } else {
                                         console.log(response);
                                         Swal.fire({
@@ -328,7 +322,8 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
                                             title: 'Oops...',
                                             text: 'Terjadi kesalahan!, Coba ulang kembali.'
                                         })
-                                        fetchAllUser();
+                                        $("#add-pelanggan-form")[0].reset();
+                                        $("#add-pelanggan-form-search")[0].reset();
                                     }
                                 }
                             });
@@ -389,16 +384,44 @@ $count = $prd->fetchDetailPesananProduk($idPesanan);
                     // });
                 });
                 load_data();
+                load_dataByName();
+                load_dataByNoTelp();
 
-                function load_data(searchProduk) {
+                function load_data(search) {
                     $.ajax({
                         url: "../asset/php/action.php",
                         method: "POST",
                         data: {
-                            searchProduk: searchProduk
+                            search: search
                         },
                         success: function(response) {
-                            $('#showAllUser').html(response);
+                            $('#showAllPelanggan').html(response);
+                        }
+                    });
+                }
+
+                function load_dataByName(searchByName) {
+                    $.ajax({
+                        url: "../asset/php/action.php",
+                        method: "POST",
+                        data: {
+                            searchByName: searchByName
+                        },
+                        success: function(response) {
+                            $('#showAllPelanggan').html(response);
+                        }
+                    });
+                }
+
+                function load_dataByNoTelp(searchByNoTelp) {
+                    $.ajax({
+                        url: "../asset/php/action.php",
+                        method: "POST",
+                        data: {
+                            searchByNoTelp: searchByNoTelp
+                        },
+                        success: function(response) {
+                            $('#showAllPelanggan').html(response);
                         }
                     });
                 }

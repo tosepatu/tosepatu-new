@@ -298,11 +298,71 @@ if (isset($_POST['addPesanan_id'])) {
     $id = $_POST['addPesanan_id'];
     $idPengambilan = 'MT220921002';
 
-    $p = $user->addPesanan($id, $idPengambilan, $cid);
-    if ($p == true) {
-        echo 'berhasil';
+    $cekPesanan = $user->fetchPesananBystatus();
+    $cek = $user->fetchPesananByUID($cid);
+    // echo $cek;
+    if ($cek < 1 && $cekPesanan < 1) {
+        $p = $user->addPesanan($id, $idPengambilan, $cid);
+        if ($p == true) {
+            echo 'berhasil';
+        } else {
+            echo 'gagal';
+        }
     } else {
-        echo 'gagal';
+        // var_dump($cek['id_pesanan']);
+        echo 'memiliki pesanan yang belum selesai';
+    }
+}
+
+// lanjutkan pesanan yang belum terselesaikan
+if (isset($_POST['action']) && $_POST['action'] == 'addPesanan_id_') {
+    // $id = $_POST['addPesanan_id_'];
+
+    // echo $id;
+    $cekPesanan = $user->fetchPesananBystatus();
+    $dataa = $user->fetchPesananByUID($cid);
+    if ($cekPesanan != null) {
+        echo $cekPesanan['id_pesanan'];
+    } else {
+        echo $dataa['id_pesanan'];
+    }
+    // echo json_encode($data);
+}
+
+if (isset($_POST['add_pilih_pelanggan'])) {
+    $id = $_POST['add_pilih_pelanggan'];
+
+    // cek data pelanggan 
+    $cek = $user->fetchAllPelangganByID($id);
+    $idPelanggan = $cek[0]['id_user'];
+
+    // cek pesanan pelanggan
+    $cekPesananPelanggan = $user->fetchPesananByUID_USER($idPelanggan);
+    
+    // cek status
+    $cekStatus = $user->fetchPesananBystatus();
+    $idPesanan = $cekStatus['id_pesanan'];
+    $idPelangganSudahDipilih = $cekStatus['uid_user'];
+    
+    // echo $cekPesananPelanggan['uid_akun'];
+    if ($idPelangganSudahDipilih != null) {
+        if ($idPelangganSudahDipilih != $idPelanggan) {
+            $set = $user->upPesananNamaPelanggan($idPelanggan, $idPesanan);
+            if ($set == true) {
+                echo 'pelanggan diubah';
+            } else {
+                echo 'gagal';
+            }
+        } else {
+            echo 'pelanggan sudah ditambahkan';
+        }
+    } else {
+        $set = $user->upPesananNamaPelanggan($idPelanggan, $idPesanan);
+        if ($set == true) {
+            echo 'berhasil';
+        } else {
+            echo 'gagal';
+        }
     }
 }
 
@@ -317,63 +377,168 @@ if (isset($_POST['add_pilih_produk'])) {
     $qty = 1;
     $subTotal = $price * $qty;
 
-    // cek id pesanan sama atau tidak
-    $search = $user->fetchPesananByUID($cid);
-    $idPesanan = $search['id_pesanan'];
-    
-    // cek status pesanan masih belum di proses atau sudah
-    $searchPesanan = $user->fetchAllPesananByID($idPesanan);
-    $uid = $searchPesanan['status_pesanan'];
-    
-    // cek produk apakah sudah ditambahkan pada detail pesanan
-    $cekPesanan = $user->fetchDetailPesanan($idPesanan, $idProduk);
-    
-    if ($cekPesanan > 0) {
-        echo 'already';
-    } else {
-        if ($idPesanan && $uid != null) {
-            $data = $user->addDetailPesanan($idPesanan, $idProduk, $qty, $price, $subTotal);
-            echo 'berhasil';
-        } else {
-            echo 'tidak sama';
-        }
-    }
-    
-    // $set = $user->setData($idPesanan);
-    // $get = $user->getData();
-    // $user = $this->getData();
-    // var_dump($iuidPesanan);
-    // $idPesanan = $_GET['id_pesanan'];
-    // echo $idProduk;
-    // echo $namaProduk;
-    // echo $hargaProduk;
-    // $data = $user->fetchAllProdukByName($namaProduk);
-    // echo $data['id_layanan'];
+    // cek status
+    $cekStatus = $user->fetchPesananBystatus();
+    $idPesanan = $cekStatus['id_pesanan'];
 
-    // $idPesanan = $user->validate($_POST['id-pesanan']);
-    // $idPesanan = $_SESSION[''];
-    
-    // $idPengambilan = 'MT220921002';
-    
-    // $subTotal = $hargaProduk * $qty;
-    // // echo $subTotal;
-    
-    // } else {
-    //     $d = $user->addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subTotal);
-    //     if ($d == true) {
-    //         echo 'berhasil';
-    //     } else {
-    //         echo 'gagal';
-    //     }
-    // }
+    // cek id pesanan jika belum piilih pelanggan
+    // $search = $user->fetchPesananByUID_USER($cid);
+    // $idPesanan = $search['id_pesanan'];
+    $search = $user->fetchAllPesananByID($idPesanan);
+    $cekPelanggan = $search['uid_user'];
+
+    // cek kondisi
+    if ($cekPelanggan != null) {
+        // cek status pesanan masih belum di proses atau sudah
+        $searchPesanan = $user->fetchAllPesananByID($idPesanan);
+        $uid = $searchPesanan['status_pesanan'];
+
+        // // cek produk apakah sudah ditambahkan pada detail pesanan
+        $cekPesanan = $user->fetchDetailPesanan($idPesanan, $idProduk);
+        // echo $cekPesanan;
+
+        if ($cekPesanan > 0) {
+            echo 'already';
+        } else {
+            if ($idPesanan && $uid != null) {
+                $data = $user->addDetailPesanan($idPesanan, $idProduk, $qty, $price, $subTotal);
+                echo 'berhasil';
+            } else {
+                echo 'tidak sama';
+            }
+        }
+    } else {
+        echo 'masukkan pelanggan';
+    }
 }
 
-// if (isset($_POST['action']) && $_POST['action'] == 'addPesanan') {
+
+// if (isset($_POST['editQTY_id'])) {
+if (isset($_POST['hapus_id'])) {
+    $idProduk = $user->validate($_POST['hapus_id']);
+
+    $search = $user->fetchAllDetailPesananByIDLayanan($idProduk);
+    foreach ($search as $row) {
+        $idPesanan = $row['uid_pesanan'];
+    }
+    
+    $searchPesanan = $user->fetchAllPesananByID($idPesanan);
+    foreach ($searchPesanan as $key) {
+        $idPesananCek = $searchPesanan['id_pesanan'];
+        $cekStatus = $searchPesanan['status_pesanan'];
+    }
+    // // // var_dump($search[0]['uid_layanan']);
+    // // $idProduk = $search[0]['uid_layanan'];
+    // $cekProdukPilihan = $user->cekDetailPesanan($idPesanan);
+    // // echo $cekProdukPilihan;
+    // // if ($search[]) {
+    // //     # code...
+    // // } else {
+    // //     # code...
+    // // }
+    // if ($cekProdukPilihan > 1) {
+    //     echo 'lebih dari satu';
+    // } else {
+        if ($idPesanan == $idPesananCek) {
+            // cek status
+            if ($cekStatus == 'Menunggu Konfirmasi') {
+                $del = $user->delProdukPilihan($idProduk, $idPesanan);
+                if ($del == true) {
+                    echo 'berhasil';
+                } else {
+                    echo 'gagal';
+                }
+            } else {
+                echo 'tidak sama';
+            }
+        } else {
+            echo 'refresh halaman, dan silahkan coba lagi';
+        }
+    // }
+    
+    // echo $id;
+    // echo $idPesanan;
+    // echo $idPesananCek;
+    // // $search = $user->fetchPesananByUID($cid);
+    // // $idPesanan = $search['id_pesanan'];
+
+    // // $uid = $searchPesanan['status_pesanan'];
+
+
+    // if ($setQuery == true) {
+    //     // header('location: buat-pesanan.php?id_pesanan=' . $id . '');
+    //     echo 'berhasil';
+    // } else {
+    //     echo 'wrong';
+    // }
+
+    // echo $id;
+    // echo $uid;
+    // echo $idPesanan;
+    // echo $update_id;
+    // echo $update_value;
+} 
+
+// if (isset($_POST['editQTY_id'])) {
+if (isset($_POST['action']) && $_POST['action'] == 'editQTY_id') {
+    $qty = $_POST['qty_update_new'];
+    $id = $_POST['qty_update_id'];
+    $idLayanan = $_POST['qty_update_id_layanan'];
+    $price = $_POST['qty_update_price_layanan'];
+    $subTotal = $qty * $price;
+
+    // echo $qty;
+    // echo $id;
+    // echo $idLayanan;
+    // echo $idProduk[0]['uid_layanan'];
+    
+    $setQuery = $user->upQtyPilihanProduk($qty, $subTotal, $id, $idLayanan);
+    if ($setQuery == true) {
+        echo 'berhasil';
+    } else {
+        echo 'gagal';
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'checkout') {
     // print_r($_POST);
     // $idPesanan = $user->idPesananIncrement();
-    // $idProduk = $user->validate($_POST['id-produk']);
-    // $namaProduk = $user->validate($_POST['nama-produk']);
-    // $hargaProduk = $user->validate($_POST['harga-produk']);
+    if (empty($_POST['Metode-select']) && empty($_POST['karyawan-select'])) {
+        echo 'metode dan kurir belum diisi';
+        die;
+    } else if (empty($_POST['Metode-select'])) {
+        echo 'metode belum diisi';
+        die;
+    } elseif (empty($_POST['karyawan-select'])) {
+        echo 'karyawan belum diisi';
+        die;
+    } elseif (empty($_POST['alamat-pelanggan'])) {
+        echo 'alamat belum diisi';
+        die;
+    } else {
+        $idPesanan = $user->validate($_POST['id-pesanan']);
+        $catatan = $user->validate($_POST['catatan-pesanan']);
+        $metode = $user->validate($_POST['Metode-select']);
+        $alamat = $user->validate($_POST['alamat-pelanggan']);
+        $kurir = $user->validate($_POST['karyawan-select']);
+        $grandTotal = $user->validate($_POST['grandtotal']);
+        
+        // $cek = $user->fetchAllTim($kurir);
+        // $noKaryawan = $cek['i'];
+
+        $set = $user->checkoutPesanan($catatan, $metode, $kurir, $grandTotal, $alamat, $idPesanan);
+        if ($set == true) {
+            echo 'berhasil';
+        } else {
+            echo 'gagal';
+        }
+    } 
+    
+    // if ($metode == '' &&  $kurir == '') {
+    //     echo 'metode dan kurir belum diisi';
+    // // } elseif (condition) {
+    // //     # code...
+    // }
     // $qty = 1;
     // $subTotal = $hargaProduk * $qty;
 
@@ -386,4 +551,22 @@ if (isset($_POST['add_pilih_produk'])) {
     //     $d = $user->addDetailPesanan($idPesanan, $idProduk, $qty, $hargaProduk, $subTotal);
     //     $message = 'produk berhasil ditambahkan';
     // }
-// }
+}
+
+if (isset($_POST['upStatusPesanan_selesai'])) {
+    $id = $_POST['upStatusPesanan_selesai'];
+    
+    $updateStatus = $user->upPesananSelesai($id);
+}
+
+if (isset($_POST['upStatusPesanan_batalkan'])) {
+    $id = $_POST['upStatusPesanan_batalkan'];
+    
+    $updateStatus = $user->upPesananBatal($id);
+}
+
+if (isset($_POST['konfirmasi_pesanan'])) {
+    $id = $_POST['konfirmasi_pesanan'];
+    
+    $updateStatus = $user->upPesananProses($id);
+}

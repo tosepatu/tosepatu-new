@@ -5,11 +5,13 @@ $prd = new Auth();
 <div class="tbl-container">
     <div class="tbl-content">
         <div class="tbl-header">
-            <h3>Semua Produk</h3>
+            <a href="#popup1" style="color: #fff; background-color: #5FD3D0; text-decoration: none; font-size: small;" class="btn-left"><i class="fa-solid fa-user">&nbsp;&nbsp;&nbsp;</i>Tambah Produk</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="tbl-header-right">
-                <a href="#popup1"><i class="fa-solid fa-user">&nbsp;&nbsp;&nbsp;</i>Tambah Produk</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-sort">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-short-wide">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <form action="" method="post" id="add-pesanan-form-search">
+                    <input type="text" name="searchProduk" placeholder="Cari Produk..." id="searchProduk">
+                </form>
             </div>
         </div>
         <div class="tbl-table" id="showAllUser"></div>

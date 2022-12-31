@@ -59,7 +59,7 @@ if (isset($_SESSION['userAdmin'])) {
       <p>
         ToSepatu merupakan usaha dalam bidang jasa cuci sepatu yang
         menyediakan beberapa layanan cuci sepatu dengan harga terjangkau,
-        layanan cepat, dan hasil yang tepat
+        layanan cepat, dan hasil yang tepat.
       </p>
       <a href="#mobileapp" class="btn">Pesan Sekarang</a>
     </div>
@@ -75,31 +75,27 @@ if (isset($_SESSION['userAdmin'])) {
       <div class="box-pertama">
         <h3>Tentang Kami</h3>
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-          ducimus blanditiis, doloribus eligendi eius, dolores nobis numquam
-          est, fuga culpa perspiciatis dolorem facere a similique? Iusto
-          tempore enim non sequi! Lorem ipsum dolor sit amet consectetur,
-          adipisicing elit. Fugiat rem tempore officia exercitationem vitae,
-          eius praesentium assumenda. Beatae, non repellat praesentium iusto
-          officiis culpa quam labore, nulla ducimus omnis ea.
+          Terbentuknya kami ber-awal dari sekelompok pertemanan yang sedang memikirkan kehidupan untuk mengisi waktu luang.
+          Dimulainya bisnis ini pada tanggal 21 September 2022, sementara sampai saat ini 
+          tempatnya berada di Kabupaten Jember.
         </p>
       </div>
       <div class="box">
         <div class="box-content">
           <img src="home/assets//img/box-1.png" alt="box-1" height="200px" width="180px" />
-          <h5>Vitae at enim consectetur amet venenatis ac.</h5>
+          <h5>Struktur layanan bisnis yang kompeten.</h5>
         </div>
       </div>
       <div class="box-center">
         <div class="box-content">
           <img src="home/assets//img/box-2.png" alt="box-2" height="200px" width="168px" />
-          <h5>Laoreet adipiscing vehicula eget justo eros purus.</h5>
+          <h5>Kinerja tim yang solid untuk kenyamanan bersama.</h5>
         </div>
       </div>
       <div class="box">
         <div class="box-content">
           <img src="home/assets//img/box-3.png" alt="box-3" height="200px" width="180px" />
-          <h5>Amet urna quis dictum est sed egestas rutrum.</h5>
+          <h5>Pelayanan cepat demi kepuasan kalian semua.</h5>
         </div>
       </div>
     </div>
@@ -116,9 +112,7 @@ if (isset($_SESSION['userAdmin'])) {
         <h5>Layanan 1</h5>
         <h3>Deep Clean</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Elit nibh
-          augue libero, urna aliquam. Purus at tortor nisl volutpat habitant
-          mauris est.
+          layanan pertama ini untuk cuci sepatu semua bagian seperti Upper, Midsole, Outsole, Insole serta tali sepatu.
         </p>
         <a href="#" class="btn">Baca Selengkapnya</a>
       </div>
@@ -128,9 +122,7 @@ if (isset($_SESSION['userAdmin'])) {
         <h5>Layanan 2</h5>
         <h3>Deep Clean + Sepatu Putih</h3>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Amet,
-          pellentesque nibh dui enim dictum volutpat mattis commodo
-          sollicitudin. Varius pharetra tempus ut duis viverra sagittis est.
+          Pada layanan ini hanya dikhususkan untuk sepatu yang dominan putih. Layanan ini untuk cuci sepatu bagian seperti Upper, Midsole, Outsole, Insole serta tali sepatu.
         </p>
         <a href="#" class="btn">Baca Selengkapnya</a>
       </div>
@@ -146,31 +138,31 @@ if (isset($_SESSION['userAdmin'])) {
     <div class="step-container">
       <h3>Cara Kerja</h3>
       <div class="step">
-        <p>Ipsum sit amet scelerisque quis sagittis donec.</p>
+        <p>Download Aplikasi mobile di playstore atau appstore.</p>
         <div class="step-box">
           <p>01</p>
         </div>
       </div>
       <div class="step">
-        <p>Parturient sed habitant ac purus pulvinar turpis.</p>
+        <p>Daftarkan akun anda dan masuk pada aplikasi.</p>
         <div class="step-box">
           <p>02</p>
         </div>
       </div>
       <div class="step">
-        <p>Mus enim arcu nunc pellentesque lectus nibh.</p>
+        <p>Silahkan pilih layanan dan pesan.</p>
         <div class="step-box">
           <p>03</p>
         </div>
       </div>
       <div class="step">
-        <p>Egestas eleifend sagittis lobortis cursus euismod.</p>
+        <p>Tunggu konfirmasi dari admin.</p>
         <div class="step-box">
           <p>04</p>
         </div>
       </div>
       <div class="step">
-        <p>Gravida lectus facilisis pretium mauris proin.</p>
+        <p>Setelah konfirmasi, pesanan akan di proses.</p>
         <div class="step-box">
           <p>05</p>
         </div>

@@ -9,14 +9,19 @@ if (isset($_GET['id_akun'])) {
 <div class="tbl-container">
     <div class="tbl-content">
         <div class="tbl-header">
-            <h3>Semua Karyawan</h3>
+            <a href="#popup1" style="color: #fff; background-color: #5FD3D0; text-decoration: none; font-size: small;" class="btn-left"><i class="fa-solid fa-user">&nbsp;&nbsp;&nbsp;</i>Tambah Tim</a>
             <div class="tbl-header-right">
-                <a href="#popup1"><i class="fa-solid fa-user">&nbsp;&nbsp;&nbsp;</i>Tambah Tim</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-sort">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>
+            <a href="#"><i class="fa-solid fa-arrow-up-short-wide">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <form action="" method="post">
+                    <input type="text" name="searchKaryawan" placeholder="Cari Karyawan..." id="searchKaryawan">
+                </form>
             </div>
         </div>
-
+        <div class="tab-menu">
+            <button class="tablink w3-red" onclick="openCity(event,'showAllPesanan')">Semua Karyawan</button>
+            <button class="tablink" onclick="openCity(event,'showPesananBaru')">Karyawan Tidak Aktif</button>
+        </div>
         <div class="tbl-table" id="showAllUser"></div>
 
         <div id="popup1" class="overlay">
@@ -75,6 +80,15 @@ if (isset($_GET['id_akun'])) {
                 }
             });
         }
+
+        $('#searchKaryawan').keyup(function() {
+            var searchKaryawan = $("#searchKaryawan").val();
+            if (searchKaryawan === '') {
+                fetchAllUser();
+            } else {
+                load_data(searchKaryawan);
+            }
+        });
 
         // var id_aktif;
 
@@ -244,6 +258,20 @@ if (isset($_GET['id_akun'])) {
         //     });
         // });
     });
+    load_data();
+
+    function load_data(searchKaryawan) {
+        $.ajax({
+            url: "../asset/php/action.php",
+            method: "POST",
+            data: {
+                searchKaryawan: searchKaryawan
+            },
+            success: function(response) {
+                $('#showAllUser').html(response);
+            }
+        });
+    }
 </script>
 </body>
 

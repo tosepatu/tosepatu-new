@@ -47,7 +47,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'login') {
 // all pelanggan 
 if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
     $output = '';
-    $data = $user->fetchAllPelanggan(3);
+    $data = $user->fetchAllPelanggan();
     $path = '../asset/php/uploads/';
 
     if ($data) {
@@ -55,41 +55,37 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
                         <thead>
                             <tr>
                                 <th width="5%">Foto Pelanggan</th>
-                                <th width="15%">ID Pelanggan</th>
-                                <th width="20%">Nama Pelanggan</th>
-                                <th width="20%">Email</th>
-                                <th width="20%">Alamat</th>
-                                <th width="10%">No. Telepon</th>
+                                <th width="20%">ID Pelanggan</th>
+                                <th width="35%">Nama Pelanggan</th>
+                                <th width="30%">No. Telepon</th>
                                 <th width="10%">Aksi</th>
                             </tr>
                         </thead>';
         foreach ($data as $row) {
-            if ($row['foto'] != '') {
-                $ufoto = $path . $row['foto'];
-            } else {
-                $ufoto = '../asset/img/avatarr.png';
-            }
-            if ($row['verified'] == 0) {
-                $row['verified'] = 'Belum Verifikasi';
-            } else {
-                $row['verified'] = 'Sudah Verifikasi';
-            }
-            $ccreated = $row['created_at'];
-            $reg_on = date('d M Y', strtotime($ccreated));
+            // if ($row['foto'] != '') {
+            //     $ufoto = $path . $row['foto'];
+            // } else {
+            $ufoto = '../asset/img/avatarr.png';
+            // }
+            // if ($row['verified'] == 0) {
+            //     $row['verified'] = 'Belum Verifikasi';
+            // } else {
+            //     $row['verified'] = 'Sudah Verifikasi';
+            // }
+            // $ccreated = $row['created_at'];
+            // $reg_on = date('d M Y', strtotime($ccreated));
 
             $output .= '<tbody>
                             <tr>
                                 <td><img src="' . $ufoto . '"></td>
-                                <td>' . $row['id_akun'] . '</td>
-                                <td>' . $row['username'] . '</td>
-                                <td>' . $row['email'] . '</td>
-                                <td>' . $row['alamat'] . '</td>
-                                <td>' . $row['no_telp'] . '</td>
+                                <td>' . $row['id_user'] . '</td>
+                                <td>' . $row['username_user'] . '</td>
+                                <td>' . $row['no_telp_user'] . '</td>
                                 <td>
-                                    <a href="view-pelanggan.php?id_akun=' . $row['id_akun'] . '" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
+                                    <a href="view-pelanggan.php?id_akun=' . $row['id_user'] . '" id="' . $row['id_user'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
                                     
                                 
-                                    <a href="#" id="' . $row['id_akun'] . '" title="Hapus Pengguna" class="hapusUserIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
+                                    <a href="#" id="' . $row['id_user'] . '" title="Hapus Pengguna" class="hapusUserIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
                                 </td>
                             </tr>
                         </tbody>';
@@ -97,7 +93,14 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelanggan') {
         $output .= '</table>';
         echo $output;
     } else {
-        echo 'WRong';
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada data pelanggan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
     }
 }
 
@@ -129,7 +132,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukk') {
                                 <td><img src="' . $ufoto . '"></td>
                                 <td>' . $row['id_layanan'] . '</td>
                                 <td>' . $row['nama_layanan'] . '</td>
-                                <td>' . $row['harga_layanan'] . '</td>
+                                <td>Rp. ' . number_format($row['harga_layanan']) . '</td>
                                 <td>
                                 <a href="edit-produk.php?id_layanan=' . $row['id_layanan'] . '" id="' . $row['id_layanan'] . '" title="Edit Produk" class="editProdukIcon"><i class="fa-solid fa-pen-to-square edit"></i></a>&nbsp;&nbsp;
                                 
@@ -142,47 +145,72 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukk') {
         $output .= '</table>';
         echo $output;
     } else {
-        echo 'WRong';
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada data produk</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
     }
 }
 
-// show semua pesanan
-if (isset($_POST['action']) && $_POST['action'] == 'showAllPesanan') {
+// show pesanan baru
+if (isset($_POST['action']) && $_POST['action'] == 'showPesananBaru') {
     $output = '';
-    $data = $user->fetchAllPesanan();
-    
-    
+    $data = $user->fetchPesananBaru();
+
+
     $path = '../asset/php/uploads/';
 
     if ($data) {
         $output .= '<table>
                         <thead>
                             <tr>
-                                <th >ID Pesanan</th>
-                                <th >Metode Pengiriman</th>
-                                <th >Nama Pelanggan</th>
-                                <th >Catatan</th>
-                                <th >Total Keseluruhan</th>
-                                <th >Tanggal Pesanan</th>
-                                <th >Estimasi Pengiriman</th>
-                                <th >Status Pesanan</th>
-                                <th >Aksi</th>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
                             </tr>
                         </thead>
                         <tbody>';
         foreach ($data as $row) {
             $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
             $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            if ($namaPelanggan != null) {
+                $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+            } else {
+                $formatNamaPelanggan = 'Belum Memasukkan Nama Pelanggan';
+            }
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+
+            $konfirmasi = $row['status_pesanan'] == "Menunggu Konfirmasi";
+            $konfirmasi = 'Konfirmasi';
             $output .= '<tr>
                                 <td>' . $row['id_pesanan'] . '</td>
                                 <td>' . $metode . '</td>
-                                <td>' . $row['uid_akun'] . '</td>
-                                <td>' . $row['catatan'] . '</td>
-                                <td>' . $row['grand_total'] . '</td>
-                                <td>' . $row['tanggal_masuk'] . '</td>
-                                <td>' . $row['tanggal_selesai'] . '</td>
-                                <td>' . $row['status_pesanan'] . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">
+                                    <a href="" class="status-pesanan-konfirmasi">
+                                        ' . $konfirmasi . '
+                                    </a>
+                                </td>
                                 <td>
+                                <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
                                     <form action="" method="post" id="form-pilih-produk">
                                     </form>
                                 </td>
@@ -192,7 +220,303 @@ if (isset($_POST['action']) && $_POST['action'] == 'showAllPesanan') {
         $output .= '</table>';
         echo $output;
     } else {
-        echo 'WRong';
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan baru</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// show pesanan proses
+if (isset($_POST['action']) && $_POST['action'] == 'showPesananProses') {
+    $output = '';
+    $data = $user->fetchPesananProses();
+
+
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">
+                                    <a href="" class="status-pesanan-proses">
+                                        ' . $row['status_pesanan'] . '
+                                    </a>
+                                </td>
+                                <td>
+                                <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
+                                    <form action="" method="post" id="form-pilih-produk">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan diproses</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// show pesanan selesai
+if (isset($_POST['action']) && $_POST['action'] == 'showPesananSelesai') {
+    $output = '';
+    $data = $user->fetchPesananSelesai();
+
+
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">
+                                    <a href="" class="status-pesanan-selesai">
+                                        ' . $row['status_pesanan'] . '
+                                    </a>
+                                </td>
+                                <td>
+                                <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
+                                    <form action="" method="post" id="form-pilih-produk">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan selesai</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// show pesanan batal
+if (isset($_POST['action']) && $_POST['action'] == 'showPesananBatal') {
+    $output = '';
+    $data = $user->fetchPesananBatal();
+
+
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">
+                                    <a href="" class="status-pesanan-batal">
+                                        ' . $row['status_pesanan'] . '
+                                    </a>
+                                </td>';
+
+            $output .=  '<td>
+                            <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
+                            <form action="" method="post" id="form-pilih-produk">
+                        </td>
+                    </tr>
+                </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan dibatalkan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// show semua Pesanan 
+if (isset($_POST['action']) && $_POST['action'] == 'showAllPesanan') {
+    $output = '';
+    $data = $user->fetchAllPesanan();
+
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            if ($namaPelanggan != null) {
+                $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+            } else {
+                $formatNamaPelanggan = 'Belum Memasukkan Nama Pelanggan';
+            }
+
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+
+            $konfirmasi = $row['status_pesanan'] == "Menunggu Konfirmasi";
+            $konfirmasi = 'Konfirmasi';
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">';
+            if ($row['status_pesanan'] == 'Proses') {
+                $output .= '<a href="" class="status-pesanan-proses" id="' . $row['id_pesanan'] . '">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else if ($row['status_pesanan'] == 'Selesai') {
+                $output .= '<a href="" class="status-pesanan-selesai" title="Lihat Nota">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else if ($row['status_pesanan'] == 'Dibatalkan') {
+                $output .= '<a href="" class="status-pesanan-batal">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else {
+                $output .= '<a href="edit-status-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" class="status-pesanan-konfirmasi">
+                                ' . $konfirmasi . '
+                            </a>';
+            }
+            $output .= '</td>';
+            $output .= '<td>
+                            <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
     }
 }
 
@@ -214,7 +538,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'pilihProduk') {
                                 <div class="box">            
                                     <img src="' . $ufoto . '" height="250px">
                                     <h3>' . $row['nama_layanan'] . '</h3>
-                                    <div class="price">' . $row['harga_layanan'] . '</div>
+                                    <div class="price">Rp. ' . number_format($row['harga_layanan']) . '</div>
                                     <input type="hidden" name="id-produk" value="' . $row['id_layanan'] . '">
                                     <input type="hidden" name="nama-produk" value="' . $row['nama_layanan'] . '">
                                     <input type="hidden" name="harga-produk" value="' . $row['harga_layanan'] . '">
@@ -337,23 +661,20 @@ if (isset($_POST['add_pilih_produk'])) {
 
 if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelangganPesanan') {
     $output = '';
-    $data = $user->fetchAllPelanggan(3);
-    $path = '../asset/php/uploads/';
+    $data = $user->fetchAllPelanggan();
+    // $path = '../asset/php/uploads/';
 
     if ($data) {
-        $output .= '<table class="cari-pelanggan">';
+        $output .= '<table class="cari-pelanggan">
+                    <h4>Pelanggan Terdaftar</h4><br>';
         foreach ($data as $row) {
-            if ($row['foto'] != '') {
-                $ufoto = $path . $row['foto'];
-            } else {
-                $ufoto = '../asset/img/avatarr.png';
-            }
+            $ufoto = '../asset/img/avatarr.png';
             $output .= '<tbody style="border-top: 1px solid #ddd;">
                             <tr>
                                 <td width="10%"><img src="' . $ufoto . '"></td>
-                                <td width="80%" class="tage">' . $row['username'] . '<br>' . $row['no_telp'] . '</td>
-                                <td width="10%">
-                                    <a href="" id="' . $row['id_akun'] . '" title="Pilih Pelanggan" class="PelaangganConfirmIcon"><i class="fa-regular fa-square-check cek"></i></a>&nbsp;&nbsp;
+                                <td width="75%" class="tage">' . $row['username_user'] . '<br>' . $row['no_telp_user'] . '</td>
+                                <td width="15%">
+                                    <input type="submit" value="Pilih Pelanggan" id="' . $row['id_user'] . '" class="pilihPelangganPopup">
                                 </td>
                             </tr>
                         </tbody>';
@@ -361,31 +682,136 @@ if (isset($_POST['action']) && $_POST['action'] == 'fetchAllPelangganPesanan') {
         $output .= '</table>';
         echo $output;
     } else {
-        echo 'Tidak Ditemukan';
+        $output .= '<table class="cari-pelanggan">';
+        $output .= '<tbody style="border-top: 1px solid #ddd;">
+                            <tr>
+                                <td><p>Ketuk <a href="">"Simpan" </a>untuk membuat pelanggan ini</p></td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'fetchAllProdukPilihan') {
+    $output = '';
+    $data = $user->fetchPesananBystatus();
+    $idPesanan = $data['id_pesanan'];
+    $cek = $user->fetchAllDetailPesananByID($idPesanan);
+
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table id="table_id">';
+        foreach ($cek as $row) {
+            // panggil fungsi tampil data produk layanan
+            $fotoProduk = $user->fetchAllProdukByID($row['uid_layanan']);
+            $namaProduk = $fotoProduk['nama_layanan'];
+            $foto = $fotoProduk['foto_layanan'];
+            if ($foto != '') {
+                $ufoto = $path . $foto;
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<tbody>
+                            <tr>
+                                <td width="5%"><img src="' . $ufoto . '"></td>
+                                <td width="10%">' . $namaProduk . '</td>
+                                <td width="10%">' . number_format($row['harga_layanan']) . '</td>
+                                <td width="15%">
+                                    <input type="number" name="qty_update_new" min="1" value="' . $row['qty'] . '">
+                                </td>
+                                <td width="15%">' . $row['sub_total'] . '</td>
+                                <td width="15%">
+                                <a href="" id="' . $row['uid_layanan'] . '" title="Hapus produk" class="hapusProdukBtn">Hapus Produk</a>
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        echo 'sala';
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == '-') {
+    $output = '';
+    $data = $user->fetchPesananBystatus();
+    $idPesanan = $data['id_pesanan'];
+
+    $pilihan = $user->fetchAllDetailPesananByID($idPesanan);
+
+    $path = '../asset/php/uploads/';
+
+    if ($pilihan != null) {
+        // $output = '<div class="bungkus-box">';
+        foreach ($pilihan as $row) {
+            // insiasi
+            $hargaProduk = $row['harga_layanan'];
+            $subTotal = $row['sub_total'];
+
+            // panggil fungsi tampil data produk layanan
+            $dataProduk = $user->fetchAllProdukByID($row['uid_layanan']);
+            $namaProduk = $dataProduk['nama_layanan'];
+            $foto = $dataProduk['foto_layanan'];
+
+            if ($foto != '') {
+                $ufoto = $path . $foto;
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            $output .= '<form action="" method="post" id="qty_form">
+                <div class="box-pilihan-produk">
+                    <div class="foto-produk-pilihan">
+                        <img src="' . $ufoto . '">
+                    </div>
+                    <div class="data-produk-pilihan">
+                        <p>' . $namaProduk . '</p>
+                        <input type="hidden" name="nama-produk-pilihan">
+                        <p>' . $hargaProduk . '</p>
+                        <input type="hidden" name="harga-produk-pilihan">
+                    </div>
+                    <div class="data-produk-pilihan-aksi">    
+                        <input type="hidden" name="qty_update_id" value="' . $row['uid_pesanan'] . '">
+                        <input type="hidden" name="qty_update_id_layanan" value="' . $row['uid_layanan'] . '">
+                        <input type="number" name="qty_update_new" min="1" value="' . $row['qty'] . '">
+                        <input type="submit" name="qty_update_btn" value="Perbarui Jumlah" id="' . $row['uid_layanan'] . '" class="qty_update_btn">
+                        <input type="text" name="subtotal-produk-pilihan" readonly value="' . $subTotal . '">
+                        <a href="#" id="' . $row['uid_layanan'] . '" title="Hapus produk" class="hapusProdukBtn">Hapus Produk</a>
+                    </div>        
+                </div>
+            </form>';
+        }
+        // $output .= '</div>';
+        echo $output;
+    } else {
+        $output .= '<a href="keranjang.php?id_pesanan=' . $idPesanan . '">
+        <i class="fa-solid fa-box-open"></i>
+        <label>Tambah Produk</label>
+    </a>';
+        echo $output;
     }
 }
 
 // pilih pelanggan
 if (isset($_POST['search'])) {
     $keyword = $_POST['search'];
-    $data = $user->search($keyword);
+    $data = $user->searchPelanggan($keyword);
     $output = '';
     $path = '../asset/php/uploads/';
 
     if ($data) {
-        $output .= '<table class="cari-pelanggan">';
+        $output .= '<table class="cari-pelanggan">
+                    <h4>Pelanggan Terdaftar</h4><br>';
         foreach ($data as $row) {
-            if ($row['foto'] != '') {
-                $ufoto = $path . $row['foto'];
-            } else {
-                $ufoto = '../asset/img/avatarr.png';
-            }
+            $ufoto = '../asset/img/avatarr.png';
             $output .= '<tbody style="border-top: 1px solid #ddd;">
                                 <tr>
                                     <td width="10%"><img src="' . $ufoto . '"></td>
-                                    <td width="80%" class="tage">' . $row['username'] . '<br>' . $row['no_telp'] . '</td>
-                                    <td width="10%">
-                                        <a href="" id="' . $row['id_akun'] . '" onclick="post_value(' . $row['username'] . ')" title="Pilih Pelanggan" class="PelangganConfirmIcon"><i class="fa-regular fa-square-check cek"></i></a>&nbsp;&nbsp;
+                                    <td width="75%" class="tage">' . $row['username_user'] . '<br>' . $row['no_telp_user'] . '</td>
+                                    <td width="15%">
+                                        <input type="submit" value="Pilih Pelanggan" id="' . $row['id_user'] . '" class="pilihPelangganPopup">
                                     </td>
                                 </tr>
                             </tbody>';
@@ -396,7 +822,79 @@ if (isset($_POST['search'])) {
         $output .= '<table class="cari-pelanggan">';
         $output .= '<tbody style="border-top: 1px solid #ddd;">
                             <tr>
-                                <td><a href="">Tambah Pelanggan</a></td>
+                                <td><p>Pelanggan tidak ditemukan</p></td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// pilih pelanggan berdasarkan nama
+if (isset($_POST['searchByName'])) {
+    $keyword = $_POST['searchByName'];
+    $data = $user->searchPelangganByName($keyword);
+    $output = '';
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table class="cari-pelanggan">
+                    <h4>Pelanggan Terdaftar</h4><br>';
+        foreach ($data as $row) {
+            $ufoto = '../asset/img/avatarr.png';
+            $output .= '<tbody style="border-top: 1px solid #ddd;">
+                                <tr>
+                                    <td width="10%"><img src="' . $ufoto . '"></td>
+                                    <td width="75%" class="tage">' . $row['username_user'] . '<br>' . $row['no_telp_user'] . '</td>
+                                    <td width="15%">
+                                        <input type="submit" value="Pilih Pelanggan" id="' . $row['id_user'] . '" class="pilihPelangganPopup">
+                                    </td>
+                                </tr>
+                            </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table class="cari-pelanggan">';
+        $output .= '<tbody style="border-top: 1px solid #ddd;">
+                            <tr>
+                                <td><p>Pelanggan tidak ditemukan</p></td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
+// pilih pelanggan berdasarkan no telp
+if (isset($_POST['searchByNoTelp'])) {
+    $keyword = $_POST['searchByNoTelp'];
+    $data = $user->searchPelangganByNoTelp($keyword);
+    $output = '';
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table class="cari-pelanggan">
+                    <h4>Pelanggan Terdaftar</h4><br>';
+        foreach ($data as $row) {
+            $ufoto = '../asset/img/avatarr.png';
+            $output .= '<tbody style="border-top: 1px solid #ddd;">
+                                <tr>
+                                    <td width="10%"><img src="' . $ufoto . '"></td>
+                                    <td width="75%" class="tage">' . $row['username_user'] . '<br>' . $row['no_telp_user'] . '</td>
+                                    <td width="15%">
+                                        <input type="submit" value="Pilih Pelanggan" id="' . $row['id_user'] . '" class="pilihPelangganPopup">
+                                    </td>
+                                </tr>
+                            </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table class="cari-pelanggan">';
+        $output .= '<tbody style="border-top: 1px solid #ddd;">
+                            <tr>
+                                <td><p>Pelanggan tidak ditemukan</p></td>
                             </tr>
                         </tbody>';
         $output .= '</table>';
@@ -423,10 +921,11 @@ if (isset($_POST['searchProduk'])) {
                                 <div class="box">            
                                     <img src="' . $ufoto . '" height="250px">
                                     <h3>' . $row['nama_layanan'] . '</h3>
-                                    <div class="price">' . $row['harga_layanan'] . '</div>
+                                    <div class="price">Rp. ' . number_format($row['harga_layanan']) . '</div>
+                                    <input type="hidden" name="id-produk" value="' . $row['id_layanan'] . '">
                                     <input type="hidden" name="nama-produk" value="' . $row['nama_layanan'] . '">
                                     <input type="hidden" name="harga-produk" value="' . $row['harga_layanan'] . '">
-                                    <input type="submit" name="update_qty_btn" value="Pilih Produk" id="addPesananProduk" class="addPesanan">
+                                    <input type="submit" name="update_qty_btn" value="Pilih Produk" id="' . $row['id_layanan'] . '" class="addPesanan">
                                 </div>
                             </form>';
         }
@@ -444,6 +943,69 @@ if (isset($_POST['searchProduk'])) {
     }
 }
 
+if (isset($_POST['searchKaryawan'])) {
+    $keyword = $_POST['searchKaryawan'];
+    $output = '';
+    $data = $user->searchKaryawan($keyword);
+    $path = '../asset/php/uploads/';
+
+    if ($data) {
+        $output .= '<table id="table_id">
+                        <thead>
+                            <tr>
+                                <th width="5%">Foto Karyawan</th>
+                                <th width="15%">Id Karyawan</th>
+                                <th width="20%">Nama Karyawan</th>
+                                <th width="20%">Email</th>
+                                <th width="20%">Alamat</th>
+                                <th width="10%">No. Telepon</th>
+                                <th width="10%">Aksi</th>
+                            </tr>
+                        </thead>';
+        foreach ($data as $row) {
+            if ($row['foto'] != '') {
+                $ufoto = $path . $row['foto'];
+            } else {
+                $ufoto = '../asset/img/avatarr.png';
+            }
+            if ($row['verified'] == 0) {
+                $row['verified'] = 'Belum Verifikasi';
+            } else {
+                $row['verified'] = 'Sudah Verifikasi';
+            }
+            $ccreated = $row['created_at'];
+            $reg_on = date('d M Y', strtotime($ccreated));
+
+            $output .= '<tbody>
+                            <tr>
+                                <td><img src="' . $ufoto . '"></td>
+                                <td>' . $row['id_akun'] . '</td>
+                                <td>' . $row['username'] . '</td>
+                                <td>' . $row['email'] . '</td>
+                                <td>' . $row['alamat'] . '</td>
+                                <td>' . $row['no_telp'] . '</td>
+                                <td>
+                                    <a href="view.php?id_akun=' . $row['id_akun'] . '" id="' . $row['id_akun'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-circle-info view"></i></a>&nbsp;&nbsp;
+
+                                    <a href="#" id="' . $row['id_akun'] . '" title="Hapus Pengguna" class="hapusUserIcon"><i class="fa-solid fa-trash delete"></i></a>&nbsp;&nbsp;
+                                </td>
+                            </tr>
+                        </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Karyawan tidak ditemukan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}
+
 // handle display user detail 
 // if (isset($_POST['details_id'])) {
 //     $id = $_POST['details_id'];
@@ -454,3 +1016,120 @@ if (isset($_POST['searchProduk'])) {
 //     echo $id;
 //     // echo json_encode($data);
 // }
+
+if (isset($_POST['qty'])) {
+    $idp = $_POST['idp'];
+    $qty = $_POST['qty'];
+    $pid = $_POST['pid'];
+    $pprice = $_POST['pprice'];
+
+    $tprice = $qty * $pprice;
+
+    $up = $user->upQtyPilihanProduk($qty, $tprice, $idp, $pid);
+}
+
+if (isset($_POST['mtd'])) {
+    $idp = $_POST['idp'];
+    $mtd = $_POST['mtd'];
+
+    $up = $user->upMetodePengiriman($mtd, $idp);
+}
+
+if (isset($_POST['changeAlamat'])) {
+    $key = $_POST['changeAlamat'];
+    $idp = $_POST['idp'];
+    $up = $user->upAlamat($key, $idp);
+}
+
+if (isset($_POST['kar'])) {
+    $kar = $_POST['kar'];
+    $idp = $_POST['idp'];
+    // echo $kar;
+    // echo $idp;
+    $up = $user->upKaryawan($kar, $idp);
+}
+
+if (isset($_POST['searchPesanan'])) {
+    $keyword = $_POST['searchPesanan'];
+    $output = '';
+    $data = $user->searchPesanan($keyword);
+
+    if ($data) {
+        $output .= '<table>
+                        <thead>
+                            <tr>
+                                <th width="10%">ID Pesanan</th>
+                                <th width="15%">Metode Pengiriman</th>
+                                <th width="20%">Nama Pelanggan</th>
+                                <th width="10%">Total Keseluruhan</th>
+                                <th width="15%">Tanggal Pesanan</th>
+                                <th width="15%">Estimasi Pengiriman</th>
+                                <th width="10%">Status Pesanan</th>
+                                <th width="5%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        foreach ($data as $row) {
+            $mt = $user->fetchAllMetodePengambilanByID($row['uid_pengiriman']);
+            $metode = $mt['nama_pengiriman'];
+
+            $namaPelanggan = $user->fetchAllPelangganByID($row['uid_user']);
+            if ($namaPelanggan != null) {
+                $formatNamaPelanggan = $namaPelanggan[0]['username_user'];
+            } else {
+                $formatNamaPelanggan = 'Belum Memasukkan Nama Pelanggan';
+            }
+
+
+            $pesananMasuk = $row['tanggal_masuk'];
+            $estimasi = $row['tanggal_selesai'];
+            $formatPesananMasuk = date('d M Y', strtotime($pesananMasuk));
+            $formatEstimasi = date('d M Y', strtotime($estimasi));
+
+            $konfirmasi = $row['status_pesanan'] == "Menunggu Konfirmasi";
+            $konfirmasi = 'Konfirmasi';
+            $output .= '<tr>
+                                <td>' . $row['id_pesanan'] . '</td>
+                                <td>' . $metode . '</td>
+                                <td>' . $formatNamaPelanggan . '</td>
+                                <td>Rp. ' . number_format($row['grand_total']) . '</td>
+                                <td>' . $formatPesananMasuk . '</td>
+                                <td>' . $formatEstimasi . '</td>
+                                <td class="status-now">';
+            if ($row['status_pesanan'] == 'Proses') {
+                $output .= '<a href="" class="status-pesanan-proses" id="' . $row['id_pesanan'] . '">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else if ($row['status_pesanan'] == 'Selesai') {
+                $output .= '<a href="" class="status-pesanan-selesai" title="Lihat Nota">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else if ($row['status_pesanan'] == 'Dibatalkan') {
+                $output .= '<a href="" class="status-pesanan-batal">
+                                ' . $row['status_pesanan'] . '
+                            </a>';
+            } else {
+                $output .= '<a href="edit-status-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" class="status-pesanan-konfirmasi">
+                                ' . $konfirmasi . '
+                            </a>';
+            }
+            $output .= '</td>';
+            $output .= '<td>
+                            <a href="view-pesanan.php?id_pesanan=' . $row['id_pesanan'] . '" id="' . $row['id_pesanan'] . '" title="Lihat Detail" class="userDetailIcon"><i class="fa-solid fa-ellipsis-vertical dot"></i></a>&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                </tbody>';
+        }
+        $output .= '</table>';
+        echo $output;
+    } else {
+        $output .= '<table>';
+        $output .= '<tbody class="cariProduk">
+                            <tr>
+                                <td>Tidak ada pesanan</td>
+                            </tr>
+                        </tbody>';
+        $output .= '</table>';
+        echo $output;
+    }
+}

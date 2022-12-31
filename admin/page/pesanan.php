@@ -13,166 +13,56 @@ $mtd = $tbl->fetchAllMetodePengambilan();
                 <!-- <input type="hidden" name="id-pesanan" value=""> -->
                 <input type="hidden" name="metode-pengiriman-sementara" value="MT220921002">
                 <a href="" id="<?php
-                                $dataa = $tbl->idPesananIncrement(); echo $dataa;
+                                $dataa = $tbl->idPesananIncrement();
+                                echo $dataa;
                                 ?>" class="btn-buat-pesanan">
                     <i class="fa-sharp fa-solid fa-cart-plus">&nbsp;&nbsp;&nbsp;</i>Buat Pesanan
                 </a>
             </form>
             <div class="tbl-header-right">
-                <a href="#"><i class="fa-solid fa-sort">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>
+                <a href="#" onclick="sort(0)" class="sortById"><i class="fa-solid fa-arrow-up-short-wide">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <form action="" method="post" id="add-pesanan-form-search">
+                    <input type="text" name="searchPesanan" placeholder="Cari Pesanan..." id="searchPesanan">
+                </form>
             </div>
         </div>
         <div class="tab-menu">
-            <button class="tablink w3-red" onclick="openCity(event,'Semua Pesanan')">Semua Pesanan</button>
-            <button class="tablink" onclick="openCity(event,'Pesanan Baru')">Pesanan Baru</button>
-            <button class="tablink" onclick="openCity(event,'Pesanan Proses')">Proses</button>
-            <button class="tablink" onclick="openCity(event,'Pesanan Dikirim')">Dikirim</button>
-            <button class="tablink" onclick="openCity(event,'Pesanan Selesai')">Selesai</button>
-            <button class="tablink" onclick="openCity(event,'Pesanan Gagal')">Gagal</button>
+            <button class="tablink w3-red" onclick="openCity(event,'showAllPesanan')">Semua Pesanan</button>
+            <button class="tablink" onclick="openCity(event,'showPesananBaru')">Pesanan Baru</button>
+            <button class="tablink" onclick="openCity(event,'showPesananProses')">Pesanan Di Proses</button>
+            <button class="tablink" onclick="openCity(event,'showPesananSelesai')">Pesanan Selesai</button>
+            <button class="tablink" onclick="openCity(event,'showPesananBatal')">Pesanan Dibatalkan</button>
         </div>
-        <div class="tbl-table" id="showAllPesanan">
-            <div class="write">NOT</div>
-        </div>
-    </div>
-
-</div>
-
-<div class="tbl-container" id="Buat Pesanan" style="display: none;">
-    <div class="tbl-content">
-        <div class="tbl-header">
-            <h3><a href="pesanan.php" class="tablink"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Buat Pesanan</a></h3>
-            <div class="tbl-header-right">
-                <!-- <input type="text" name="id-pesanan" readonly value=""> -->
-            </div>
-        </div>
-
-        <div class="form-add-pesanan">
-            <form action="#" method="post" id="add-pesanan-form">
-                <div class="add-id-pesanan">
-                    <label><b>ID Pesanan</b></label>
-                    <input type="text" name="id-pesanan" readonly value="<?= $tbl->idPesananIncrement(); ?>">
-                </div>
-                <div class="info-pelanggan">
-                    <label><b>Info Pelanggan</b></label>
-                    <button type="submit" id="modal-info-pelanggan">
-                        <i class="fa-solid fa-id-card"></i>
-                        <label>Masukkan Pelanggan</label>
-                    </button>
-
-                </div>
-                <div class="info-produk-pesanan">
-                    <label><b>Produk Layanan</b></label>
-                    <button>
-                        <i class="fa-solid fa-box-open"></i>
-                        <label>Tambah Produk</label>
-                    </button>
-                </div>
-                <div class="catatan-produk-pesanan">
-                    <label><b>Catatan Pesanan (Opsional)</b></label>
-                    <textarea name="catatan-pesanan" rows="5" style="resize: none; border: 1px solid #ddd; border-radius: 8px;"></textarea>
-                </div>
-                <div class="metode-pengambilan-pesanan">
-                    <label><b>Metode Pengambilan</b></label>
-                    <select name="karyawan-select">
-                        <option>--- Pilih Metode ---</option>
-                        <?php
-                        $output = '';
-                        foreach ($mtd as $row) {
-                            $output .= '<option value="' . $row['id_pengiriman'] .
-                                '">' . $row['nama_pengiriman'] .
-                                '</option>';
-                        }
-                        echo $output;
-                        ?>
-                    </select>
-                </div>
-                <div class="alamat-produk-pesanan">
-                    <label><b>Alamat</b></label>
-                    <input id="cek" type="text" name="nama-pelanggan" placeholder="Masukkan Alamat Pelanggan">
-                </div>
-                <div class="pilih-karyawan-pesanan">
-                    <label><b>Pilih Karyawan</b></label>
-                    <select name="karyawan-select">
-                        <option>--- Pilih Kurir ---</option>
-                        <?php
-                        $output = '';
-                        foreach ($kurir as $row) {
-                            $output .= '<option value="' . $row['id_akun'] .
-                                '">' . $row['username'] .
-                                '</option>';
-                        }
-                        echo $output;
-                        ?>
-                    </select>
-                    <!-- <input type="text" name="nama-pelanggan" placeholder="Masukkan Nama Keryawan"> -->
-                </div>
-                <br>
-                <input class="btn-buat-pesanan" type="submit" id="add_data" value="Buat Pesanan" disabled="disabled" />
-                <!-- <button class="btn-buat-pesanan" type="submit" id="add-pesanan-btn" disabled>Tambah</button> -->
-            </form>
-        </div>
-
+        <div class="tbl-table" id="showAllPesanan"></div>
+        <div class="tbl-table" id="showPesananBaru" style="display: none;"></div>
+        <div class="tbl-table" id="showPesananProses" style="display: none;"></div>
+        <div class="tbl-table" id="showPesananSelesai" style="display: none;"></div>
+        <div class="tbl-table" id="showPesananBatal" style="display: none;"></div>
     </div>
 </div>
 
-<!-- <div class="tbl-container" id="Pesanan Baru" style="display: none;">
-    <div class="tbl-content">
-        <div class="tbl-header">
-        <h3><a href="pesanan.php" class="tablink"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;&nbsp;Buat Pesanan</a></h3>
-            <div class="tbl-header-right">
-                <input type="text" name="id-pesanan" readonly value=""> 
-            </div>
-        </div>
-        <div class="tbl-table" id="showAllPesanan">
-        </div>
-    </div>
-</div> -->
-
-<div class="tbl-container" id="Pesanan Baru" style="display: none;">
-    <div class="tbl-content">
-        <div class="tbl-header">
-            <button onclick="openCity(event, 'Buat Pesanan')">
-                <i class="fa-sharp fa-solid fa-cart-plus">&nbsp;&nbsp;&nbsp;</i>Buat Pesanan
-            </button>
-            <div class="tbl-header-right">
-                <a href="#"><i class="fa-solid fa-sort">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>
-            </div>
-        </div>
-        <div class="tbl-table" id="showAllPesanan">
-            <div class="write">NOT</div>
-        </div>
-    </div>
-
-</div>
-
-<div class="tbl-container" id="Pesanan Proses" style="display: none;">
-    <div class="tbl-content">
-        <div class="tbl-header">
-            <h3><a href="#" class="tablink" onclick="openCity(event, 'Semua Pesanan')"><i class="fa-solid fa-arrow-left"></i></a>&nbsp;&nbsp;&nbsp;Buat Pesanan</h3>
-            <div class="tbl-header-right">
-                <input type="text" name="id-pesanan" readonly value="<?= $tbl->idPesananIncrement(); ?>">
-            </div>
-        </div>
-        <div class="box-container" id="showPilihProduk">
-
-            <!-- <form action="" method="POST">
-                <div class="boc">
-                    <img src="">
-                </div>
-            </form> -->
-        </div>
-        <div class="tbl-table" id="showAllProdukk">
-        </div>
-    </div>
-</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Link Ajax Request-->
 <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
 <script>
     function openCity(evt, cityName) {
         var i, x, tablinks;
-        x = document.getElementsByClassName("tbl-container");
+        x = document.getElementsByClassName("tbl-table");
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < x.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+        }
+        document.getElementById(cityName).style.display = "flex";
+        evt.currentTarget.className += " w3-red";
+    }
+
+    function sort(evt, sortName) {
+        var i, x, sortById;
+        x = document.getElementsByClassName("tbl-table");
         for (i = 0; i < x.length; i++) {
             x[i].style.display = "none";
         }
@@ -185,24 +75,6 @@ $mtd = $tbl->fetchAllMetodePengambilan();
     }
 
     $(document).ready(function() {
-        $("#pilihan-produk").click(function(e) {
-            e.preventDefault();
-            // $(this).text('Tunggu Sebentar...');
-            $.ajax({
-                url: '../asset/php/prosess.php',
-                method: 'post',
-                processData: false,
-                contentType: false,
-                cache: false,
-                data: {
-                    action: 'addPesanan'
-                },
-                success: function(response) {
-                    console.log(response);
-                }
-            });
-        });
-
         fetchAllPesanan();
 
         function fetchAllPesanan() {
@@ -213,26 +85,74 @@ $mtd = $tbl->fetchAllMetodePengambilan();
                     action: 'showAllPesanan'
                 },
                 success: function(response) {
-                    // console.log(response);
                     $("#showAllPesanan").html(response);
                 }
             });
         }
 
-        // $('form > input#cek').keyup(function() {
-        //     var empty = false;
-        //     $('form > input').each(function() {
-        //         if ($(this).val() == '') {
-        //             empty = true;
-        //         }
-        //     });
+        fetchPesananBaru();
 
-        //     if (empty) {
-        //         $('#add_data').attr('disabled', 'disabled');
-        //     } else {
-        //         $('#add_data').removeAttr('disabled');
-        //     }
-        // })
+        function fetchPesananBaru() {
+            $.ajax({
+                url: '../asset/php/action.php',
+                method: 'post',
+                data: {
+                    action: 'showPesananBaru'
+                },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showPesananBaru").html(response);
+                }
+            });
+        }
+
+        fetchPesananProses();
+
+        function fetchPesananProses() {
+            $.ajax({
+                url: '../asset/php/action.php',
+                method: 'post',
+                data: {
+                    action: 'showPesananProses'
+                },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showPesananProses").html(response);
+                }
+            });
+        }
+
+        fetchPesananSelesai();
+
+        function fetchPesananSelesai() {
+            $.ajax({
+                url: '../asset/php/action.php',
+                method: 'post',
+                data: {
+                    action: 'showPesananSelesai'
+                },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showPesananSelesai").html(response);
+                }
+            });
+        }
+
+        fetchPesananBatal();
+
+        function fetchPesananBatal() {
+            $.ajax({
+                url: '../asset/php/action.php',
+                method: 'post',
+                data: {
+                    action: 'showPesananBatal'
+                },
+                success: function(response) {
+                    // console.log(response);
+                    $("#showPesananBatal").html(response);
+                }
+            });
+        }
 
         $("body").on("click", ".btn-buat-pesanan", function(e) {
             if ($("#buat-pesanan-btn-form")[0].checkValidity()) {
@@ -245,11 +165,38 @@ $mtd = $tbl->fetchAllMetodePengambilan();
                         addPesanan_id: addPesanan_id
                     },
                     success: function(response) {
-                        console.log(response);
+                        // console.log(response);
                         if (response === 'berhasil') {
                             window.location = 'buat-pesanan.php?id_pesanan=<?php $dataa = $tbl->idPesananIncrement();
                                                                             echo $dataa; ?>';
+                        } else if (response === 'memiliki pesanan yang belum selesai') {
+                            Swal.fire({
+                                title: 'Anda memiliki pesanan yang belum terselesaikan.',
+                                text: 'Lanjutkan Pesanan?',
+                                type: 'warning',
+                                position: 'center',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Lanjutkan!'
+                            }).then((result) => {
+                                if (result.value) {
+                                    $.ajax({
+                                        url: '../asset/php/prosess.php',
+                                        method: 'post',
+                                        data: {
+                                            action: 'addPesanan_id_'
+                                        },
+                                        success: function(response) {
+                                            // console.log(response);
+                                            window.location = 'buat-pesanan.php?id_pesanan=' + response;
+                                        }
+                                    })
+                                }
+                            })
                         } else {
+                            console.log(response);
                             Swal.fire({
                                 position: 'center',
                                 icon: 'error',
@@ -261,6 +208,131 @@ $mtd = $tbl->fetchAllMetodePengambilan();
             }
         });
 
+        $('#searchPesanan').keyup(function() {
+            var searchPesanan = $("#searchPesanan").val();
+            if (searchPesanan === '') {
+                fetchAllPesanan();
+            } else {
+                load_data(searchPesanan);
+            }
+        });
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("showAllPesanan");
+            switching = true;
+            //Set the sorting direction to ascending:
+            dir = "asc";
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.rows;
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1); i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    //Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /*If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again.*/
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+    });
+
+    load_data();
+
+    function load_data(searchPesanan) {
+        $.ajax({
+            url: "../asset/php/action.php",
+            method: "POST",
+            data: {
+                searchPesanan: searchPesanan
+            },
+            success: function(response) {
+                $('#showAllPesanan').html(response);
+            }
+        });
+    }
+
+    $(document).on("click", ".status-pesanan-proses", function(e) {
+        e.preventDefault();
+
+        upStatusPesanan_id = $(this).attr('id');
+
+        Swal.fire({
+            title: 'Apakah Anda Yakin?',
+            text: 'Status pesanan akan diperbarui',
+            type: 'warning',
+            position: 'center',
+            icon: 'info',
+            showCloseButton: true,
+            showDenyButton: true,
+            confirmButtonColor: '#F5B12C',
+            cancelButtonColor: '#e8392f',
+            confirmButtonText: 'Pesanan Selesai',
+            denyButtonText: 'Batalkan Pesanan',
+            focusConfirm: false,
+            focusCancal: false,
+            returnFocus: false
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: '../asset/php/prosess.php',
+                    method: 'post',
+                    data: {
+                        upStatusPesanan_selesai: upStatusPesanan_id
+                    },
+                    success: function(response) {
+                        location.reload(true);
+                    }
+                })
+            } else if (result.isDenied) {
+                $.ajax({
+                    url: '../asset/php/prosess.php',
+                    method: 'post',
+                    data: {
+                        upStatusPesanan_batalkan: upStatusPesanan_id
+                    },
+                    success: function(response) {
+                        location.reload(200);
+                    }
+                })
+            }
+        })
     });
 
     // $("#modal-info-pelanggan").on("click", function() {
@@ -302,6 +374,8 @@ $mtd = $tbl->fetchAllMetodePengambilan();
             });
         }
     });
+
+
     // fetchPilihProdukk();
 
     // function fetchPilihProdukk() {

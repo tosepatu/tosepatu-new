@@ -5,13 +5,7 @@ require_once '../asset/php/session.php';
 $user = new Auth();
 if (isset($_GET['id_akun'])) {
     $id = $_GET['id_akun'];
-    $code = $user->fetchAllUserByID($id);
-}
-$reg_on = date('d M Y', strtotime($code['created_at']));
-if ($code['verified'] == 0) {
-    $verified = 'Belum Verifikasi!';
-} else {
-    $verified = 'Sudah Verifikasi!';
+    $code = $user->fetchAllPelangganByID($id);
 }
 ?>
 <!DOCTYPE html>
@@ -78,7 +72,7 @@ if ($code['verified'] == 0) {
                         <?php if (!$cphoto) : ?>
                             <img class="photo" src="../asset/img/avatarr.png">
                         <?php else : ?>
-                            <img class="photo" src="<?= '../asset/php/' . $cphoto; ?>">
+                            <img class="photo" src="<?= '../asset/php/uploads/' . $cphoto; ?>">
                         <?php endif; ?>
                     </button>
                     <div class="dropdown-content">
@@ -95,21 +89,13 @@ if ($code['verified'] == 0) {
                     </div>
                     <div class="rec-data-E">
                         <div class="rec-data-photos">
-                            <?php if (!$code['foto']) : ?>
                                 <img src="../asset/img/avatarr.png">
-                            <?php else : ?>
-                                <img src="<?= '../asset/php/' . $code['foto']; ?>">
-                            <?php endif; ?>
                         </div>
                         <div class="rec-data">
-                            <h2 id="getName"><?php echo $code['username'] ?></h2>
-                            <h2 id="getId"><?php echo $code['id_akun'] ?></h2>
+                            <h2 id="getName"><?php echo $code[0]['username_user']; ?></h2>
+                            <h2 id="getId"><?php echo $id ?></h2>
                             <div class="rec-data-body">
-                                <p id="getEmail">E-mail : <?php echo $code['email'] ?></p>
-                                <p id="getPhone">No. Telepon : <?php echo $code['no_telp'] ?></p>
-                                <p id="getAlamat">Alamat : <?php echo $code['alamat'] ?></p>
-                                <p id="getCreated">Terdaftar Pada Tanggal : <?php echo $reg_on ?></p>
-                                <p id="getVerified">Verifikasi Akun : <?php echo $verified ?></p>
+                                <p id="getPhone">No. Telepon : <?php echo $code[0]['no_telp_user'] ?></p>
                             </div>
                         </div>
                     </div>

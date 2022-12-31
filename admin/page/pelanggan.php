@@ -7,8 +7,11 @@ $tbl = new Auth();
         <div class="tbl-header">
             <h3>Semua Pelanggan</h3>
             <div class="tbl-header-right">
-                <a href="#"><i class="fa-solid fa-sort">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>
+                <a href="#"><i class="fa-solid fa-arrow-up-short-wide">&nbsp;&nbsp;&nbsp;</i>Sort</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="#"><i class="fa-solid fa-filter">&nbsp;&nbsp;&nbsp;</i>Filter</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <form action="" method="post" id="add-pesanan-form-search">
+                    <input type="text" name="searchPelanggan" placeholder="Cari Pelanggan..." id="searchPesanan">
+                </form>
             </div>
         </div>
         <div class="tbl-table" id="showAllPelanggan">
