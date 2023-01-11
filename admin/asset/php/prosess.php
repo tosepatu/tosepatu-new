@@ -18,44 +18,54 @@ if (isset($_FILES['foto-produk'])) {
     $namaProduk = $user->validate($_POST['nama-produk']);
     $hargaProduk = $user->validate($_POST['harga-produk']);
 
-    // file directory
-    $folder = 'uploads/';
-
-    $namaFile = $_FILES['foto-produk']['name'];
-    $ukuranFile = $_FILES['foto-produk']['size'];
-    $errorFile = $_FILES['foto-produk']['error'];
-    $tmpName = $_FILES['foto-produk']['tmp_name'];
-
-    // cek gambar atau bukan
-    $ektensiGambarValid = ['jpg', 'jpeg', 'png'];
-    $ektensiGambar = explode('.', $namaFile);
-    $ektensiGambar = strtolower(end($ektensiGambar));
-    if (!in_array($ektensiGambar, $ektensiGambarValid)) {
-        echo 'gambar-tidak-valid';
-        die;
-    }
-
-    // cek ukuran file
-    if ($ukuranFile > 10000000) {
-        echo 'terlalu-besar';
-        die;
-    }
-
-    // ubah nama random
-    $angkarandom = $user->generateRandomString();
-    $namaFileBaru = $idProduk . '-' . date('dmy') . '-' . $angkarandom;
-    $namaFileBaru .= '.';
-    $namaFileBaru .= $ektensiGambar;
-
-    // pindah file 
-    $newDir = $folder . $namaFileBaru;
-    move_uploaded_file($tmpName, $newDir);
-
-    $up = $user->tambahProduk($idProduk, $namaProduk, $hargaProduk, $namaFileBaru, $cid);
-    if ($up == true) {
-        echo 'berhasil';
+    if ($namaProduk == '' && $hargaProduk == '') {
+        echo 'Nama dan harga produk masih kosong';
+    } else if ($namaProduk == '') {
+        echo 'Nama produk masih kosong';
+    } else if ($hargaProduk == '') {
+        echo 'Harga produk masih kosong';
+    } else if (!preg_match("/^[0-9]*$/", $hargaProduk)) {
+        echo 'Harga harus angka';
     } else {
-        echo 'gagal';
+        // file directory
+        $folder = 'uploads/';
+
+        $namaFile = $_FILES['foto-produk']['name'];
+        $ukuranFile = $_FILES['foto-produk']['size'];
+        $errorFile = $_FILES['foto-produk']['error'];
+        $tmpName = $_FILES['foto-produk']['tmp_name'];
+
+        // cek gambar atau bukan
+        $ektensiGambarValid = ['jpg', 'jpeg', 'png'];
+        $ektensiGambar = explode('.', $namaFile);
+        $ektensiGambar = strtolower(end($ektensiGambar));
+        if (!in_array($ektensiGambar, $ektensiGambarValid)) {
+            echo 'gambar-tidak-valid';
+            die;
+        }
+
+        // cek ukuran file
+        if ($ukuranFile > 10000000) {
+            echo 'terlalu-besar';
+            die;
+        }
+
+        // ubah nama random
+        $angkarandom = $user->generateRandomString();
+        $namaFileBaru = $idProduk . '-' . date('dmy') . '-' . $angkarandom;
+        $namaFileBaru .= '.';
+        $namaFileBaru .= $ektensiGambar;
+
+        // pindah file 
+        $newDir = $folder . $namaFileBaru;
+        move_uploaded_file($tmpName, $newDir);
+
+        $up = $user->tambahProduk($idProduk, $namaProduk, $hargaProduk, $namaFileBaru, $cid);
+        if ($up == true) {
+            echo 'berhasil';
+        } else {
+            echo 'gagal';
+        }
     }
 }
 
@@ -131,60 +141,71 @@ if (isset($_FILES['foto-produk-e'])) {
     $idProduk = $user->validate($_POST['id-produk']);
     $oldImage = $user->validate($_POST['old-foto-produk']);
 
-    $folder = 'uploads/';
 
-    // cek user mengganti gambar atau tidak
-    if ($_FILES['foto-produk-e']['error'] != 0) {
-        $gambar = $oldImage;
-
-        $p = $user->updateProduk($namaProduk, $hargaProduk, $gambar, $cid, $idProduk);
-        if ($p == true) {
-            echo 'berhasil';
-        } else {
-            echo 'gagal';
-        }
-        die;
+    if ($namaProduk == '' && $hargaProduk == '') {
+        echo 'Nama dan harga produk masih kosong';
+    } else if ($namaProduk == '') {
+        echo 'Nama produk masih kosong';
+    } else if ($hargaProduk == '') {
+        echo 'Harga produk masih kosong';
+    } else if (!preg_match("/^[0-9]*$/", $hargaProduk)) {
+        echo 'Harga harus angka';
     } else {
-        $namaFile = $_FILES['foto-produk-e']['name'];
-        $ukuranFile = $_FILES['foto-produk-e']['size'];
-        $errorFile = $_FILES['foto-produk-e']['error'];
-        $tmpName = $_FILES['foto-produk-e']['tmp_name'];
+        $folder = 'uploads/';
 
-        // cek gambar atau bukan
-        $ektensiGambarValid = ['jpg', 'jpeg', 'png'];
-        $ektensiGambar = explode('.', $namaFile);
-        $ektensiGambar = strtolower(end($ektensiGambar));
-        if (!in_array($ektensiGambar, $ektensiGambarValid)) {
-            echo 'gambar-tidak-valid';
+        // cek user mengganti gambar atau tidak
+        if ($_FILES['foto-produk-e']['error'] != 0) {
+            $gambar = $oldImage;
+
+            $p = $user->updateProduk($namaProduk, $hargaProduk, $gambar, $cid, $idProduk);
+            if ($p == true) {
+                echo 'berhasil';
+            } else {
+                echo 'gagal';
+            }
             die;
-        }
-
-        // cek ukuran file
-        if ($ukuranFile > 10000000) {
-            echo 'terlalu-besar';
-            die;
-        }
-
-        // ubah nama random
-        $angkarandom = $user->generateRandomString();
-        $namaFileBaru = $idProduk . '-' . date("dmy") . '-' . $angkarandom;
-        $namaFileBaru .= '.';
-        $namaFileBaru .= $ektensiGambar;
-
-        // pindah file 
-        $newDir = $folder . $namaFileBaru;
-        move_uploaded_file($tmpName, $newDir);
-
-        // hapus directory
-        if ($oldImage != null) {
-            unlink($folder . $oldImage);
-        }
-
-        $p = $user->updateProduk($namaProduk, $hargaProduk, $namaFileBaru, $cid, $idProduk);
-        if ($p == true) {
-            echo 'berhasil';
         } else {
-            echo 'gagal';
+            $namaFile = $_FILES['foto-produk-e']['name'];
+            $ukuranFile = $_FILES['foto-produk-e']['size'];
+            $errorFile = $_FILES['foto-produk-e']['error'];
+            $tmpName = $_FILES['foto-produk-e']['tmp_name'];
+
+            // cek gambar atau bukan
+            $ektensiGambarValid = ['jpg', 'jpeg', 'png'];
+            $ektensiGambar = explode('.', $namaFile);
+            $ektensiGambar = strtolower(end($ektensiGambar));
+            if (!in_array($ektensiGambar, $ektensiGambarValid)) {
+                echo 'gambar-tidak-valid';
+                die;
+            }
+
+            // cek ukuran file
+            if ($ukuranFile > 10000000) {
+                echo 'terlalu-besar';
+                die;
+            }
+
+            // ubah nama random
+            $angkarandom = $user->generateRandomString();
+            $namaFileBaru = $idProduk . '-' . date("dmy") . '-' . $angkarandom;
+            $namaFileBaru .= '.';
+            $namaFileBaru .= $ektensiGambar;
+
+            // pindah file 
+            $newDir = $folder . $namaFileBaru;
+            move_uploaded_file($tmpName, $newDir);
+
+            // hapus directory
+            if ($oldImage != null) {
+                unlink($folder . $oldImage);
+            }
+
+            $p = $user->updateProduk($namaProduk, $hargaProduk, $namaFileBaru, $cid, $idProduk);
+            if ($p == true) {
+                echo 'berhasil';
+            } else {
+                echo 'gagal';
+            }
         }
     }
 }
@@ -193,35 +214,65 @@ if (isset($_POST['action']) && $_POST['action'] == 'addPengambilan') {
     $idPengambilan = $user->validate($_POST['id-pengambilan']);
     $namaPengambilan = $user->validate($_POST['nama-pengambilan']);
 
-    $cek = $user->addPengambilan($idPengambilan, $namaPengambilan, $cid);
-    if ($cek == true) {
-        echo 'berhasil';
-        // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
+    if ($namaPengambilan == '') {
+        echo 'Nama pengambilan masih kosong';
     } else {
-        // $_SESSION["gagal"] = 'Tejadi Kesalahan!';
-        echo 'gagal';
+        $cek = $user->addPengambilan($idPengambilan, $namaPengambilan, $cid);
+        if ($cek == true) {
+            echo 'berhasil';
+            // $_SESSION["sukses"] = 'Data Berhasil Disimpan';
+        } else {
+            // $_SESSION["gagal"] = 'Tejadi Kesalahan!';
+            echo 'gagal';
+        }
     }
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'addKaryawan') {
-    // print_r($_POST);
     $idKaryawan = $user->validate($_POST['id-karyawan']);
     $namaKaryawan = $user->validate($_POST['nama-karyawan']);
     $emailKaryawan = $user->validate($_POST['email-karyawan']);
     $passwordKaryawan = $user->validate($_POST['kata-sandi-karyawan']);
     $roleKaryawan = 2;
 
-    $passwordKaryawanH = password_hash($passwordKaryawan, PASSWORD_DEFAULT);
-
-    if ($user->user_exist($emailKaryawan)) {
-        echo 'exist';
+    // cek ulang
+    if ($namaKaryawan == '' && $emailKaryawan == '' && $passwordKaryawan == '') {
+        echo 'data masih kosong';
+    } else if ($namaKaryawan == '' && $emailKaryawan == '') {
+        echo 'nama dan email masih kosong';
+    } else if ($namaKaryawan == '' && $passwordKaryawan == '') {
+        echo 'nama dan password masih kosong';
+    } else if ($emailKaryawan == '' && $passwordKaryawan == '') {
+        echo 'email dan password masih kosong';
+    } else if ($namaKaryawan == '') {
+        echo 'nama masih kosong';
+    } else if ($emailKaryawan == '') {
+        echo 'email masih kosong';
+    } else if ($passwordKaryawan == '') {
+        echo 'password masih kosong';
     } else {
-        $cek = $user->registerKaryawan($idKaryawan, $namaKaryawan, $emailKaryawan, $passwordKaryawanH, $roleKaryawan);
+        // Validasi kekuatan password
+        $uppercase = preg_match('@[A-Z]@', $passwordKaryawan);
+        $lowercase = preg_match('@[a-z]@', $passwordKaryawan);
+        $number    = preg_match('@[0-9]@', $passwordKaryawan);
+        $specialChars = preg_match('@[^\w]@', $passwordKaryawan);
 
-        if ($cek == true) {
-            echo 'berhasil';
+        if (!$uppercase || !$lowercase || !$number || !$specialChars || strlen($passwordKaryawan) < 8) {
+            echo 'Password setidaknya harus 8 karakter dan harus memiliki huruf besar, huruf kecil, angka, dan spesial karakter.';
         } else {
-            echo 'gagal';
+            $passwordKaryawanH = password_hash($passwordKaryawan, PASSWORD_DEFAULT);
+
+            if ($user->user_exist($emailKaryawan)) {
+                echo 'exist';
+            } else {
+                $cek = $user->registerKaryawan($idKaryawan, $namaKaryawan, $emailKaryawan, $passwordKaryawanH, $roleKaryawan);
+
+                if ($cek == true) {
+                    echo 'berhasil';
+                } else {
+                    echo 'gagal';
+                }
+            }
         }
     }
 }
@@ -338,12 +389,12 @@ if (isset($_POST['add_pilih_pelanggan'])) {
 
     // cek pesanan pelanggan
     $cekPesananPelanggan = $user->fetchPesananByUID_USER($idPelanggan);
-    
+
     // cek status
     $cekStatus = $user->fetchPesananBystatus();
     $idPesanan = $cekStatus['id_pesanan'];
     $idPelangganSudahDipilih = $cekStatus['uid_user'];
-    
+
     // echo $cekPesananPelanggan['uid_akun'];
     if ($idPelangganSudahDipilih != null) {
         if ($idPelangganSudahDipilih != $idPelanggan) {
@@ -421,7 +472,7 @@ if (isset($_POST['hapus_id'])) {
     foreach ($search as $row) {
         $idPesanan = $row['uid_pesanan'];
     }
-    
+
     $searchPesanan = $user->fetchAllPesananByID($idPesanan);
     foreach ($searchPesanan as $key) {
         $idPesananCek = $searchPesanan['id_pesanan'];
@@ -439,23 +490,23 @@ if (isset($_POST['hapus_id'])) {
     // if ($cekProdukPilihan > 1) {
     //     echo 'lebih dari satu';
     // } else {
-        if ($idPesanan == $idPesananCek) {
-            // cek status
-            if ($cekStatus == 'Menunggu Konfirmasi') {
-                $del = $user->delProdukPilihan($idProduk, $idPesanan);
-                if ($del == true) {
-                    echo 'berhasil';
-                } else {
-                    echo 'gagal';
-                }
+    if ($idPesanan == $idPesananCek) {
+        // cek status
+        if ($cekStatus == 'Menunggu Konfirmasi') {
+            $del = $user->delProdukPilihan($idProduk, $idPesanan);
+            if ($del == true) {
+                echo 'berhasil';
             } else {
-                echo 'tidak sama';
+                echo 'gagal';
             }
         } else {
-            echo 'refresh halaman, dan silahkan coba lagi';
+            echo 'tidak sama';
         }
+    } else {
+        echo 'refresh halaman, dan silahkan coba lagi';
+    }
     // }
-    
+
     // echo $id;
     // echo $idPesanan;
     // echo $idPesananCek;
@@ -477,7 +528,7 @@ if (isset($_POST['hapus_id'])) {
     // echo $idPesanan;
     // echo $update_id;
     // echo $update_value;
-} 
+}
 
 // if (isset($_POST['editQTY_id'])) {
 if (isset($_POST['action']) && $_POST['action'] == 'editQTY_id') {
@@ -491,7 +542,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'editQTY_id') {
     // echo $id;
     // echo $idLayanan;
     // echo $idProduk[0]['uid_layanan'];
-    
+
     $setQuery = $user->upQtyPilihanProduk($qty, $subTotal, $id, $idLayanan);
     if ($setQuery == true) {
         echo 'berhasil';
@@ -503,37 +554,63 @@ if (isset($_POST['action']) && $_POST['action'] == 'editQTY_id') {
 if (isset($_POST['action']) && $_POST['action'] == 'checkout') {
     // print_r($_POST);
     // $idPesanan = $user->idPesananIncrement();
-    if (empty($_POST['Metode-select']) && empty($_POST['karyawan-select'])) {
-        echo 'metode dan kurir belum diisi';
-        die;
-    } else if (empty($_POST['Metode-select'])) {
-        echo 'metode belum diisi';
-        die;
-    } elseif (empty($_POST['karyawan-select'])) {
-        echo 'karyawan belum diisi';
-        die;
-    } elseif (empty($_POST['alamat-pelanggan'])) {
-        echo 'alamat belum diisi';
-        die;
-    } else {
-        $idPesanan = $user->validate($_POST['id-pesanan']);
-        $catatan = $user->validate($_POST['catatan-pesanan']);
-        $metode = $user->validate($_POST['Metode-select']);
-        $alamat = $user->validate($_POST['alamat-pelanggan']);
-        $kurir = $user->validate($_POST['karyawan-select']);
-        $grandTotal = $user->validate($_POST['grandtotal']);
-        
-        // $cek = $user->fetchAllTim($kurir);
-        // $noKaryawan = $cek['i'];
-
-        $set = $user->checkoutPesanan($catatan, $metode, $kurir, $grandTotal, $alamat, $idPesanan);
-        if ($set == true) {
-            echo 'berhasil';
-        } else {
-            echo 'gagal';
-        }
-    } 
+    $idPesanan = $user->validate($_POST['id-pesanan']);
+    $cek = $user->fetchAllPesananByID($idPesanan);
+    $idPengirman = $cek['uid_pengiriman'];
+    $ceknama = $user->fetchAllMetodePengambilanByID($idPengirman);
+    // $metode = $user->validate($_POST['Metode-select']);
+    $metode = $ceknama['nama_pengiriman'];
     
+    if ($metode == 'Drop Off') {
+        if (empty($_POST['karyawan-select'])) {
+            echo 'karyawan belum diisi';
+            die;
+        } else {
+            $catatan = $user->validate($_POST['catatan-pesanan']);
+            $alamat = $user->validate($_POST['alamat-pelanggan']);
+            $kurir = $user->validate($_POST['karyawan-select']);
+            $grandTotal = $user->validate($_POST['grandtotal']);
+
+            // $cek = $user->fetchAllTim($kurir);
+            // $noKaryawan = $cek['i'];
+            $set = $user->upPesananProses($idPesanan);
+
+            $set = $user->checkoutPesanan($catatan, $ceknama['id_pengiriman'], $kurir, $grandTotal, $alamat, $idPesanan);
+            if ($set == true) {
+                echo 'berhasil';
+            } else {
+                echo 'gagal';
+            }
+        }
+    } else {
+        if (empty($_POST['alamat-pelanggan']) && empty($_POST['karyawan-select']) ) {
+            echo 'alamat dan karyawan belum diisi';
+            die;
+        } elseif (empty($_POST['alamat-pelanggan'])) {
+            echo 'alamat belum diisi';
+            die;
+        } elseif (empty($_POST['karyawan-select'])) {
+            echo 'karyawan belum diisi';
+            die;
+        } else {
+            $idPesanan = $user->validate($_POST['id-pesanan']);
+            $catatan = $user->validate($_POST['catatan-pesanan']);
+            $alamat = $user->validate($_POST['alamat-pelanggan']);
+            $kurir = $user->validate($_POST['karyawan-select']);
+            $grandTotal = $user->validate($_POST['grandtotal']);
+
+            // $cek = $user->fetchAllTim($kurir);
+            // $noKaryawan = $cek['i'];
+
+            $set = $user->checkoutPesanan($catatan, $ceknama['id_pengiriman'], $kurir, $grandTotal, $alamat, $idPesanan);
+            if ($set == true) {
+                echo 'berhasil';
+            } else {
+                echo 'gagal';
+            }
+        }
+    }
+
     // if ($metode == '' &&  $kurir == '') {
     //     echo 'metode dan kurir belum diisi';
     // // } elseif (condition) {
@@ -555,18 +632,18 @@ if (isset($_POST['action']) && $_POST['action'] == 'checkout') {
 
 if (isset($_POST['upStatusPesanan_selesai'])) {
     $id = $_POST['upStatusPesanan_selesai'];
-    
+
     $updateStatus = $user->upPesananSelesai($id);
 }
 
 if (isset($_POST['upStatusPesanan_batalkan'])) {
     $id = $_POST['upStatusPesanan_batalkan'];
-    
+
     $updateStatus = $user->upPesananBatal($id);
 }
 
 if (isset($_POST['konfirmasi_pesanan'])) {
     $id = $_POST['konfirmasi_pesanan'];
-    
+
     $updateStatus = $user->upPesananProses($id);
 }

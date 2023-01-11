@@ -27,6 +27,7 @@ class Database
       // set the PDO error mode to exception
       // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       // echo 'Connected successfully';
+      // $this->conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
       echo 'Connection failed: ' . $e->getMessage();
     }
@@ -54,6 +55,11 @@ class Database
                 <p class="success">' . $message . '</p>
               </div>';
     }
+  }
+
+  // JSON Format Converter Function
+  public function message($content, $status) {
+    return json_encode(['message' => $content, 'error' => $status]);
   }
 }
 $cek = new Database();

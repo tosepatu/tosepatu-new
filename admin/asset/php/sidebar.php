@@ -58,7 +58,6 @@ require_once '../asset/php/session.php';
                 </div>
             </div>
             <div class="profile">
-                <i class="fa-solid fa-bell"></i>
                 <img src="../asset/img/divider.png" alt="vertical line">
 
                 <!-- <i class="fa-light fa-pipe"></i> -->
